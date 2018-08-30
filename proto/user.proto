@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package mpb;
+
+import "google/protobuf/timestamp.proto";
+
+message SocialDetail {
+    string name =1;
+
+    string url =2;
+
+    string id_info = 3;
+}
+
+message User {
+    string id =1;
+    string name = 2;
+
+    string display_name =3;
+
+    repeated string phones = 4;
+
+    repeated string emails = 5;
+
+    repeated string websites = 6;
+
+    repeated SocialDetail socials = 7;
+
+    google.protobuf.Timestamp created = 8;
+
+    State state = 9;
+
+    enum State {
+        ACTIVE=0;
+        INACTIVE=1;
+        BAN=2;
+    }
+
+    
+}
