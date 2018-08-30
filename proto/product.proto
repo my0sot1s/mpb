@@ -1,0 +1,130 @@
+syntax = "proto3";
+package mpb;
+
+import "google/protobuf/timestamp.proto";
+
+message Image {
+    string url = 1;
+}
+
+message Category {
+    string id = 1;
+    string display = 2;
+    string desscription = 3;
+
+    State state = 4;
+    enum State {
+        ACTIVE = 0;
+        INACTIVE = 1;
+        OUT_OF_PRODUCT = 2;
+    }
+
+    google.protobuf.Timestamp created = 5;
+}
+
+
+
+message Group {
+    string id = 1;
+    string display = 2;
+    string description = 3;
+    string target = 4;
+
+    google.protobuf.Timestamp created = 5;
+
+    float bonus_price = 6;
+}
+
+
+message Product {
+    string id = 1;
+    string name = 2;
+
+    repeated Image images = 3;
+    string description = 4;
+
+    google.protobuf.Timestamp created = 5;
+
+    repeated Category categories = 6;
+
+    repeated Group groups = 7;
+
+    State state = 10;
+
+    enum State {
+        ACTIVE = 0;
+        INACTIVE = 1;
+        SOLD_OUT = 2;
+    }
+    int32 import_price = 11;
+
+    int32 export_price = 12;
+
+    Import import_from =13;
+
+    repeated Tag tag = 14;
+}
+
+message Import {
+    string id = 1;
+
+    string display = 2;
+    
+    string desscription = 3;
+    
+    repeated string note= 4;
+}
+
+message Tag {
+    string id = 1;
+
+    string display = 2;
+    
+    repeated string note= 4;
+
+    State state = 5;
+
+    enum State {
+        ACTIVE = 0;
+        INACTIVE = 1;
+    }
+}
+
+
+message Rate {
+    string id = 1;
+
+    string message = 2;
+    
+    string by = 3;
+
+    float score = 5;
+
+    enum State {
+        ACTIVE = 0;
+        INACTIVE = 1;
+    }
+    google.protobuf.Timestamp created = 6;
+}
+
+message ProductsDetail {
+    string product_id = 1;
+    string group_id = 2;
+    int32 count = 3;
+    int32 importPrice = 4;
+}
+
+message ImportProduct {
+    string id = 1;
+    
+    repeated ProductsDetail products = 2;
+
+    google.protobuf.Timestamp created = 3;
+
+    int32 total_price = 4;
+
+    float discount = 5;
+
+    int32 real_pay = 6;
+
+}

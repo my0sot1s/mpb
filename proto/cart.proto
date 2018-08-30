@@ -1,0 +1,92 @@
+syntax = "proto3";
+package mpb;
+
+import "google/protobuf/timestamp.proto";
+import "product.proto";
+// import "github.com/my0sot1s/mpb/proto/product.proto";
+
+
+message CustomeInfo {
+    string id =1;
+    string name =2;
+    
+    string phone = 3;
+    
+    string email = 4;
+
+    string address = 5;
+
+    State state =6;
+
+    google.protobuf.Timestamp created = 7;
+
+    enum State {
+        BAN = 0;
+        PAID = 1;
+        CANCELED = 2;
+    }
+
+    int32 score = 8;
+
+    int32 paid = 9;
+}
+
+message ProductSold {
+    string id =1;
+   
+    Product product = 3;
+   
+    int32 price_sold=2;
+}
+
+message Cart {
+    string id =1;
+
+    int32 total_price = 2;
+    float all_discount = 4;
+    repeated string note = 3;
+
+    google.protobuf.Timestamp created = 5;
+
+    State state = 6;
+
+    CustomeInfo customer =7;
+
+    enum State {
+        PAID = 0;
+        UNPAID =1;
+        DELETE =2;
+        VOID = 3;
+    }
+}
+
+message Bill {
+    string id =1;
+    
+    int32 total_price = 2;
+    
+    google.protobuf.Timestamp created = 3;
+    
+    State state = 4;
+    
+    PayWith pay_with= 5;
+
+    int32 real_pay = 6;
+
+    string customer_name = 7;
+
+    string card_id = 8;
+
+    enum PayWith {
+        BANK_TRANFER = 0;
+        DEFAULT=1;
+        CREDIT=2;
+    }
+
+    enum State {
+        PAID = 0;
+        UNPAID =1;
+        DELETE =2;
+        VOID = 3;
+    }
+}
