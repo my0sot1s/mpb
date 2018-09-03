@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package order;
 
-import "product/product.proto"; 
+import "github.com/my0sot1s/mpb/proto/xshop/product/product.proto"; 
 import "google/protobuf/timestamp.proto";
 
 message OrderItems {
