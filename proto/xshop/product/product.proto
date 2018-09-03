@@ -1,0 +1,158 @@
+syntax="proto3";
+
+package product;
+import "google/protobuf/timestamp.proto";
+
+
+message Image {
+    string url = 1;
+}
+
+message Category {
+    string id = 1;
+    string display = 2;
+    string desscription = 3;
+
+    State state = 4;
+    enum State {
+        ACTIVE = 0;
+        INACTIVE = 1;
+        OUT_OF_PRODUCT = 2;
+    }
+
+    google.protobuf.Timestamp created = 5;
+}
+
+message Group {
+    string id = 1;
+    string display = 2;
+    string description = 3;
+    string target = 4;
+
+    google.protobuf.Timestamp created = 5;
+
+    float bonus_price = 6;
+}
+
+message Rate {
+    string id = 1;
+
+    string message = 2;
+    
+    string by = 3;
+
+    float score = 5;
+
+    enum State {
+        ACTIVE = 0;
+        INACTIVE = 1;
+    }
+
+    google.protobuf.Timestamp created = 6;
+}
+
+message Tag {
+    string id = 1;
+
+    string display = 2;
+    
+    repeated string note= 4;
+
+    State state = 5;
+
+    enum State {
+        ACTIVE = 0;
+        INACTIVE = 1;
+    }
+}
+
+message Product {
+    string id = 1;
+    string name = 2;
+
+    repeated Image images = 3;
+    string description = 4;
+
+    google.protobuf.Timestamp created = 5;
+
+    repeated string categories_id = 6;
+
+    repeated Category categories = 7;
+
+    repeated string groups_id = 8;
+
+    repeated Group groups = 9;
+
+    State state = 10;
+
+    enum State {
+        ACTIVE = 0;
+        INACTIVE = 1;
+        SOLD_OUT = 2;
+    }
+
+    string shipment_id = 11;
+
+    Shipment shipment = 12;
+
+    repeated string tags_id = 13;
+
+    repeated Tag tags = 14;
+
+    float average_rate= 16;
+}
+
+
+message Shipment {
+    string id=1;
+    string name =2 ;
+
+    repeated string note = 3;
+    string basic_info = 4;
+
+    google.protobuf.Timestamp created = 5;
+    enum State {
+        ACTIVE = 0;
+        INACTIVE = 1;
+        ENDED = 2;
+    }
+
+    State state = 6;
+}
+
+message ShipmentProduct {
+    string id= 1;
+    string product_id =2;
+    Product product =3;
+    int32 quantity = 4;
+
+    int32 unit_price = 6;
+    
+    float discount = 7;
+    
+    string note = 5;
+}
+
+message ShipmentItems {
+    string id=1;
+    
+    string name =2 ;
+
+    repeated string note = 3;
+
+    ShipmentProduct shipment_product = 4;
+
+    google.protobuf.Timestamp created = 5;
+
+    int32 price =  7;
+
+    float discount = 8;
+
+    enum State {
+        ACTIVE = 0;
+        INACTIVE = 1;
+        ENDED = 2;
+    }
+     
+    State state = 6;
+}

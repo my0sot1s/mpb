@@ -1,0 +1,113 @@
+syntax = "proto3";
+
+package order;
+
+import "product/product.proto"; 
+import "google/protobuf/timestamp.proto";
+
+message OrderItems {
+    string id =1;
+
+    repeated string products_id = 2;
+
+    repeated product.Product products = 3;
+
+    int32 quantity = 4;
+
+    int32 price =5;
+
+    float discount =6;
+
+    google.protobuf.Timestamp created_at = 7;
+
+    string created_by = 8;
+    
+}
+
+
+message Order {
+    string id =1;
+
+    repeated string customer_id = 2;
+
+    repeated Customer customer = 3;
+
+    int32 price =4;
+
+    OrderItems order_items = 5;
+
+    float discount =6;
+
+    google.protobuf.Timestamp created_at = 7;
+
+    string created_by =8;
+
+    State state = 9;
+
+    enum State  {
+        PAID=0;
+        OPEN=1;
+        WAITTING=2;
+        REMOVE =3;
+    }
+    
+}
+
+message Customer {
+
+    string id =1;
+    
+    string fullname =2;
+
+    string phone =3;
+
+    string email =4;
+    string address =5;
+
+    google.protobuf.Timestamp created = 6;
+
+    State state = 7;
+
+    enum State  {
+        PAID=0;
+        NEWER=1;
+        BAN =2;
+    }
+}
+
+message PaymentMethod {
+    string id =1;
+
+    string name =2;
+}
+
+message Invoice {
+    string id =1;
+
+    string order_id =2;
+
+    Order order =3;
+
+    string customer_id =4;
+
+    Customer customer = 5;
+
+    PaymentMethod pm =6;
+
+    string note= 7;
+
+    int32 price =8;
+
+    State state = 9;
+
+    enum State  {
+        PAID=0;
+        VOID=1;
+    }
+
+    int32 real_pay = 12;
+
+    google.protobuf.Timestamp created_at = 10;
+
+    string created_by =11;
+}

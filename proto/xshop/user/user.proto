@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package mpb;
+package user;
 
 import "google/protobuf/timestamp.proto";
 
@@ -35,6 +35,5 @@ message User {
         INACTIVE=1;
         BAN=2;
     }
-
     
 }
