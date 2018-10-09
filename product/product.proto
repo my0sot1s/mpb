@@ -102,6 +102,8 @@ message Product {
 
     repeated Tag tags = 14;
 
+    int32 price = 15;
+
     float average_rate= 16;
 }
 
