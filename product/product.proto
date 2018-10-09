@@ -14,7 +14,7 @@ message Image {
 message Category {
     string id = 1;
     string display = 2;
-    string desscription = 3;
+    string description = 3;
 
     State state = 4;
     enum State {

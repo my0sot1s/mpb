@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package reqres;
+
+
+message RequestQuery {
+	string id = 1;
+	int32 limit = 2;
+	string anchor =3;
+	string order_by = 4;
+}
