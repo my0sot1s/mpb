@@ -1,0 +1,20 @@
+syntax="proto3";
+
+package campaign;
+import "github.com/my0sot1s/mpb/product/product.proto"; 
+
+message Campaign {
+    string id =1;
+
+    string event_name = 2;
+
+    int32 started = 3;
+
+    int32 ended = 4;
+
+    string description =5;
+
+    repeated product.Image image = 6;
+
+    int32 state = 8;
+}
