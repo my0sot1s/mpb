@@ -16,22 +16,22 @@ message ReqId {
 
 service ProdSer {
     // prod
-    rpc GetProducts (ReqQuery) returns (stream Product);
+    rpc GetProducts (ReqQuery) returns (Products);
     rpc InsertProduct (Product) returns (Product);
     rpc UpdateProduct (Product) returns (Product);
     rpc DeleteProduct (Product) returns (Product);
     // tag
-    rpc GetTags (ReqQuery) returns (stream Tag);
+    rpc GetTags (ReqQuery) returns (Tags);
     rpc InsertTag (Tag) returns (Tag);
     rpc UpdateTag (Tag) returns (Tag);
     rpc DeleteTag (Tag) returns (Tag);
     // cate
-    rpc GetCategorys (ReqQuery) returns (stream Category);
+    rpc GetCategorys (ReqQuery) returns (Categories);
     rpc InsertCategory (Category) returns (Category);
     rpc UpdateCategory (Category) returns (Category);
     rpc DeleteCategory (Category) returns (Category);
     // group
-    rpc GetGroups (ReqQuery) returns (stream Group);
+    rpc GetGroups (ReqQuery) returns (Groups);
     rpc InsertGroup (Group) returns (Group);
     rpc UpdateGroup (Group) returns (Group);
     rpc DeleteGroup (Group) returns (Group);
@@ -41,7 +41,7 @@ service ProdSer {
     rpc UpdateShipment (ShipmentBlock) returns (ShipmentBlock);
     rpc DeleteShipment (ReqId) returns (ShipmentBlock);
     // Campain 
-    rpc GetCampaigns (ReqQuery) returns (stream Campaign);
+    rpc GetCampaigns (ReqQuery) returns (Campaigns);
     rpc InsertCampaign (Campaign) returns (Campaign);
     rpc UpdateCampaign (Campaign) returns (Campaign);
     rpc DeleteCampaign (Campaign) returns (Campaign);
@@ -73,6 +73,9 @@ message Image {
     int32 height = 4;
 }
 
+message Categories {
+    repeated Category categories =1;
+}
 message Category {
     string id = 1;
     string display = 2;
@@ -80,7 +83,9 @@ message Category {
     string state = 4;
     int32 created = 5;
 }
-
+message Groups {
+    repeated Group groups =1;
+}
 message Group {
     string id = 1;
     string display = 2;
@@ -89,12 +94,19 @@ message Group {
     int32 created = 5;
     float bonus_price = 6;
 }
+message Tags {
+    repeated Tag tags =1;
+}
 
 message Tag {
     string id = 1;
     string display = 2;
     repeated string notes= 4;
     string state = 5;
+}
+
+message Products {
+    repeated Product products =1;
 }
 
 message Product {
@@ -203,7 +215,9 @@ message Invoice {
     string created_by =11;
     int32 real_pay = 12;
 }
-
+message Campaigns {
+    repeated Campaign campaigns = 1;
+}
 message Campaign {
     string id =1;
     string event_name = 2;
