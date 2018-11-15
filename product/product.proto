@@ -1,38 +1,47 @@
 syntax="proto3";
 
 package product;
-import "google/protobuf/timestamp.proto";
-import "github.com/my0sot1s/mpb/reqres";
+// import "github.com/my0sot1s/mpb/reqres";
 
+
+message ReqQuery {
+	string id = 1;
+	int32 limit = 2;
+	string anchor =3;
+	string order_by = 4;
+}
+message ReqId {
+	string id = 1;
+}
 
 service ProdSer {
     // prod
-    rpc GetProducts (reqres.ReqQuery) returns (stream Product);
+    rpc GetProducts (ReqQuery) returns (stream Product);
     rpc InsertProduct (Product) returns (Product);
     rpc UpdateProduct (Product) returns (Product);
     rpc DeleteProduct (Product) returns (Product);
     // tag
-    rpc GetTags (reqres.ReqQuery) returns (stream Tag);
+    rpc GetTags (ReqQuery) returns (stream Tag);
     rpc InsertTag (Tag) returns (Tag);
     rpc UpdateTag (Tag) returns (Tag);
     rpc DeleteTag (Tag) returns (Tag);
     // cate
-    rpc GetCategorys (reqres.ReqQuery) returns (stream Category);
+    rpc GetCategorys (ReqQuery) returns (stream Category);
     rpc InsertCategory (Category) returns (Category);
     rpc UpdateCategory (Category) returns (Category);
     rpc DeleteCategory (Category) returns (Category);
     // group
-    rpc GetGroups (reqres.ReqQuery) returns (stream Group);
+    rpc GetGroups (ReqQuery) returns (stream Group);
     rpc InsertGroup (Group) returns (Group);
     rpc UpdateGroup (Group) returns (Group);
     rpc DeleteGroup (Group) returns (Group);
     // shipment
-    rpc GetShipment (reqres.ReqId) returns (ShipmentBlock);
+    rpc GetShipment (ReqId) returns (ShipmentBlock);
     rpc InsertShipment (ShipmentBlock) returns (ShipmentBlock);
     rpc UpdateShipment (ShipmentBlock) returns (ShipmentBlock);
-    rpc DeleteShipment (reqres.ReqId) returns (ShipmentBlock);
+    rpc DeleteShipment (ReqId) returns (ShipmentBlock);
     // Campain 
-    rpc GetCampaigns (reqres.ReqQuery) returns (stream Campaign);
+    rpc GetCampaigns (ReqQuery) returns (stream Campaign);
     rpc InsertCampaign (Campaign) returns (Campaign);
     rpc UpdateCampaign (Campaign) returns (Campaign);
     rpc DeleteCampaign (Campaign) returns (Campaign);
@@ -40,19 +49,19 @@ service ProdSer {
 
 service ManagerSer {
     // Order
-    rpc GetOrder (reqres.ReqId) returns (Order);
-    rpc GetOrders (reqres.ReqQuery) returns (stream Order);
+    rpc GetOrder (ReqId) returns (Order);
+    rpc GetOrders (ReqQuery) returns (stream Order);
     rpc InsertOrder (Order) returns (Order);
 
     // Customer
 
-    rpc GetCustomer (reqres.ReqId) returns (Customer);
-    rpc GetCustomers (reqres.ReqQuery) returns (Customer);
+    rpc GetCustomer (ReqId) returns (Customer);
+    rpc GetCustomers (ReqQuery) returns (Customer);
     rpc InsertCustomer (Customer) returns (Customer);
 
     // Invoice 
-    rpc GetInvoice (reqres.ReqId) returns (Invoice);
-    rpc GetInvoices (reqres.ReqQuery) returns (stream Invoice);
+    rpc GetInvoice (ReqId) returns (Invoice);
+    rpc GetInvoices (ReqQuery) returns (stream Invoice);
     rpc InsertInvoice (Invoice) returns (Invoice);
 }
 

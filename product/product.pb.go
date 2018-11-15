@@ -6,7 +6,11 @@ package product
 import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
-import timestamp "github.com/golang/protobuf/ptypes/timestamp"
+
+import (
+	context "golang.org/x/net/context"
+	grpc "google.golang.org/grpc"
+)
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
@@ -19,154 +23,104 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
-type Category_State int32
-
-const (
-	Category_ACTIVE         Category_State = 0
-	Category_INACTIVE       Category_State = 1
-	Category_OUT_OF_PRODUCT Category_State = 2
-)
-
-var Category_State_name = map[int32]string{
-	0: "ACTIVE",
-	1: "INACTIVE",
-	2: "OUT_OF_PRODUCT",
-}
-var Category_State_value = map[string]int32{
-	"ACTIVE":         0,
-	"INACTIVE":       1,
-	"OUT_OF_PRODUCT": 2,
+type ReqQuery struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Limit                int32    `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty"`
+	Anchor               string   `protobuf:"bytes,3,opt,name=anchor,proto3" json:"anchor,omitempty"`
+	OrderBy              string   `protobuf:"bytes,4,opt,name=order_by,json=orderBy,proto3" json:"order_by,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
-func (x Category_State) String() string {
-	return proto.EnumName(Category_State_name, int32(x))
+func (m *ReqQuery) Reset()         { *m = ReqQuery{} }
+func (m *ReqQuery) String() string { return proto.CompactTextString(m) }
+func (*ReqQuery) ProtoMessage()    {}
+func (*ReqQuery) Descriptor() ([]byte, []int) {
+	return fileDescriptor_product_ad9f9a262d2dfe18, []int{0}
 }
-func (Category_State) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_product_f7ba2c5646a54398, []int{1, 0}
+func (m *ReqQuery) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ReqQuery.Unmarshal(m, b)
 }
-
-type Rate_State int32
-
-const (
-	Rate_ACTIVE   Rate_State = 0
-	Rate_INACTIVE Rate_State = 1
-)
-
-var Rate_State_name = map[int32]string{
-	0: "ACTIVE",
-	1: "INACTIVE",
+func (m *ReqQuery) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ReqQuery.Marshal(b, m, deterministic)
 }
-var Rate_State_value = map[string]int32{
-	"ACTIVE":   0,
-	"INACTIVE": 1,
+func (dst *ReqQuery) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReqQuery.Merge(dst, src)
 }
-
-func (x Rate_State) String() string {
-	return proto.EnumName(Rate_State_name, int32(x))
+func (m *ReqQuery) XXX_Size() int {
+	return xxx_messageInfo_ReqQuery.Size(m)
 }
-func (Rate_State) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_product_f7ba2c5646a54398, []int{3, 0}
+func (m *ReqQuery) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReqQuery.DiscardUnknown(m)
 }
 
-type Tag_State int32
+var xxx_messageInfo_ReqQuery proto.InternalMessageInfo
 
-const (
-	Tag_ACTIVE   Tag_State = 0
-	Tag_INACTIVE Tag_State = 1
-)
-
-var Tag_State_name = map[int32]string{
-	0: "ACTIVE",
-	1: "INACTIVE",
-}
-var Tag_State_value = map[string]int32{
-	"ACTIVE":   0,
-	"INACTIVE": 1,
+func (m *ReqQuery) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
 }
 
-func (x Tag_State) String() string {
-	return proto.EnumName(Tag_State_name, int32(x))
-}
-func (Tag_State) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_product_f7ba2c5646a54398, []int{4, 0}
-}
-
-type Product_State int32
-
-const (
-	Product_ACTIVE   Product_State = 0
-	Product_INACTIVE Product_State = 1
-	Product_SOLD_OUT Product_State = 2
-)
-
-var Product_State_name = map[int32]string{
-	0: "ACTIVE",
-	1: "INACTIVE",
-	2: "SOLD_OUT",
-}
-var Product_State_value = map[string]int32{
-	"ACTIVE":   0,
-	"INACTIVE": 1,
-	"SOLD_OUT": 2,
+func (m *ReqQuery) GetLimit() int32 {
+	if m != nil {
+		return m.Limit
+	}
+	return 0
 }
 
-func (x Product_State) String() string {
-	return proto.EnumName(Product_State_name, int32(x))
-}
-func (Product_State) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_product_f7ba2c5646a54398, []int{5, 0}
-}
-
-type Shipment_State int32
-
-const (
-	Shipment_ACTIVE   Shipment_State = 0
-	Shipment_INACTIVE Shipment_State = 1
-	Shipment_ENDED    Shipment_State = 2
-)
-
-var Shipment_State_name = map[int32]string{
-	0: "ACTIVE",
-	1: "INACTIVE",
-	2: "ENDED",
-}
-var Shipment_State_value = map[string]int32{
-	"ACTIVE":   0,
-	"INACTIVE": 1,
-	"ENDED":    2,
+func (m *ReqQuery) GetAnchor() string {
+	if m != nil {
+		return m.Anchor
+	}
+	return ""
 }
 
-func (x Shipment_State) String() string {
-	return proto.EnumName(Shipment_State_name, int32(x))
-}
-func (Shipment_State) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_product_f7ba2c5646a54398, []int{6, 0}
-}
-
-type ShipmentItems_State int32
-
-const (
-	ShipmentItems_ACTIVE   ShipmentItems_State = 0
-	ShipmentItems_INACTIVE ShipmentItems_State = 1
-	ShipmentItems_ENDED    ShipmentItems_State = 2
-)
-
-var ShipmentItems_State_name = map[int32]string{
-	0: "ACTIVE",
-	1: "INACTIVE",
-	2: "ENDED",
-}
-var ShipmentItems_State_value = map[string]int32{
-	"ACTIVE":   0,
-	"INACTIVE": 1,
-	"ENDED":    2,
+func (m *ReqQuery) GetOrderBy() string {
+	if m != nil {
+		return m.OrderBy
+	}
+	return ""
 }
 
-func (x ShipmentItems_State) String() string {
-	return proto.EnumName(ShipmentItems_State_name, int32(x))
+type ReqId struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
-func (ShipmentItems_State) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_product_f7ba2c5646a54398, []int{8, 0}
+
+func (m *ReqId) Reset()         { *m = ReqId{} }
+func (m *ReqId) String() string { return proto.CompactTextString(m) }
+func (*ReqId) ProtoMessage()    {}
+func (*ReqId) Descriptor() ([]byte, []int) {
+	return fileDescriptor_product_ad9f9a262d2dfe18, []int{1}
+}
+func (m *ReqId) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ReqId.Unmarshal(m, b)
+}
+func (m *ReqId) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ReqId.Marshal(b, m, deterministic)
+}
+func (dst *ReqId) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReqId.Merge(dst, src)
+}
+func (m *ReqId) XXX_Size() int {
+	return xxx_messageInfo_ReqId.Size(m)
+}
+func (m *ReqId) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReqId.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ReqId proto.InternalMessageInfo
+
+func (m *ReqId) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
 }
 
 type Image struct {
@@ -183,7 +137,7 @@ func (m *Image) Reset()         { *m = Image{} }
 func (m *Image) String() string { return proto.CompactTextString(m) }
 func (*Image) ProtoMessage()    {}
 func (*Image) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_f7ba2c5646a54398, []int{0}
+	return fileDescriptor_product_ad9f9a262d2dfe18, []int{2}
 }
 func (m *Image) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Image.Unmarshal(m, b)
@@ -232,21 +186,21 @@ func (m *Image) GetHeight() int32 {
 }
 
 type Category struct {
-	Id                   string               `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Display              string               `protobuf:"bytes,2,opt,name=display,proto3" json:"display,omitempty"`
-	Description          string               `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
-	State                Category_State       `protobuf:"varint,4,opt,name=state,proto3,enum=product.Category_State" json:"state,omitempty"`
-	Created              *timestamp.Timestamp `protobuf:"bytes,5,opt,name=created,proto3" json:"created,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
-	XXX_unrecognized     []byte               `json:"-"`
-	XXX_sizecache        int32                `json:"-"`
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Display              string   `protobuf:"bytes,2,opt,name=display,proto3" json:"display,omitempty"`
+	Description          string   `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	State                string   `protobuf:"bytes,4,opt,name=state,proto3" json:"state,omitempty"`
+	Created              int32    `protobuf:"varint,5,opt,name=created,proto3" json:"created,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
 func (m *Category) Reset()         { *m = Category{} }
 func (m *Category) String() string { return proto.CompactTextString(m) }
 func (*Category) ProtoMessage()    {}
 func (*Category) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_f7ba2c5646a54398, []int{1}
+	return fileDescriptor_product_ad9f9a262d2dfe18, []int{3}
 }
 func (m *Category) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Category.Unmarshal(m, b)
@@ -287,37 +241,37 @@ func (m *Category) GetDescription() string {
 	return ""
 }
 
-func (m *Category) GetState() Category_State {
+func (m *Category) GetState() string {
 	if m != nil {
 		return m.State
 	}
-	return Category_ACTIVE
+	return ""
 }
 
-func (m *Category) GetCreated() *timestamp.Timestamp {
+func (m *Category) GetCreated() int32 {
 	if m != nil {
 		return m.Created
 	}
-	return nil
+	return 0
 }
 
 type Group struct {
-	Id                   string               `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Display              string               `protobuf:"bytes,2,opt,name=display,proto3" json:"display,omitempty"`
-	Description          string               `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
-	Target               string               `protobuf:"bytes,4,opt,name=target,proto3" json:"target,omitempty"`
-	Created              *timestamp.Timestamp `protobuf:"bytes,5,opt,name=created,proto3" json:"created,omitempty"`
-	BonusPrice           float32              `protobuf:"fixed32,6,opt,name=bonus_price,json=bonusPrice,proto3" json:"bonus_price,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
-	XXX_unrecognized     []byte               `json:"-"`
-	XXX_sizecache        int32                `json:"-"`
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Display              string   `protobuf:"bytes,2,opt,name=display,proto3" json:"display,omitempty"`
+	Description          string   `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	Target               string   `protobuf:"bytes,4,opt,name=target,proto3" json:"target,omitempty"`
+	Created              int32    `protobuf:"varint,5,opt,name=created,proto3" json:"created,omitempty"`
+	BonusPrice           float32  `protobuf:"fixed32,6,opt,name=bonus_price,json=bonusPrice,proto3" json:"bonus_price,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
 func (m *Group) Reset()         { *m = Group{} }
 func (m *Group) String() string { return proto.CompactTextString(m) }
 func (*Group) ProtoMessage()    {}
 func (*Group) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_f7ba2c5646a54398, []int{2}
+	return fileDescriptor_product_ad9f9a262d2dfe18, []int{4}
 }
 func (m *Group) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Group.Unmarshal(m, b)
@@ -365,11 +319,11 @@ func (m *Group) GetTarget() string {
 	return ""
 }
 
-func (m *Group) GetCreated() *timestamp.Timestamp {
+func (m *Group) GetCreated() int32 {
 	if m != nil {
 		return m.Created
 	}
-	return nil
+	return 0
 }
 
 func (m *Group) GetBonusPrice() float32 {
@@ -379,91 +333,21 @@ func (m *Group) GetBonusPrice() float32 {
 	return 0
 }
 
-type Rate struct {
-	Id                   string               `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Message              string               `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
-	By                   string               `protobuf:"bytes,3,opt,name=by,proto3" json:"by,omitempty"`
-	Score                float32              `protobuf:"fixed32,5,opt,name=score,proto3" json:"score,omitempty"`
-	Created              *timestamp.Timestamp `protobuf:"bytes,6,opt,name=created,proto3" json:"created,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
-	XXX_unrecognized     []byte               `json:"-"`
-	XXX_sizecache        int32                `json:"-"`
-}
-
-func (m *Rate) Reset()         { *m = Rate{} }
-func (m *Rate) String() string { return proto.CompactTextString(m) }
-func (*Rate) ProtoMessage()    {}
-func (*Rate) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_f7ba2c5646a54398, []int{3}
-}
-func (m *Rate) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Rate.Unmarshal(m, b)
-}
-func (m *Rate) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Rate.Marshal(b, m, deterministic)
-}
-func (dst *Rate) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Rate.Merge(dst, src)
-}
-func (m *Rate) XXX_Size() int {
-	return xxx_messageInfo_Rate.Size(m)
-}
-func (m *Rate) XXX_DiscardUnknown() {
-	xxx_messageInfo_Rate.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Rate proto.InternalMessageInfo
-
-func (m *Rate) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *Rate) GetMessage() string {
-	if m != nil {
-		return m.Message
-	}
-	return ""
-}
-
-func (m *Rate) GetBy() string {
-	if m != nil {
-		return m.By
-	}
-	return ""
-}
-
-func (m *Rate) GetScore() float32 {
-	if m != nil {
-		return m.Score
-	}
-	return 0
-}
-
-func (m *Rate) GetCreated() *timestamp.Timestamp {
-	if m != nil {
-		return m.Created
-	}
-	return nil
-}
-
 type Tag struct {
-	Id                   string    `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Display              string    `protobuf:"bytes,2,opt,name=display,proto3" json:"display,omitempty"`
-	Notes                []string  `protobuf:"bytes,4,rep,name=notes,proto3" json:"notes,omitempty"`
-	State                Tag_State `protobuf:"varint,5,opt,name=state,proto3,enum=product.Tag_State" json:"state,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
-	XXX_unrecognized     []byte    `json:"-"`
-	XXX_sizecache        int32     `json:"-"`
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Display              string   `protobuf:"bytes,2,opt,name=display,proto3" json:"display,omitempty"`
+	Notes                []string `protobuf:"bytes,4,rep,name=notes,proto3" json:"notes,omitempty"`
+	State                string   `protobuf:"bytes,5,opt,name=state,proto3" json:"state,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
 func (m *Tag) Reset()         { *m = Tag{} }
 func (m *Tag) String() string { return proto.CompactTextString(m) }
 func (*Tag) ProtoMessage()    {}
 func (*Tag) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_f7ba2c5646a54398, []int{4}
+	return fileDescriptor_product_ad9f9a262d2dfe18, []int{5}
 }
 func (m *Tag) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Tag.Unmarshal(m, b)
@@ -504,40 +388,40 @@ func (m *Tag) GetNotes() []string {
 	return nil
 }
 
-func (m *Tag) GetState() Tag_State {
+func (m *Tag) GetState() string {
 	if m != nil {
 		return m.State
 	}
-	return Tag_ACTIVE
+	return ""
 }
 
 type Product struct {
-	Id                   string               `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name                 string               `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Images               []*Image             `protobuf:"bytes,3,rep,name=images,proto3" json:"images,omitempty"`
-	Description          string               `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
-	Created              *timestamp.Timestamp `protobuf:"bytes,5,opt,name=created,proto3" json:"created,omitempty"`
-	CategoriesId         []string             `protobuf:"bytes,6,rep,name=categories_id,json=categoriesId,proto3" json:"categories_id,omitempty"`
-	Categories           []*Category          `protobuf:"bytes,7,rep,name=categories,proto3" json:"categories,omitempty"`
-	GroupsId             []string             `protobuf:"bytes,8,rep,name=groups_id,json=groupsId,proto3" json:"groups_id,omitempty"`
-	Groups               []*Group             `protobuf:"bytes,9,rep,name=groups,proto3" json:"groups,omitempty"`
-	State                Product_State        `protobuf:"varint,10,opt,name=state,proto3,enum=product.Product_State" json:"state,omitempty"`
-	ShipmentId           string               `protobuf:"bytes,11,opt,name=shipment_id,json=shipmentId,proto3" json:"shipment_id,omitempty"`
-	Shipment             *Shipment            `protobuf:"bytes,12,opt,name=shipment,proto3" json:"shipment,omitempty"`
-	TagsId               []string             `protobuf:"bytes,13,rep,name=tags_id,json=tagsId,proto3" json:"tags_id,omitempty"`
-	Tags                 []*Tag               `protobuf:"bytes,14,rep,name=tags,proto3" json:"tags,omitempty"`
-	Price                int32                `protobuf:"varint,15,opt,name=price,proto3" json:"price,omitempty"`
-	AverageRate          float32              `protobuf:"fixed32,16,opt,name=average_rate,json=averageRate,proto3" json:"average_rate,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
-	XXX_unrecognized     []byte               `json:"-"`
-	XXX_sizecache        int32                `json:"-"`
+	Id                   string      `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name                 string      `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Images               []*Image    `protobuf:"bytes,3,rep,name=images,proto3" json:"images,omitempty"`
+	Description          string      `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
+	Created              int32       `protobuf:"varint,5,opt,name=created,proto3" json:"created,omitempty"`
+	CategoriesId         []string    `protobuf:"bytes,6,rep,name=categories_id,json=categoriesId,proto3" json:"categories_id,omitempty"`
+	Categories           []*Category `protobuf:"bytes,7,rep,name=categories,proto3" json:"categories,omitempty"`
+	GroupsId             []string    `protobuf:"bytes,8,rep,name=groups_id,json=groupsId,proto3" json:"groups_id,omitempty"`
+	Groups               []*Group    `protobuf:"bytes,9,rep,name=groups,proto3" json:"groups,omitempty"`
+	State                string      `protobuf:"bytes,10,opt,name=state,proto3" json:"state,omitempty"`
+	ShipmentId           string      `protobuf:"bytes,11,opt,name=shipment_id,json=shipmentId,proto3" json:"shipment_id,omitempty"`
+	Shipment             *Shipment   `protobuf:"bytes,12,opt,name=shipment,proto3" json:"shipment,omitempty"`
+	TagsId               []string    `protobuf:"bytes,13,rep,name=tags_id,json=tagsId,proto3" json:"tags_id,omitempty"`
+	Tags                 []*Tag      `protobuf:"bytes,14,rep,name=tags,proto3" json:"tags,omitempty"`
+	Price                int32       `protobuf:"varint,15,opt,name=price,proto3" json:"price,omitempty"`
+	AverageRate          float32     `protobuf:"fixed32,16,opt,name=average_rate,json=averageRate,proto3" json:"average_rate,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
+	XXX_unrecognized     []byte      `json:"-"`
+	XXX_sizecache        int32       `json:"-"`
 }
 
 func (m *Product) Reset()         { *m = Product{} }
 func (m *Product) String() string { return proto.CompactTextString(m) }
 func (*Product) ProtoMessage()    {}
 func (*Product) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_f7ba2c5646a54398, []int{5}
+	return fileDescriptor_product_ad9f9a262d2dfe18, []int{6}
 }
 func (m *Product) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Product.Unmarshal(m, b)
@@ -585,11 +469,11 @@ func (m *Product) GetDescription() string {
 	return ""
 }
 
-func (m *Product) GetCreated() *timestamp.Timestamp {
+func (m *Product) GetCreated() int32 {
 	if m != nil {
 		return m.Created
 	}
-	return nil
+	return 0
 }
 
 func (m *Product) GetCategoriesId() []string {
@@ -620,11 +504,11 @@ func (m *Product) GetGroups() []*Group {
 	return nil
 }
 
-func (m *Product) GetState() Product_State {
+func (m *Product) GetState() string {
 	if m != nil {
 		return m.State
 	}
-	return Product_ACTIVE
+	return ""
 }
 
 func (m *Product) GetShipmentId() string {
@@ -669,23 +553,69 @@ func (m *Product) GetAverageRate() float32 {
 	return 0
 }
 
+type ShipmentBlock struct {
+	Shipment             *Shipment          `protobuf:"bytes,1,opt,name=shipment,proto3" json:"shipment,omitempty"`
+	Products             []*ShipmentProduct `protobuf:"bytes,2,rep,name=products,proto3" json:"products,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
+	XXX_unrecognized     []byte             `json:"-"`
+	XXX_sizecache        int32              `json:"-"`
+}
+
+func (m *ShipmentBlock) Reset()         { *m = ShipmentBlock{} }
+func (m *ShipmentBlock) String() string { return proto.CompactTextString(m) }
+func (*ShipmentBlock) ProtoMessage()    {}
+func (*ShipmentBlock) Descriptor() ([]byte, []int) {
+	return fileDescriptor_product_ad9f9a262d2dfe18, []int{7}
+}
+func (m *ShipmentBlock) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ShipmentBlock.Unmarshal(m, b)
+}
+func (m *ShipmentBlock) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ShipmentBlock.Marshal(b, m, deterministic)
+}
+func (dst *ShipmentBlock) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ShipmentBlock.Merge(dst, src)
+}
+func (m *ShipmentBlock) XXX_Size() int {
+	return xxx_messageInfo_ShipmentBlock.Size(m)
+}
+func (m *ShipmentBlock) XXX_DiscardUnknown() {
+	xxx_messageInfo_ShipmentBlock.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ShipmentBlock proto.InternalMessageInfo
+
+func (m *ShipmentBlock) GetShipment() *Shipment {
+	if m != nil {
+		return m.Shipment
+	}
+	return nil
+}
+
+func (m *ShipmentBlock) GetProducts() []*ShipmentProduct {
+	if m != nil {
+		return m.Products
+	}
+	return nil
+}
+
 type Shipment struct {
-	Id                   string               `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name                 string               `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Notes                []string             `protobuf:"bytes,3,rep,name=notes,proto3" json:"notes,omitempty"`
-	BasicInfo            string               `protobuf:"bytes,4,opt,name=basic_info,json=basicInfo,proto3" json:"basic_info,omitempty"`
-	Created              *timestamp.Timestamp `protobuf:"bytes,5,opt,name=created,proto3" json:"created,omitempty"`
-	State                Shipment_State       `protobuf:"varint,6,opt,name=state,proto3,enum=product.Shipment_State" json:"state,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
-	XXX_unrecognized     []byte               `json:"-"`
-	XXX_sizecache        int32                `json:"-"`
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Notes                []string `protobuf:"bytes,3,rep,name=notes,proto3" json:"notes,omitempty"`
+	BasicInfo            string   `protobuf:"bytes,4,opt,name=basic_info,json=basicInfo,proto3" json:"basic_info,omitempty"`
+	Created              int32    `protobuf:"varint,5,opt,name=created,proto3" json:"created,omitempty"`
+	State                string   `protobuf:"bytes,6,opt,name=state,proto3" json:"state,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
 func (m *Shipment) Reset()         { *m = Shipment{} }
 func (m *Shipment) String() string { return proto.CompactTextString(m) }
 func (*Shipment) ProtoMessage()    {}
 func (*Shipment) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_f7ba2c5646a54398, []int{6}
+	return fileDescriptor_product_ad9f9a262d2dfe18, []int{8}
 }
 func (m *Shipment) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Shipment.Unmarshal(m, b)
@@ -733,18 +663,18 @@ func (m *Shipment) GetBasicInfo() string {
 	return ""
 }
 
-func (m *Shipment) GetCreated() *timestamp.Timestamp {
+func (m *Shipment) GetCreated() int32 {
 	if m != nil {
 		return m.Created
 	}
-	return nil
+	return 0
 }
 
-func (m *Shipment) GetState() Shipment_State {
+func (m *Shipment) GetState() string {
 	if m != nil {
 		return m.State
 	}
-	return Shipment_ACTIVE
+	return ""
 }
 
 type ShipmentProduct struct {
@@ -752,9 +682,9 @@ type ShipmentProduct struct {
 	ProductId            string   `protobuf:"bytes,2,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
 	Product              *Product `protobuf:"bytes,3,opt,name=product,proto3" json:"product,omitempty"`
 	Quantity             int32    `protobuf:"varint,4,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	Note                 string   `protobuf:"bytes,5,opt,name=note,proto3" json:"note,omitempty"`
 	UnitPrice            int32    `protobuf:"varint,6,opt,name=unit_price,json=unitPrice,proto3" json:"unit_price,omitempty"`
 	Discount             float32  `protobuf:"fixed32,7,opt,name=discount,proto3" json:"discount,omitempty"`
-	Note                 string   `protobuf:"bytes,5,opt,name=note,proto3" json:"note,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -764,7 +694,7 @@ func (m *ShipmentProduct) Reset()         { *m = ShipmentProduct{} }
 func (m *ShipmentProduct) String() string { return proto.CompactTextString(m) }
 func (*ShipmentProduct) ProtoMessage()    {}
 func (*ShipmentProduct) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_f7ba2c5646a54398, []int{7}
+	return fileDescriptor_product_ad9f9a262d2dfe18, []int{9}
 }
 func (m *ShipmentProduct) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ShipmentProduct.Unmarshal(m, b)
@@ -812,6 +742,13 @@ func (m *ShipmentProduct) GetQuantity() int32 {
 	return 0
 }
 
+func (m *ShipmentProduct) GetNote() string {
+	if m != nil {
+		return m.Note
+	}
+	return ""
+}
+
 func (m *ShipmentProduct) GetUnitPrice() int32 {
 	if m != nil {
 		return m.UnitPrice
@@ -826,32 +763,25 @@ func (m *ShipmentProduct) GetDiscount() float32 {
 	return 0
 }
 
-func (m *ShipmentProduct) GetNote() string {
-	if m != nil {
-		return m.Note
-	}
-	return ""
-}
-
 type ShipmentItems struct {
-	Id                   string               `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name                 string               `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Notes                []string             `protobuf:"bytes,3,rep,name=notes,proto3" json:"notes,omitempty"`
-	ShipmentProduct      *ShipmentProduct     `protobuf:"bytes,4,opt,name=shipment_product,json=shipmentProduct,proto3" json:"shipment_product,omitempty"`
-	Created              *timestamp.Timestamp `protobuf:"bytes,5,opt,name=created,proto3" json:"created,omitempty"`
-	Price                int32                `protobuf:"varint,7,opt,name=price,proto3" json:"price,omitempty"`
-	Discount             float32              `protobuf:"fixed32,8,opt,name=discount,proto3" json:"discount,omitempty"`
-	State                ShipmentItems_State  `protobuf:"varint,6,opt,name=state,proto3,enum=product.ShipmentItems_State" json:"state,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
-	XXX_unrecognized     []byte               `json:"-"`
-	XXX_sizecache        int32                `json:"-"`
+	Id                   string           `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name                 string           `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Notes                []string         `protobuf:"bytes,3,rep,name=notes,proto3" json:"notes,omitempty"`
+	ShipmentProduct      *ShipmentProduct `protobuf:"bytes,4,opt,name=shipment_product,json=shipmentProduct,proto3" json:"shipment_product,omitempty"`
+	Created              string           `protobuf:"bytes,5,opt,name=created,proto3" json:"created,omitempty"`
+	State                string           `protobuf:"bytes,6,opt,name=state,proto3" json:"state,omitempty"`
+	Price                int32            `protobuf:"varint,7,opt,name=price,proto3" json:"price,omitempty"`
+	Discount             float32          `protobuf:"fixed32,8,opt,name=discount,proto3" json:"discount,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
+	XXX_unrecognized     []byte           `json:"-"`
+	XXX_sizecache        int32            `json:"-"`
 }
 
 func (m *ShipmentItems) Reset()         { *m = ShipmentItems{} }
 func (m *ShipmentItems) String() string { return proto.CompactTextString(m) }
 func (*ShipmentItems) ProtoMessage()    {}
 func (*ShipmentItems) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_f7ba2c5646a54398, []int{8}
+	return fileDescriptor_product_ad9f9a262d2dfe18, []int{10}
 }
 func (m *ShipmentItems) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ShipmentItems.Unmarshal(m, b)
@@ -899,11 +829,18 @@ func (m *ShipmentItems) GetShipmentProduct() *ShipmentProduct {
 	return nil
 }
 
-func (m *ShipmentItems) GetCreated() *timestamp.Timestamp {
+func (m *ShipmentItems) GetCreated() string {
 	if m != nil {
 		return m.Created
 	}
-	return nil
+	return ""
+}
+
+func (m *ShipmentItems) GetState() string {
+	if m != nil {
+		return m.State
+	}
+	return ""
 }
 
 func (m *ShipmentItems) GetPrice() int32 {
@@ -920,87 +857,2025 @@ func (m *ShipmentItems) GetDiscount() float32 {
 	return 0
 }
 
-func (m *ShipmentItems) GetState() ShipmentItems_State {
+type OrderItems struct {
+	Id                   string     `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	ProductsId           []string   `protobuf:"bytes,2,rep,name=products_id,json=productsId,proto3" json:"products_id,omitempty"`
+	Products             []*Product `protobuf:"bytes,3,rep,name=products,proto3" json:"products,omitempty"`
+	Quantity             int32      `protobuf:"varint,4,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	Price                int32      `protobuf:"varint,5,opt,name=price,proto3" json:"price,omitempty"`
+	Discount             float32    `protobuf:"fixed32,6,opt,name=discount,proto3" json:"discount,omitempty"`
+	CreatedAt            string     `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	CreatedBy            string     `protobuf:"bytes,8,opt,name=created_by,json=createdBy,proto3" json:"created_by,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
+	XXX_unrecognized     []byte     `json:"-"`
+	XXX_sizecache        int32      `json:"-"`
+}
+
+func (m *OrderItems) Reset()         { *m = OrderItems{} }
+func (m *OrderItems) String() string { return proto.CompactTextString(m) }
+func (*OrderItems) ProtoMessage()    {}
+func (*OrderItems) Descriptor() ([]byte, []int) {
+	return fileDescriptor_product_ad9f9a262d2dfe18, []int{11}
+}
+func (m *OrderItems) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_OrderItems.Unmarshal(m, b)
+}
+func (m *OrderItems) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_OrderItems.Marshal(b, m, deterministic)
+}
+func (dst *OrderItems) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_OrderItems.Merge(dst, src)
+}
+func (m *OrderItems) XXX_Size() int {
+	return xxx_messageInfo_OrderItems.Size(m)
+}
+func (m *OrderItems) XXX_DiscardUnknown() {
+	xxx_messageInfo_OrderItems.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_OrderItems proto.InternalMessageInfo
+
+func (m *OrderItems) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *OrderItems) GetProductsId() []string {
+	if m != nil {
+		return m.ProductsId
+	}
+	return nil
+}
+
+func (m *OrderItems) GetProducts() []*Product {
+	if m != nil {
+		return m.Products
+	}
+	return nil
+}
+
+func (m *OrderItems) GetQuantity() int32 {
+	if m != nil {
+		return m.Quantity
+	}
+	return 0
+}
+
+func (m *OrderItems) GetPrice() int32 {
+	if m != nil {
+		return m.Price
+	}
+	return 0
+}
+
+func (m *OrderItems) GetDiscount() float32 {
+	if m != nil {
+		return m.Discount
+	}
+	return 0
+}
+
+func (m *OrderItems) GetCreatedAt() string {
+	if m != nil {
+		return m.CreatedAt
+	}
+	return ""
+}
+
+func (m *OrderItems) GetCreatedBy() string {
+	if m != nil {
+		return m.CreatedBy
+	}
+	return ""
+}
+
+type Order struct {
+	Id                   string      `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	CustomerId           []string    `protobuf:"bytes,2,rep,name=customer_id,json=customerId,proto3" json:"customer_id,omitempty"`
+	Customer             []*Customer `protobuf:"bytes,3,rep,name=customer,proto3" json:"customer,omitempty"`
+	Price                int32       `protobuf:"varint,4,opt,name=price,proto3" json:"price,omitempty"`
+	OrderItems           *OrderItems `protobuf:"bytes,5,opt,name=order_items,json=orderItems,proto3" json:"order_items,omitempty"`
+	Discount             float32     `protobuf:"fixed32,6,opt,name=discount,proto3" json:"discount,omitempty"`
+	CreatedAt            string      `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	CreatedBy            string      `protobuf:"bytes,8,opt,name=created_by,json=createdBy,proto3" json:"created_by,omitempty"`
+	State                string      `protobuf:"bytes,9,opt,name=state,proto3" json:"state,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
+	XXX_unrecognized     []byte      `json:"-"`
+	XXX_sizecache        int32       `json:"-"`
+}
+
+func (m *Order) Reset()         { *m = Order{} }
+func (m *Order) String() string { return proto.CompactTextString(m) }
+func (*Order) ProtoMessage()    {}
+func (*Order) Descriptor() ([]byte, []int) {
+	return fileDescriptor_product_ad9f9a262d2dfe18, []int{12}
+}
+func (m *Order) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Order.Unmarshal(m, b)
+}
+func (m *Order) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Order.Marshal(b, m, deterministic)
+}
+func (dst *Order) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Order.Merge(dst, src)
+}
+func (m *Order) XXX_Size() int {
+	return xxx_messageInfo_Order.Size(m)
+}
+func (m *Order) XXX_DiscardUnknown() {
+	xxx_messageInfo_Order.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Order proto.InternalMessageInfo
+
+func (m *Order) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Order) GetCustomerId() []string {
+	if m != nil {
+		return m.CustomerId
+	}
+	return nil
+}
+
+func (m *Order) GetCustomer() []*Customer {
+	if m != nil {
+		return m.Customer
+	}
+	return nil
+}
+
+func (m *Order) GetPrice() int32 {
+	if m != nil {
+		return m.Price
+	}
+	return 0
+}
+
+func (m *Order) GetOrderItems() *OrderItems {
+	if m != nil {
+		return m.OrderItems
+	}
+	return nil
+}
+
+func (m *Order) GetDiscount() float32 {
+	if m != nil {
+		return m.Discount
+	}
+	return 0
+}
+
+func (m *Order) GetCreatedAt() string {
+	if m != nil {
+		return m.CreatedAt
+	}
+	return ""
+}
+
+func (m *Order) GetCreatedBy() string {
+	if m != nil {
+		return m.CreatedBy
+	}
+	return ""
+}
+
+func (m *Order) GetState() string {
 	if m != nil {
 		return m.State
 	}
-	return ShipmentItems_ACTIVE
+	return ""
+}
+
+type Customer struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Fullname             string   `protobuf:"bytes,2,opt,name=fullname,proto3" json:"fullname,omitempty"`
+	Phone                string   `protobuf:"bytes,3,opt,name=phone,proto3" json:"phone,omitempty"`
+	Email                string   `protobuf:"bytes,4,opt,name=email,proto3" json:"email,omitempty"`
+	Address              string   `protobuf:"bytes,5,opt,name=address,proto3" json:"address,omitempty"`
+	Created              string   `protobuf:"bytes,6,opt,name=created,proto3" json:"created,omitempty"`
+	State                string   `protobuf:"bytes,7,opt,name=state,proto3" json:"state,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Customer) Reset()         { *m = Customer{} }
+func (m *Customer) String() string { return proto.CompactTextString(m) }
+func (*Customer) ProtoMessage()    {}
+func (*Customer) Descriptor() ([]byte, []int) {
+	return fileDescriptor_product_ad9f9a262d2dfe18, []int{13}
+}
+func (m *Customer) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Customer.Unmarshal(m, b)
+}
+func (m *Customer) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Customer.Marshal(b, m, deterministic)
+}
+func (dst *Customer) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Customer.Merge(dst, src)
+}
+func (m *Customer) XXX_Size() int {
+	return xxx_messageInfo_Customer.Size(m)
+}
+func (m *Customer) XXX_DiscardUnknown() {
+	xxx_messageInfo_Customer.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Customer proto.InternalMessageInfo
+
+func (m *Customer) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Customer) GetFullname() string {
+	if m != nil {
+		return m.Fullname
+	}
+	return ""
+}
+
+func (m *Customer) GetPhone() string {
+	if m != nil {
+		return m.Phone
+	}
+	return ""
+}
+
+func (m *Customer) GetEmail() string {
+	if m != nil {
+		return m.Email
+	}
+	return ""
+}
+
+func (m *Customer) GetAddress() string {
+	if m != nil {
+		return m.Address
+	}
+	return ""
+}
+
+func (m *Customer) GetCreated() string {
+	if m != nil {
+		return m.Created
+	}
+	return ""
+}
+
+func (m *Customer) GetState() string {
+	if m != nil {
+		return m.State
+	}
+	return ""
+}
+
+type PaymentMethod struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *PaymentMethod) Reset()         { *m = PaymentMethod{} }
+func (m *PaymentMethod) String() string { return proto.CompactTextString(m) }
+func (*PaymentMethod) ProtoMessage()    {}
+func (*PaymentMethod) Descriptor() ([]byte, []int) {
+	return fileDescriptor_product_ad9f9a262d2dfe18, []int{14}
+}
+func (m *PaymentMethod) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_PaymentMethod.Unmarshal(m, b)
+}
+func (m *PaymentMethod) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_PaymentMethod.Marshal(b, m, deterministic)
+}
+func (dst *PaymentMethod) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_PaymentMethod.Merge(dst, src)
+}
+func (m *PaymentMethod) XXX_Size() int {
+	return xxx_messageInfo_PaymentMethod.Size(m)
+}
+func (m *PaymentMethod) XXX_DiscardUnknown() {
+	xxx_messageInfo_PaymentMethod.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_PaymentMethod proto.InternalMessageInfo
+
+func (m *PaymentMethod) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *PaymentMethod) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+type Invoice struct {
+	Id                   string         `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	OrderId              string         `protobuf:"bytes,2,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
+	Order                *Order         `protobuf:"bytes,3,opt,name=order,proto3" json:"order,omitempty"`
+	CustomerId           string         `protobuf:"bytes,4,opt,name=customer_id,json=customerId,proto3" json:"customer_id,omitempty"`
+	Customer             *Customer      `protobuf:"bytes,5,opt,name=customer,proto3" json:"customer,omitempty"`
+	Pm                   *PaymentMethod `protobuf:"bytes,6,opt,name=pm,proto3" json:"pm,omitempty"`
+	Note                 string         `protobuf:"bytes,7,opt,name=note,proto3" json:"note,omitempty"`
+	Price                int32          `protobuf:"varint,8,opt,name=price,proto3" json:"price,omitempty"`
+	State                string         `protobuf:"bytes,9,opt,name=state,proto3" json:"state,omitempty"`
+	CreatedAt            string         `protobuf:"bytes,10,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	CreatedBy            string         `protobuf:"bytes,11,opt,name=created_by,json=createdBy,proto3" json:"created_by,omitempty"`
+	RealPay              int32          `protobuf:"varint,12,opt,name=real_pay,json=realPay,proto3" json:"real_pay,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
+	XXX_unrecognized     []byte         `json:"-"`
+	XXX_sizecache        int32          `json:"-"`
+}
+
+func (m *Invoice) Reset()         { *m = Invoice{} }
+func (m *Invoice) String() string { return proto.CompactTextString(m) }
+func (*Invoice) ProtoMessage()    {}
+func (*Invoice) Descriptor() ([]byte, []int) {
+	return fileDescriptor_product_ad9f9a262d2dfe18, []int{15}
+}
+func (m *Invoice) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Invoice.Unmarshal(m, b)
+}
+func (m *Invoice) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Invoice.Marshal(b, m, deterministic)
+}
+func (dst *Invoice) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Invoice.Merge(dst, src)
+}
+func (m *Invoice) XXX_Size() int {
+	return xxx_messageInfo_Invoice.Size(m)
+}
+func (m *Invoice) XXX_DiscardUnknown() {
+	xxx_messageInfo_Invoice.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Invoice proto.InternalMessageInfo
+
+func (m *Invoice) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Invoice) GetOrderId() string {
+	if m != nil {
+		return m.OrderId
+	}
+	return ""
+}
+
+func (m *Invoice) GetOrder() *Order {
+	if m != nil {
+		return m.Order
+	}
+	return nil
+}
+
+func (m *Invoice) GetCustomerId() string {
+	if m != nil {
+		return m.CustomerId
+	}
+	return ""
+}
+
+func (m *Invoice) GetCustomer() *Customer {
+	if m != nil {
+		return m.Customer
+	}
+	return nil
+}
+
+func (m *Invoice) GetPm() *PaymentMethod {
+	if m != nil {
+		return m.Pm
+	}
+	return nil
+}
+
+func (m *Invoice) GetNote() string {
+	if m != nil {
+		return m.Note
+	}
+	return ""
+}
+
+func (m *Invoice) GetPrice() int32 {
+	if m != nil {
+		return m.Price
+	}
+	return 0
+}
+
+func (m *Invoice) GetState() string {
+	if m != nil {
+		return m.State
+	}
+	return ""
+}
+
+func (m *Invoice) GetCreatedAt() string {
+	if m != nil {
+		return m.CreatedAt
+	}
+	return ""
+}
+
+func (m *Invoice) GetCreatedBy() string {
+	if m != nil {
+		return m.CreatedBy
+	}
+	return ""
+}
+
+func (m *Invoice) GetRealPay() int32 {
+	if m != nil {
+		return m.RealPay
+	}
+	return 0
+}
+
+type Campaign struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	EventName            string   `protobuf:"bytes,2,opt,name=event_name,json=eventName,proto3" json:"event_name,omitempty"`
+	Started              int32    `protobuf:"varint,3,opt,name=started,proto3" json:"started,omitempty"`
+	Ended                int32    `protobuf:"varint,4,opt,name=ended,proto3" json:"ended,omitempty"`
+	Description          string   `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
+	Image                []*Image `protobuf:"bytes,6,rep,name=image,proto3" json:"image,omitempty"`
+	State                string   `protobuf:"bytes,8,opt,name=state,proto3" json:"state,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Campaign) Reset()         { *m = Campaign{} }
+func (m *Campaign) String() string { return proto.CompactTextString(m) }
+func (*Campaign) ProtoMessage()    {}
+func (*Campaign) Descriptor() ([]byte, []int) {
+	return fileDescriptor_product_ad9f9a262d2dfe18, []int{16}
+}
+func (m *Campaign) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Campaign.Unmarshal(m, b)
+}
+func (m *Campaign) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Campaign.Marshal(b, m, deterministic)
+}
+func (dst *Campaign) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Campaign.Merge(dst, src)
+}
+func (m *Campaign) XXX_Size() int {
+	return xxx_messageInfo_Campaign.Size(m)
+}
+func (m *Campaign) XXX_DiscardUnknown() {
+	xxx_messageInfo_Campaign.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Campaign proto.InternalMessageInfo
+
+func (m *Campaign) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Campaign) GetEventName() string {
+	if m != nil {
+		return m.EventName
+	}
+	return ""
+}
+
+func (m *Campaign) GetStarted() int32 {
+	if m != nil {
+		return m.Started
+	}
+	return 0
+}
+
+func (m *Campaign) GetEnded() int32 {
+	if m != nil {
+		return m.Ended
+	}
+	return 0
+}
+
+func (m *Campaign) GetDescription() string {
+	if m != nil {
+		return m.Description
+	}
+	return ""
+}
+
+func (m *Campaign) GetImage() []*Image {
+	if m != nil {
+		return m.Image
+	}
+	return nil
+}
+
+func (m *Campaign) GetState() string {
+	if m != nil {
+		return m.State
+	}
+	return ""
 }
 
 func init() {
+	proto.RegisterType((*ReqQuery)(nil), "product.ReqQuery")
+	proto.RegisterType((*ReqId)(nil), "product.ReqId")
 	proto.RegisterType((*Image)(nil), "product.Image")
 	proto.RegisterType((*Category)(nil), "product.Category")
 	proto.RegisterType((*Group)(nil), "product.Group")
-	proto.RegisterType((*Rate)(nil), "product.Rate")
 	proto.RegisterType((*Tag)(nil), "product.Tag")
 	proto.RegisterType((*Product)(nil), "product.Product")
+	proto.RegisterType((*ShipmentBlock)(nil), "product.ShipmentBlock")
 	proto.RegisterType((*Shipment)(nil), "product.Shipment")
 	proto.RegisterType((*ShipmentProduct)(nil), "product.ShipmentProduct")
 	proto.RegisterType((*ShipmentItems)(nil), "product.ShipmentItems")
-	proto.RegisterEnum("product.Category_State", Category_State_name, Category_State_value)
-	proto.RegisterEnum("product.Rate_State", Rate_State_name, Rate_State_value)
-	proto.RegisterEnum("product.Tag_State", Tag_State_name, Tag_State_value)
-	proto.RegisterEnum("product.Product_State", Product_State_name, Product_State_value)
-	proto.RegisterEnum("product.Shipment_State", Shipment_State_name, Shipment_State_value)
-	proto.RegisterEnum("product.ShipmentItems_State", ShipmentItems_State_name, ShipmentItems_State_value)
+	proto.RegisterType((*OrderItems)(nil), "product.OrderItems")
+	proto.RegisterType((*Order)(nil), "product.Order")
+	proto.RegisterType((*Customer)(nil), "product.Customer")
+	proto.RegisterType((*PaymentMethod)(nil), "product.PaymentMethod")
+	proto.RegisterType((*Invoice)(nil), "product.Invoice")
+	proto.RegisterType((*Campaign)(nil), "product.Campaign")
 }
 
-func init() { proto.RegisterFile("product.proto", fileDescriptor_product_f7ba2c5646a54398) }
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
 
-var fileDescriptor_product_f7ba2c5646a54398 = []byte{
-	// 860 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x55, 0xe1, 0x6e, 0xe3, 0x44,
-	0x10, 0xc6, 0x4e, 0xec, 0xd8, 0x93, 0x34, 0x0d, 0xab, 0x53, 0xcf, 0x2a, 0x9c, 0x9a, 0x33, 0x12,
-	0x8a, 0xd0, 0x5d, 0x2a, 0x02, 0x3c, 0x00, 0x6a, 0x0b, 0xb2, 0x84, 0x2e, 0xd5, 0x36, 0x85, 0x9f,
-	0x91, 0x13, 0x6f, 0xdd, 0x95, 0x1a, 0x6f, 0xf0, 0x6e, 0x40, 0x79, 0x0d, 0x5e, 0x84, 0x77, 0xe0,
-	0x25, 0xe0, 0x25, 0xf8, 0xc3, 0x0f, 0x7e, 0xa3, 0x1d, 0xef, 0xba, 0x69, 0x02, 0x6a, 0x49, 0xef,
-	0xdf, 0xce, 0xec, 0x78, 0x67, 0xbe, 0x99, 0xef, 0x1b, 0xc3, 0xc1, 0xb2, 0x14, 0xd9, 0x6a, 0xae,
-	0x86, 0xcb, 0x52, 0x28, 0x41, 0x5a, 0xc6, 0x3c, 0x3e, 0xc9, 0x85, 0xc8, 0xef, 0xd8, 0x29, 0xba,
-	0x67, 0xab, 0x9b, 0x53, 0xc5, 0x17, 0x4c, 0xaa, 0x74, 0xb1, 0xac, 0x22, 0xe3, 0x1f, 0xc0, 0x4b,
-	0x16, 0x69, 0xce, 0x48, 0x17, 0x5c, 0x9e, 0x45, 0x4e, 0xdf, 0x19, 0x84, 0xd4, 0xe5, 0x19, 0xe9,
-	0x41, 0x63, 0x55, 0xde, 0x45, 0x2e, 0x3a, 0xf4, 0x91, 0xbc, 0x00, 0xef, 0x67, 0x9e, 0xa9, 0xdb,
-	0xa8, 0xd1, 0x77, 0x06, 0x1e, 0xad, 0x0c, 0x72, 0x04, 0xfe, 0x2d, 0xe3, 0xf9, 0xad, 0x8a, 0x9a,
-	0xe8, 0x36, 0x56, 0xfc, 0x97, 0x03, 0xc1, 0x59, 0xaa, 0x58, 0x2e, 0xca, 0xf5, 0xce, 0xe3, 0x11,
-	0xb4, 0x32, 0x2e, 0x97, 0x77, 0xe9, 0xda, 0x24, 0xb0, 0x26, 0xe9, 0x43, 0x3b, 0x63, 0x72, 0x5e,
-	0xf2, 0xa5, 0xe2, 0xa2, 0xc0, 0x54, 0x21, 0xdd, 0x74, 0x91, 0xb7, 0xe0, 0x49, 0x95, 0x2a, 0x86,
-	0xf9, 0xba, 0xa3, 0x97, 0x43, 0x0b, 0xdd, 0x66, 0x1b, 0x5e, 0xe9, 0x6b, 0x5a, 0x45, 0x91, 0x2f,
-	0xa1, 0x35, 0x2f, 0x59, 0xaa, 0x58, 0x16, 0x79, 0x7d, 0x67, 0xd0, 0x1e, 0x1d, 0x0f, 0xab, 0x9e,
-	0x0c, 0x6d, 0x4f, 0x86, 0x13, 0xdb, 0x13, 0x6a, 0x43, 0xe3, 0xaf, 0xc0, 0xc3, 0x57, 0x08, 0x80,
-	0xff, 0xf5, 0xd9, 0x24, 0xf9, 0xfe, 0xa2, 0xf7, 0x01, 0xe9, 0x40, 0x90, 0xbc, 0x33, 0x96, 0x43,
-	0x08, 0x74, 0xc7, 0xd7, 0x93, 0xe9, 0xf8, 0x9b, 0xe9, 0x25, 0x1d, 0x9f, 0x5f, 0x9f, 0x4d, 0x7a,
-	0x6e, 0xfc, 0x9b, 0x03, 0xde, 0xb7, 0xa5, 0x58, 0x2d, 0xdf, 0x2b, 0xe2, 0x23, 0xf0, 0x55, 0x5a,
-	0xe6, 0xac, 0x6a, 0x71, 0x48, 0x8d, 0xb5, 0x1f, 0x34, 0x72, 0x02, 0xed, 0x99, 0x28, 0x56, 0x72,
-	0xba, 0x2c, 0xf9, 0x9c, 0x45, 0x7e, 0xdf, 0x19, 0xb8, 0x14, 0xd0, 0x75, 0xa9, 0x3d, 0xf1, 0xaf,
-	0x0e, 0x34, 0xa9, 0xc6, 0xfe, 0x2f, 0x18, 0x16, 0x4c, 0xca, 0x34, 0x67, 0x16, 0x83, 0x31, 0x75,
-	0xe4, 0x6c, 0x6d, 0x4a, 0x77, 0x67, 0x6b, 0x4d, 0x15, 0x39, 0x17, 0x25, 0xc3, 0xba, 0x5c, 0x5a,
-	0x19, 0x9b, 0xf5, 0xfa, 0x4f, 0x1f, 0xc5, 0xeb, 0x47, 0x47, 0x11, 0xff, 0xe2, 0x40, 0x63, 0x92,
-	0xe6, 0xff, 0xa3, 0xe9, 0x2f, 0xc0, 0x2b, 0x84, 0x62, 0x32, 0x6a, 0xf6, 0x1b, 0x83, 0x90, 0x56,
-	0x06, 0x19, 0x58, 0x6a, 0x79, 0x48, 0x2d, 0x52, 0x53, 0x6b, 0x92, 0xe6, 0x0f, 0x58, 0xf5, 0x94,
-	0xa2, 0xfe, 0x6c, 0x42, 0xeb, 0xb2, 0xfa, 0x7e, 0xa7, 0x30, 0x02, 0xcd, 0x22, 0x5d, 0xd8, 0x36,
-	0xe2, 0x99, 0x7c, 0x0a, 0x3e, 0xd7, 0x4a, 0x94, 0x51, 0xa3, 0xdf, 0x18, 0xb4, 0x47, 0xdd, 0x3a,
-	0x3b, 0x0a, 0x94, 0x9a, 0xdb, 0x6d, 0xbe, 0x34, 0x77, 0xf9, 0xb2, 0x1f, 0x2f, 0x3e, 0x81, 0x83,
-	0x79, 0xa5, 0x20, 0xce, 0xe4, 0x94, 0xeb, 0x19, 0xe9, 0xd6, 0x74, 0xee, 0x9d, 0x49, 0x46, 0x3e,
-	0x07, 0xb8, 0xb7, 0xa3, 0x16, 0x16, 0xfa, 0xe1, 0x8e, 0x02, 0xe9, 0x46, 0x10, 0xf9, 0x08, 0xc2,
-	0x5c, 0x4b, 0x02, 0xdf, 0x0c, 0xf0, 0xcd, 0xa0, 0x72, 0x24, 0x99, 0x06, 0x5d, 0x9d, 0xa3, 0x70,
-	0x0b, 0x34, 0xca, 0x88, 0x9a, 0x5b, 0xf2, 0xc6, 0x4e, 0x06, 0x70, 0x32, 0x47, 0x75, 0x98, 0xe9,
-	0xf0, 0x43, 0xcd, 0x9f, 0x40, 0x5b, 0xde, 0xf2, 0xe5, 0x82, 0x15, 0x4a, 0x27, 0x6d, 0x63, 0x8b,
-	0xc0, 0xba, 0x92, 0x8c, 0xbc, 0x85, 0xc0, 0x5a, 0x51, 0x07, 0x5b, 0x74, 0x0f, 0xe2, 0xca, 0x5c,
-	0xd0, 0x3a, 0x84, 0xbc, 0x84, 0x96, 0x4a, 0x73, 0x04, 0x70, 0x80, 0x00, 0x7c, 0x6d, 0x26, 0x19,
-	0xe9, 0x43, 0x53, 0x9f, 0xa2, 0x2e, 0x16, 0xdf, 0xd9, 0xe4, 0x0b, 0xc5, 0x1b, 0x4d, 0xb4, 0x4a,
-	0x67, 0x87, 0xd5, 0xd2, 0x44, 0x83, 0xbc, 0x86, 0x4e, 0xfa, 0x13, 0x2b, 0xd3, 0x9c, 0x4d, 0x4b,
-	0x8d, 0xaa, 0x87, 0x32, 0x69, 0x1b, 0x9f, 0x16, 0x5f, 0x7c, 0xfa, 0xf8, 0x06, 0xea, 0x40, 0x70,
-	0x35, 0xfe, 0xee, 0x7c, 0x3a, 0xbe, 0xd6, 0xbb, 0xe7, 0x6f, 0x07, 0x02, 0x5b, 0xfb, 0x93, 0x08,
-	0x57, 0x6b, 0xa0, 0xb1, 0xa9, 0x81, 0x57, 0x00, 0xb3, 0x54, 0xf2, 0xf9, 0x94, 0x17, 0x37, 0xc2,
-	0xb0, 0x2b, 0x44, 0x4f, 0x52, 0xdc, 0x88, 0x3d, 0xb9, 0x55, 0xef, 0x6c, 0x7f, 0x6b, 0x67, 0xdb,
-	0x82, 0x1f, 0xaa, 0xeb, 0xcd, 0xe3, 0xd8, 0x43, 0xf0, 0x2e, 0xde, 0x9d, 0x5f, 0x9c, 0xf7, 0xdc,
-	0xf8, 0x77, 0x07, 0x0e, 0xed, 0x3b, 0xff, 0x25, 0xb8, 0x57, 0x00, 0x26, 0xa5, 0x1e, 0x62, 0xd5,
-	0x85, 0xd0, 0x78, 0x92, 0x8c, 0x7c, 0x06, 0xf6, 0x8f, 0x89, 0x4b, 0xac, 0x3d, 0xea, 0x6d, 0x13,
-	0x8c, 0xda, 0x00, 0x72, 0x0c, 0xc1, 0x8f, 0xab, 0xb4, 0x50, 0x5c, 0xad, 0xcd, 0x2f, 0xaf, 0xb6,
-	0x75, 0x9a, 0x55, 0xc1, 0xd5, 0xc6, 0x6a, 0xf5, 0x68, 0xa8, 0x3d, 0xb8, 0x59, 0xf5, 0xa7, 0x19,
-	0x97, 0x73, 0xb1, 0x2a, 0x54, 0xd4, 0xc2, 0x91, 0xd7, 0x36, 0x4e, 0x48, 0x98, 0xd5, 0xa3, 0x27,
-	0x24, 0x14, 0x8b, 0xff, 0x70, 0xe1, 0xc0, 0x22, 0x4b, 0x14, 0x5b, 0xc8, 0x67, 0xcc, 0xf5, 0x0c,
-	0x7a, 0xb5, 0x26, 0x2c, 0xd6, 0x26, 0x62, 0x8d, 0x76, 0xa6, 0x61, 0x31, 0x1f, 0xca, 0xad, 0xb6,
-	0xee, 0x37, 0xfd, 0x5a, 0x03, 0xad, 0x4d, 0x0d, 0x6c, 0x36, 0x23, 0xd8, 0x6a, 0xc6, 0xe8, 0x21,
-	0x5f, 0x3e, 0xde, 0xa9, 0x10, 0xbb, 0xf1, 0x0c, 0xd2, 0xcc, 0x7c, 0x2c, 0xf8, 0x8b, 0x7f, 0x02,
-	0x00, 0x00, 0xff, 0xff, 0x51, 0xe1, 0xca, 0x8c, 0x39, 0x09, 0x00, 0x00,
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// ProdSerClient is the client API for ProdSer service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type ProdSerClient interface {
+	// prod
+	GetProducts(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (ProdSer_GetProductsClient, error)
+	InsertProduct(ctx context.Context, in *Product, opts ...grpc.CallOption) (*Product, error)
+	UpdateProduct(ctx context.Context, in *Product, opts ...grpc.CallOption) (*Product, error)
+	DeleteProduct(ctx context.Context, in *Product, opts ...grpc.CallOption) (*Product, error)
+	// tag
+	GetTags(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (ProdSer_GetTagsClient, error)
+	InsertTag(ctx context.Context, in *Tag, opts ...grpc.CallOption) (*Tag, error)
+	UpdateTag(ctx context.Context, in *Tag, opts ...grpc.CallOption) (*Tag, error)
+	DeleteTag(ctx context.Context, in *Tag, opts ...grpc.CallOption) (*Tag, error)
+	// cate
+	GetCategorys(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (ProdSer_GetCategorysClient, error)
+	InsertCategory(ctx context.Context, in *Category, opts ...grpc.CallOption) (*Category, error)
+	UpdateCategory(ctx context.Context, in *Category, opts ...grpc.CallOption) (*Category, error)
+	DeleteCategory(ctx context.Context, in *Category, opts ...grpc.CallOption) (*Category, error)
+	// group
+	GetGroups(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (ProdSer_GetGroupsClient, error)
+	InsertGroup(ctx context.Context, in *Group, opts ...grpc.CallOption) (*Group, error)
+	UpdateGroup(ctx context.Context, in *Group, opts ...grpc.CallOption) (*Group, error)
+	DeleteGroup(ctx context.Context, in *Group, opts ...grpc.CallOption) (*Group, error)
+	// shipment
+	GetShipment(ctx context.Context, in *ReqId, opts ...grpc.CallOption) (*ShipmentBlock, error)
+	InsertShipment(ctx context.Context, in *ShipmentBlock, opts ...grpc.CallOption) (*ShipmentBlock, error)
+	UpdateShipment(ctx context.Context, in *ShipmentBlock, opts ...grpc.CallOption) (*ShipmentBlock, error)
+	DeleteShipment(ctx context.Context, in *ReqId, opts ...grpc.CallOption) (*ShipmentBlock, error)
+	// Campain
+	GetCampaigns(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (ProdSer_GetCampaignsClient, error)
+	InsertCampaign(ctx context.Context, in *Campaign, opts ...grpc.CallOption) (*Campaign, error)
+	UpdateCampaign(ctx context.Context, in *Campaign, opts ...grpc.CallOption) (*Campaign, error)
+	DeleteCampaign(ctx context.Context, in *Campaign, opts ...grpc.CallOption) (*Campaign, error)
+}
+
+type prodSerClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewProdSerClient(cc *grpc.ClientConn) ProdSerClient {
+	return &prodSerClient{cc}
+}
+
+func (c *prodSerClient) GetProducts(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (ProdSer_GetProductsClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_ProdSer_serviceDesc.Streams[0], "/product.ProdSer/GetProducts", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &prodSerGetProductsClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type ProdSer_GetProductsClient interface {
+	Recv() (*Product, error)
+	grpc.ClientStream
+}
+
+type prodSerGetProductsClient struct {
+	grpc.ClientStream
+}
+
+func (x *prodSerGetProductsClient) Recv() (*Product, error) {
+	m := new(Product)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *prodSerClient) InsertProduct(ctx context.Context, in *Product, opts ...grpc.CallOption) (*Product, error) {
+	out := new(Product)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/InsertProduct", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) UpdateProduct(ctx context.Context, in *Product, opts ...grpc.CallOption) (*Product, error) {
+	out := new(Product)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/UpdateProduct", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) DeleteProduct(ctx context.Context, in *Product, opts ...grpc.CallOption) (*Product, error) {
+	out := new(Product)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/DeleteProduct", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) GetTags(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (ProdSer_GetTagsClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_ProdSer_serviceDesc.Streams[1], "/product.ProdSer/GetTags", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &prodSerGetTagsClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type ProdSer_GetTagsClient interface {
+	Recv() (*Tag, error)
+	grpc.ClientStream
+}
+
+type prodSerGetTagsClient struct {
+	grpc.ClientStream
+}
+
+func (x *prodSerGetTagsClient) Recv() (*Tag, error) {
+	m := new(Tag)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *prodSerClient) InsertTag(ctx context.Context, in *Tag, opts ...grpc.CallOption) (*Tag, error) {
+	out := new(Tag)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/InsertTag", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) UpdateTag(ctx context.Context, in *Tag, opts ...grpc.CallOption) (*Tag, error) {
+	out := new(Tag)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/UpdateTag", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) DeleteTag(ctx context.Context, in *Tag, opts ...grpc.CallOption) (*Tag, error) {
+	out := new(Tag)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/DeleteTag", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) GetCategorys(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (ProdSer_GetCategorysClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_ProdSer_serviceDesc.Streams[2], "/product.ProdSer/GetCategorys", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &prodSerGetCategorysClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type ProdSer_GetCategorysClient interface {
+	Recv() (*Category, error)
+	grpc.ClientStream
+}
+
+type prodSerGetCategorysClient struct {
+	grpc.ClientStream
+}
+
+func (x *prodSerGetCategorysClient) Recv() (*Category, error) {
+	m := new(Category)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *prodSerClient) InsertCategory(ctx context.Context, in *Category, opts ...grpc.CallOption) (*Category, error) {
+	out := new(Category)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/InsertCategory", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) UpdateCategory(ctx context.Context, in *Category, opts ...grpc.CallOption) (*Category, error) {
+	out := new(Category)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/UpdateCategory", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) DeleteCategory(ctx context.Context, in *Category, opts ...grpc.CallOption) (*Category, error) {
+	out := new(Category)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/DeleteCategory", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) GetGroups(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (ProdSer_GetGroupsClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_ProdSer_serviceDesc.Streams[3], "/product.ProdSer/GetGroups", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &prodSerGetGroupsClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type ProdSer_GetGroupsClient interface {
+	Recv() (*Group, error)
+	grpc.ClientStream
+}
+
+type prodSerGetGroupsClient struct {
+	grpc.ClientStream
+}
+
+func (x *prodSerGetGroupsClient) Recv() (*Group, error) {
+	m := new(Group)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *prodSerClient) InsertGroup(ctx context.Context, in *Group, opts ...grpc.CallOption) (*Group, error) {
+	out := new(Group)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/InsertGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) UpdateGroup(ctx context.Context, in *Group, opts ...grpc.CallOption) (*Group, error) {
+	out := new(Group)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/UpdateGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) DeleteGroup(ctx context.Context, in *Group, opts ...grpc.CallOption) (*Group, error) {
+	out := new(Group)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/DeleteGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) GetShipment(ctx context.Context, in *ReqId, opts ...grpc.CallOption) (*ShipmentBlock, error) {
+	out := new(ShipmentBlock)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/GetShipment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) InsertShipment(ctx context.Context, in *ShipmentBlock, opts ...grpc.CallOption) (*ShipmentBlock, error) {
+	out := new(ShipmentBlock)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/InsertShipment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) UpdateShipment(ctx context.Context, in *ShipmentBlock, opts ...grpc.CallOption) (*ShipmentBlock, error) {
+	out := new(ShipmentBlock)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/UpdateShipment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) DeleteShipment(ctx context.Context, in *ReqId, opts ...grpc.CallOption) (*ShipmentBlock, error) {
+	out := new(ShipmentBlock)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/DeleteShipment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) GetCampaigns(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (ProdSer_GetCampaignsClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_ProdSer_serviceDesc.Streams[4], "/product.ProdSer/GetCampaigns", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &prodSerGetCampaignsClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type ProdSer_GetCampaignsClient interface {
+	Recv() (*Campaign, error)
+	grpc.ClientStream
+}
+
+type prodSerGetCampaignsClient struct {
+	grpc.ClientStream
+}
+
+func (x *prodSerGetCampaignsClient) Recv() (*Campaign, error) {
+	m := new(Campaign)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *prodSerClient) InsertCampaign(ctx context.Context, in *Campaign, opts ...grpc.CallOption) (*Campaign, error) {
+	out := new(Campaign)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/InsertCampaign", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) UpdateCampaign(ctx context.Context, in *Campaign, opts ...grpc.CallOption) (*Campaign, error) {
+	out := new(Campaign)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/UpdateCampaign", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) DeleteCampaign(ctx context.Context, in *Campaign, opts ...grpc.CallOption) (*Campaign, error) {
+	out := new(Campaign)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/DeleteCampaign", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ProdSerServer is the server API for ProdSer service.
+type ProdSerServer interface {
+	// prod
+	GetProducts(*ReqQuery, ProdSer_GetProductsServer) error
+	InsertProduct(context.Context, *Product) (*Product, error)
+	UpdateProduct(context.Context, *Product) (*Product, error)
+	DeleteProduct(context.Context, *Product) (*Product, error)
+	// tag
+	GetTags(*ReqQuery, ProdSer_GetTagsServer) error
+	InsertTag(context.Context, *Tag) (*Tag, error)
+	UpdateTag(context.Context, *Tag) (*Tag, error)
+	DeleteTag(context.Context, *Tag) (*Tag, error)
+	// cate
+	GetCategorys(*ReqQuery, ProdSer_GetCategorysServer) error
+	InsertCategory(context.Context, *Category) (*Category, error)
+	UpdateCategory(context.Context, *Category) (*Category, error)
+	DeleteCategory(context.Context, *Category) (*Category, error)
+	// group
+	GetGroups(*ReqQuery, ProdSer_GetGroupsServer) error
+	InsertGroup(context.Context, *Group) (*Group, error)
+	UpdateGroup(context.Context, *Group) (*Group, error)
+	DeleteGroup(context.Context, *Group) (*Group, error)
+	// shipment
+	GetShipment(context.Context, *ReqId) (*ShipmentBlock, error)
+	InsertShipment(context.Context, *ShipmentBlock) (*ShipmentBlock, error)
+	UpdateShipment(context.Context, *ShipmentBlock) (*ShipmentBlock, error)
+	DeleteShipment(context.Context, *ReqId) (*ShipmentBlock, error)
+	// Campain
+	GetCampaigns(*ReqQuery, ProdSer_GetCampaignsServer) error
+	InsertCampaign(context.Context, *Campaign) (*Campaign, error)
+	UpdateCampaign(context.Context, *Campaign) (*Campaign, error)
+	DeleteCampaign(context.Context, *Campaign) (*Campaign, error)
+}
+
+func RegisterProdSerServer(s *grpc.Server, srv ProdSerServer) {
+	s.RegisterService(&_ProdSer_serviceDesc, srv)
+}
+
+func _ProdSer_GetProducts_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ReqQuery)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ProdSerServer).GetProducts(m, &prodSerGetProductsServer{stream})
+}
+
+type ProdSer_GetProductsServer interface {
+	Send(*Product) error
+	grpc.ServerStream
+}
+
+type prodSerGetProductsServer struct {
+	grpc.ServerStream
+}
+
+func (x *prodSerGetProductsServer) Send(m *Product) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _ProdSer_InsertProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Product)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).InsertProduct(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/InsertProduct",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).InsertProduct(ctx, req.(*Product))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_UpdateProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Product)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).UpdateProduct(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/UpdateProduct",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).UpdateProduct(ctx, req.(*Product))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_DeleteProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Product)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).DeleteProduct(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/DeleteProduct",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).DeleteProduct(ctx, req.(*Product))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_GetTags_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ReqQuery)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ProdSerServer).GetTags(m, &prodSerGetTagsServer{stream})
+}
+
+type ProdSer_GetTagsServer interface {
+	Send(*Tag) error
+	grpc.ServerStream
+}
+
+type prodSerGetTagsServer struct {
+	grpc.ServerStream
+}
+
+func (x *prodSerGetTagsServer) Send(m *Tag) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _ProdSer_InsertTag_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Tag)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).InsertTag(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/InsertTag",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).InsertTag(ctx, req.(*Tag))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_UpdateTag_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Tag)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).UpdateTag(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/UpdateTag",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).UpdateTag(ctx, req.(*Tag))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_DeleteTag_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Tag)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).DeleteTag(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/DeleteTag",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).DeleteTag(ctx, req.(*Tag))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_GetCategorys_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ReqQuery)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ProdSerServer).GetCategorys(m, &prodSerGetCategorysServer{stream})
+}
+
+type ProdSer_GetCategorysServer interface {
+	Send(*Category) error
+	grpc.ServerStream
+}
+
+type prodSerGetCategorysServer struct {
+	grpc.ServerStream
+}
+
+func (x *prodSerGetCategorysServer) Send(m *Category) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _ProdSer_InsertCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Category)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).InsertCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/InsertCategory",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).InsertCategory(ctx, req.(*Category))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_UpdateCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Category)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).UpdateCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/UpdateCategory",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).UpdateCategory(ctx, req.(*Category))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_DeleteCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Category)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).DeleteCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/DeleteCategory",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).DeleteCategory(ctx, req.(*Category))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_GetGroups_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ReqQuery)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ProdSerServer).GetGroups(m, &prodSerGetGroupsServer{stream})
+}
+
+type ProdSer_GetGroupsServer interface {
+	Send(*Group) error
+	grpc.ServerStream
+}
+
+type prodSerGetGroupsServer struct {
+	grpc.ServerStream
+}
+
+func (x *prodSerGetGroupsServer) Send(m *Group) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _ProdSer_InsertGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Group)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).InsertGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/InsertGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).InsertGroup(ctx, req.(*Group))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_UpdateGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Group)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).UpdateGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/UpdateGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).UpdateGroup(ctx, req.(*Group))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_DeleteGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Group)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).DeleteGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/DeleteGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).DeleteGroup(ctx, req.(*Group))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_GetShipment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReqId)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).GetShipment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/GetShipment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).GetShipment(ctx, req.(*ReqId))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_InsertShipment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ShipmentBlock)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).InsertShipment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/InsertShipment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).InsertShipment(ctx, req.(*ShipmentBlock))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_UpdateShipment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ShipmentBlock)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).UpdateShipment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/UpdateShipment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).UpdateShipment(ctx, req.(*ShipmentBlock))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_DeleteShipment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReqId)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).DeleteShipment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/DeleteShipment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).DeleteShipment(ctx, req.(*ReqId))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_GetCampaigns_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ReqQuery)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ProdSerServer).GetCampaigns(m, &prodSerGetCampaignsServer{stream})
+}
+
+type ProdSer_GetCampaignsServer interface {
+	Send(*Campaign) error
+	grpc.ServerStream
+}
+
+type prodSerGetCampaignsServer struct {
+	grpc.ServerStream
+}
+
+func (x *prodSerGetCampaignsServer) Send(m *Campaign) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _ProdSer_InsertCampaign_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Campaign)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).InsertCampaign(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/InsertCampaign",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).InsertCampaign(ctx, req.(*Campaign))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_UpdateCampaign_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Campaign)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).UpdateCampaign(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/UpdateCampaign",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).UpdateCampaign(ctx, req.(*Campaign))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_DeleteCampaign_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Campaign)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).DeleteCampaign(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/DeleteCampaign",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).DeleteCampaign(ctx, req.(*Campaign))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _ProdSer_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "product.ProdSer",
+	HandlerType: (*ProdSerServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "InsertProduct",
+			Handler:    _ProdSer_InsertProduct_Handler,
+		},
+		{
+			MethodName: "UpdateProduct",
+			Handler:    _ProdSer_UpdateProduct_Handler,
+		},
+		{
+			MethodName: "DeleteProduct",
+			Handler:    _ProdSer_DeleteProduct_Handler,
+		},
+		{
+			MethodName: "InsertTag",
+			Handler:    _ProdSer_InsertTag_Handler,
+		},
+		{
+			MethodName: "UpdateTag",
+			Handler:    _ProdSer_UpdateTag_Handler,
+		},
+		{
+			MethodName: "DeleteTag",
+			Handler:    _ProdSer_DeleteTag_Handler,
+		},
+		{
+			MethodName: "InsertCategory",
+			Handler:    _ProdSer_InsertCategory_Handler,
+		},
+		{
+			MethodName: "UpdateCategory",
+			Handler:    _ProdSer_UpdateCategory_Handler,
+		},
+		{
+			MethodName: "DeleteCategory",
+			Handler:    _ProdSer_DeleteCategory_Handler,
+		},
+		{
+			MethodName: "InsertGroup",
+			Handler:    _ProdSer_InsertGroup_Handler,
+		},
+		{
+			MethodName: "UpdateGroup",
+			Handler:    _ProdSer_UpdateGroup_Handler,
+		},
+		{
+			MethodName: "DeleteGroup",
+			Handler:    _ProdSer_DeleteGroup_Handler,
+		},
+		{
+			MethodName: "GetShipment",
+			Handler:    _ProdSer_GetShipment_Handler,
+		},
+		{
+			MethodName: "InsertShipment",
+			Handler:    _ProdSer_InsertShipment_Handler,
+		},
+		{
+			MethodName: "UpdateShipment",
+			Handler:    _ProdSer_UpdateShipment_Handler,
+		},
+		{
+			MethodName: "DeleteShipment",
+			Handler:    _ProdSer_DeleteShipment_Handler,
+		},
+		{
+			MethodName: "InsertCampaign",
+			Handler:    _ProdSer_InsertCampaign_Handler,
+		},
+		{
+			MethodName: "UpdateCampaign",
+			Handler:    _ProdSer_UpdateCampaign_Handler,
+		},
+		{
+			MethodName: "DeleteCampaign",
+			Handler:    _ProdSer_DeleteCampaign_Handler,
+		},
+	},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "GetProducts",
+			Handler:       _ProdSer_GetProducts_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "GetTags",
+			Handler:       _ProdSer_GetTags_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "GetCategorys",
+			Handler:       _ProdSer_GetCategorys_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "GetGroups",
+			Handler:       _ProdSer_GetGroups_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "GetCampaigns",
+			Handler:       _ProdSer_GetCampaigns_Handler,
+			ServerStreams: true,
+		},
+	},
+	Metadata: "product.proto",
+}
+
+// ManagerSerClient is the client API for ManagerSer service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type ManagerSerClient interface {
+	// Order
+	GetOrder(ctx context.Context, in *ReqId, opts ...grpc.CallOption) (*Order, error)
+	GetOrders(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (ManagerSer_GetOrdersClient, error)
+	InsertOrder(ctx context.Context, in *Order, opts ...grpc.CallOption) (*Order, error)
+	GetCustomer(ctx context.Context, in *ReqId, opts ...grpc.CallOption) (*Customer, error)
+	GetCustomers(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (*Customer, error)
+	InsertCustomer(ctx context.Context, in *Customer, opts ...grpc.CallOption) (*Customer, error)
+	// Invoice
+	GetInvoice(ctx context.Context, in *ReqId, opts ...grpc.CallOption) (*Invoice, error)
+	GetInvoices(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (ManagerSer_GetInvoicesClient, error)
+	InsertInvoice(ctx context.Context, in *Invoice, opts ...grpc.CallOption) (*Invoice, error)
+}
+
+type managerSerClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewManagerSerClient(cc *grpc.ClientConn) ManagerSerClient {
+	return &managerSerClient{cc}
+}
+
+func (c *managerSerClient) GetOrder(ctx context.Context, in *ReqId, opts ...grpc.CallOption) (*Order, error) {
+	out := new(Order)
+	err := c.cc.Invoke(ctx, "/product.ManagerSer/GetOrder", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *managerSerClient) GetOrders(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (ManagerSer_GetOrdersClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_ManagerSer_serviceDesc.Streams[0], "/product.ManagerSer/GetOrders", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &managerSerGetOrdersClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type ManagerSer_GetOrdersClient interface {
+	Recv() (*Order, error)
+	grpc.ClientStream
+}
+
+type managerSerGetOrdersClient struct {
+	grpc.ClientStream
+}
+
+func (x *managerSerGetOrdersClient) Recv() (*Order, error) {
+	m := new(Order)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *managerSerClient) InsertOrder(ctx context.Context, in *Order, opts ...grpc.CallOption) (*Order, error) {
+	out := new(Order)
+	err := c.cc.Invoke(ctx, "/product.ManagerSer/InsertOrder", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *managerSerClient) GetCustomer(ctx context.Context, in *ReqId, opts ...grpc.CallOption) (*Customer, error) {
+	out := new(Customer)
+	err := c.cc.Invoke(ctx, "/product.ManagerSer/GetCustomer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *managerSerClient) GetCustomers(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (*Customer, error) {
+	out := new(Customer)
+	err := c.cc.Invoke(ctx, "/product.ManagerSer/GetCustomers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *managerSerClient) InsertCustomer(ctx context.Context, in *Customer, opts ...grpc.CallOption) (*Customer, error) {
+	out := new(Customer)
+	err := c.cc.Invoke(ctx, "/product.ManagerSer/InsertCustomer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *managerSerClient) GetInvoice(ctx context.Context, in *ReqId, opts ...grpc.CallOption) (*Invoice, error) {
+	out := new(Invoice)
+	err := c.cc.Invoke(ctx, "/product.ManagerSer/GetInvoice", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *managerSerClient) GetInvoices(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (ManagerSer_GetInvoicesClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_ManagerSer_serviceDesc.Streams[1], "/product.ManagerSer/GetInvoices", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &managerSerGetInvoicesClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type ManagerSer_GetInvoicesClient interface {
+	Recv() (*Invoice, error)
+	grpc.ClientStream
+}
+
+type managerSerGetInvoicesClient struct {
+	grpc.ClientStream
+}
+
+func (x *managerSerGetInvoicesClient) Recv() (*Invoice, error) {
+	m := new(Invoice)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *managerSerClient) InsertInvoice(ctx context.Context, in *Invoice, opts ...grpc.CallOption) (*Invoice, error) {
+	out := new(Invoice)
+	err := c.cc.Invoke(ctx, "/product.ManagerSer/InsertInvoice", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ManagerSerServer is the server API for ManagerSer service.
+type ManagerSerServer interface {
+	// Order
+	GetOrder(context.Context, *ReqId) (*Order, error)
+	GetOrders(*ReqQuery, ManagerSer_GetOrdersServer) error
+	InsertOrder(context.Context, *Order) (*Order, error)
+	GetCustomer(context.Context, *ReqId) (*Customer, error)
+	GetCustomers(context.Context, *ReqQuery) (*Customer, error)
+	InsertCustomer(context.Context, *Customer) (*Customer, error)
+	// Invoice
+	GetInvoice(context.Context, *ReqId) (*Invoice, error)
+	GetInvoices(*ReqQuery, ManagerSer_GetInvoicesServer) error
+	InsertInvoice(context.Context, *Invoice) (*Invoice, error)
+}
+
+func RegisterManagerSerServer(s *grpc.Server, srv ManagerSerServer) {
+	s.RegisterService(&_ManagerSer_serviceDesc, srv)
+}
+
+func _ManagerSer_GetOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReqId)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerSerServer).GetOrder(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ManagerSer/GetOrder",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerSerServer).GetOrder(ctx, req.(*ReqId))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ManagerSer_GetOrders_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ReqQuery)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ManagerSerServer).GetOrders(m, &managerSerGetOrdersServer{stream})
+}
+
+type ManagerSer_GetOrdersServer interface {
+	Send(*Order) error
+	grpc.ServerStream
+}
+
+type managerSerGetOrdersServer struct {
+	grpc.ServerStream
+}
+
+func (x *managerSerGetOrdersServer) Send(m *Order) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _ManagerSer_InsertOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Order)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerSerServer).InsertOrder(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ManagerSer/InsertOrder",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerSerServer).InsertOrder(ctx, req.(*Order))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ManagerSer_GetCustomer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReqId)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerSerServer).GetCustomer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ManagerSer/GetCustomer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerSerServer).GetCustomer(ctx, req.(*ReqId))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ManagerSer_GetCustomers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReqQuery)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerSerServer).GetCustomers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ManagerSer/GetCustomers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerSerServer).GetCustomers(ctx, req.(*ReqQuery))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ManagerSer_InsertCustomer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Customer)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerSerServer).InsertCustomer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ManagerSer/InsertCustomer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerSerServer).InsertCustomer(ctx, req.(*Customer))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ManagerSer_GetInvoice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReqId)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerSerServer).GetInvoice(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ManagerSer/GetInvoice",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerSerServer).GetInvoice(ctx, req.(*ReqId))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ManagerSer_GetInvoices_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ReqQuery)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ManagerSerServer).GetInvoices(m, &managerSerGetInvoicesServer{stream})
+}
+
+type ManagerSer_GetInvoicesServer interface {
+	Send(*Invoice) error
+	grpc.ServerStream
+}
+
+type managerSerGetInvoicesServer struct {
+	grpc.ServerStream
+}
+
+func (x *managerSerGetInvoicesServer) Send(m *Invoice) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _ManagerSer_InsertInvoice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Invoice)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerSerServer).InsertInvoice(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ManagerSer/InsertInvoice",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerSerServer).InsertInvoice(ctx, req.(*Invoice))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _ManagerSer_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "product.ManagerSer",
+	HandlerType: (*ManagerSerServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetOrder",
+			Handler:    _ManagerSer_GetOrder_Handler,
+		},
+		{
+			MethodName: "InsertOrder",
+			Handler:    _ManagerSer_InsertOrder_Handler,
+		},
+		{
+			MethodName: "GetCustomer",
+			Handler:    _ManagerSer_GetCustomer_Handler,
+		},
+		{
+			MethodName: "GetCustomers",
+			Handler:    _ManagerSer_GetCustomers_Handler,
+		},
+		{
+			MethodName: "InsertCustomer",
+			Handler:    _ManagerSer_InsertCustomer_Handler,
+		},
+		{
+			MethodName: "GetInvoice",
+			Handler:    _ManagerSer_GetInvoice_Handler,
+		},
+		{
+			MethodName: "InsertInvoice",
+			Handler:    _ManagerSer_InsertInvoice_Handler,
+		},
+	},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "GetOrders",
+			Handler:       _ManagerSer_GetOrders_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "GetInvoices",
+			Handler:       _ManagerSer_GetInvoices_Handler,
+			ServerStreams: true,
+		},
+	},
+	Metadata: "product.proto",
+}
+
+func init() { proto.RegisterFile("product.proto", fileDescriptor_product_ad9f9a262d2dfe18) }
+
+var fileDescriptor_product_ad9f9a262d2dfe18 = []byte{
+	// 1441 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x58, 0x4f, 0x8f, 0xdb, 0x44,
+	0x14, 0x97, 0x93, 0x38, 0xb6, 0x9f, 0x77, 0xb7, 0x8b, 0xa9, 0xb6, 0xee, 0xa2, 0xaa, 0x21, 0x54,
+	0x65, 0x55, 0xb5, 0xd5, 0xb2, 0x2d, 0x15, 0x47, 0x68, 0x91, 0x22, 0x1f, 0x0a, 0x8b, 0x5b, 0xc4,
+	0x81, 0x43, 0x34, 0x1b, 0x4f, 0x13, 0x8b, 0xc4, 0x76, 0xed, 0x49, 0x51, 0xbe, 0x00, 0xe2, 0xce,
+	0x47, 0x40, 0xe2, 0xc4, 0xf7, 0xe0, 0x0b, 0x20, 0xf1, 0x21, 0xb8, 0x70, 0xe3, 0xc0, 0x05, 0xcd,
+	0x9b, 0x19, 0x7b, 0x62, 0x3b, 0x9b, 0x0d, 0x7f, 0x6e, 0x7e, 0x33, 0x6f, 0x66, 0x7e, 0xbf, 0xf7,
+	0x7e, 0xf3, 0xe6, 0x25, 0xb0, 0x9f, 0xe5, 0x69, 0xb4, 0x9c, 0xb0, 0x87, 0x59, 0x9e, 0xb2, 0xd4,
+	0xb3, 0xa4, 0x39, 0x9c, 0x80, 0x1d, 0xd2, 0xd7, 0x5f, 0x2c, 0x69, 0xbe, 0xf2, 0x0e, 0xa0, 0x13,
+	0x47, 0xbe, 0x31, 0x30, 0x4e, 0x9c, 0xb0, 0x13, 0x47, 0xde, 0x75, 0x30, 0xe7, 0xf1, 0x22, 0x66,
+	0x7e, 0x67, 0x60, 0x9c, 0x98, 0xa1, 0x30, 0xbc, 0x23, 0xe8, 0x93, 0x64, 0x32, 0x4b, 0x73, 0xbf,
+	0x8b, 0x9e, 0xd2, 0xf2, 0x6e, 0x82, 0x9d, 0xe6, 0x11, 0xcd, 0xc7, 0x17, 0x2b, 0xbf, 0x87, 0x33,
+	0x16, 0xda, 0x4f, 0x57, 0xc3, 0x1b, 0x60, 0x86, 0xf4, 0x75, 0x10, 0xd5, 0x4f, 0x18, 0x7e, 0x05,
+	0x66, 0xb0, 0x20, 0x53, 0xda, 0x38, 0xfa, 0x10, 0xba, 0xcb, 0x7c, 0x8e, 0x07, 0x3b, 0x21, 0xff,
+	0xe4, 0x60, 0xbe, 0x8d, 0x23, 0x36, 0xc3, 0x53, 0xcd, 0x50, 0x18, 0x1c, 0xcc, 0x8c, 0xc6, 0xd3,
+	0x19, 0xc3, 0x23, 0xcd, 0x50, 0x5a, 0xc3, 0xef, 0x0c, 0xb0, 0x9f, 0x11, 0x46, 0xa7, 0x69, 0x0b,
+	0x2f, 0x1f, 0xac, 0x28, 0x2e, 0xb2, 0x39, 0x59, 0xc9, 0x03, 0x94, 0xe9, 0x0d, 0xc0, 0x8d, 0x68,
+	0x31, 0xc9, 0xe3, 0x8c, 0xc5, 0x69, 0x22, 0x09, 0xea, 0x43, 0x1c, 0x46, 0xc1, 0x08, 0xa3, 0x92,
+	0xa2, 0x30, 0xf8, 0x8e, 0x93, 0x9c, 0x12, 0x46, 0x23, 0xdf, 0x44, 0x1c, 0xca, 0x1c, 0xfe, 0x64,
+	0x80, 0x39, 0xca, 0xd3, 0x65, 0xf6, 0x9f, 0xa2, 0x38, 0x82, 0x3e, 0x23, 0xf9, 0x94, 0x32, 0x09,
+	0x43, 0x5a, 0x9b, 0x71, 0x78, 0xb7, 0xc1, 0xbd, 0x48, 0x93, 0x65, 0x31, 0xce, 0xf2, 0x78, 0x42,
+	0xfd, 0xfe, 0xc0, 0x38, 0xe9, 0x84, 0x80, 0x43, 0xe7, 0x7c, 0x64, 0xf8, 0x35, 0x74, 0x5f, 0x92,
+	0xe9, 0x0e, 0x28, 0xaf, 0x83, 0x99, 0xa4, 0x8c, 0x16, 0x7e, 0x6f, 0xd0, 0xe5, 0x91, 0x40, 0xa3,
+	0x8a, 0x8f, 0xa9, 0xc5, 0x67, 0xf8, 0x7d, 0x0f, 0xac, 0x73, 0xa1, 0xb8, 0xc6, 0x09, 0x1e, 0xf4,
+	0x12, 0xb2, 0xa0, 0x72, 0x7b, 0xfc, 0xf6, 0xee, 0x42, 0x3f, 0xe6, 0xba, 0x28, 0xfc, 0xee, 0xa0,
+	0x7b, 0xe2, 0x9e, 0x1d, 0x3c, 0x54, 0xf2, 0x45, 0xb9, 0x84, 0x72, 0xb6, 0x1e, 0xa9, 0x5e, 0x33,
+	0x52, 0x9b, 0x23, 0xf2, 0x1e, 0xec, 0x4f, 0x84, 0x42, 0x62, 0x5a, 0x8c, 0xe3, 0xc8, 0xef, 0x23,
+	0x8f, 0xbd, 0x6a, 0x30, 0x88, 0xbc, 0x0f, 0x00, 0x2a, 0xdb, 0xb7, 0x10, 0xcc, 0x5b, 0x25, 0x18,
+	0xa5, 0xb0, 0x50, 0x73, 0xf2, 0xde, 0x01, 0x67, 0xca, 0x13, 0x8e, 0x7b, 0xda, 0xb8, 0xa7, 0x2d,
+	0x06, 0x82, 0x88, 0x13, 0x13, 0xdf, 0xbe, 0x53, 0x23, 0x86, 0x22, 0x09, 0xe5, 0x6c, 0x15, 0x46,
+	0xd0, 0x65, 0x76, 0x1b, 0xdc, 0x62, 0x16, 0x67, 0x0b, 0x9a, 0x30, 0xbe, 0xb9, 0x8b, 0x73, 0xa0,
+	0x86, 0x82, 0xc8, 0x7b, 0x00, 0xb6, 0xb2, 0xfc, 0xbd, 0x81, 0xb1, 0x06, 0xf6, 0x85, 0x9c, 0x08,
+	0x4b, 0x17, 0xef, 0x06, 0x58, 0x8c, 0x4c, 0x11, 0xe8, 0x3e, 0x02, 0xed, 0x73, 0x33, 0x88, 0xbc,
+	0x01, 0xf4, 0xf8, 0x97, 0x7f, 0x80, 0x20, 0xf7, 0xca, 0x3d, 0x5e, 0x92, 0x69, 0x88, 0x33, 0x1c,
+	0xa0, 0x50, 0xd2, 0x35, 0x71, 0x1d, 0xd1, 0xf0, 0xde, 0x85, 0x3d, 0xf2, 0x86, 0xe6, 0x64, 0x4a,
+	0xc7, 0x39, 0x47, 0x7f, 0x88, 0x32, 0x73, 0xe5, 0x58, 0xc8, 0xa5, 0xc0, 0x60, 0x5f, 0x21, 0x79,
+	0x3a, 0x4f, 0x27, 0xdf, 0xac, 0x61, 0x36, 0xb6, 0x63, 0x7e, 0x0c, 0xb6, 0x9c, 0x2d, 0xfc, 0x0e,
+	0xc2, 0xf3, 0x1b, 0xee, 0x52, 0x6a, 0x61, 0xe9, 0x39, 0xfc, 0xc1, 0x00, 0x5b, 0xcd, 0x5e, 0x49,
+	0x81, 0xa5, 0xba, 0xbb, 0xba, 0xba, 0x6f, 0x01, 0x5c, 0x90, 0x22, 0x9e, 0x8c, 0xe3, 0xe4, 0x55,
+	0x2a, 0xe5, 0xe6, 0xe0, 0x48, 0x90, 0xbc, 0x4a, 0x2f, 0x11, 0x5b, 0x99, 0xcf, 0xbe, 0x7e, 0x2d,
+	0x7e, 0x33, 0xe0, 0x5a, 0x0d, 0x73, 0x03, 0xdc, 0x2d, 0x00, 0xc9, 0x82, 0xa7, 0x49, 0x40, 0x74,
+	0xe4, 0x48, 0x10, 0x79, 0xf7, 0x40, 0x95, 0x72, 0xac, 0x13, 0xee, 0xd9, 0x61, 0x19, 0x0d, 0x15,
+	0x05, 0xe5, 0xe0, 0x1d, 0x83, 0xfd, 0x7a, 0x49, 0x12, 0x16, 0xb3, 0x95, 0x2c, 0x97, 0xa5, 0x8d,
+	0x31, 0x48, 0xcb, 0x6b, 0x8b, 0xdf, 0xfc, 0xe8, 0x65, 0x12, 0x33, 0xad, 0x64, 0x98, 0xa1, 0xc3,
+	0x47, 0xb0, 0x62, 0xf0, 0xed, 0xa2, 0xb8, 0x98, 0xa4, 0xcb, 0x84, 0xf9, 0x16, 0x26, 0xba, 0xb4,
+	0x87, 0x7f, 0x18, 0x55, 0x9a, 0x03, 0x46, 0x17, 0xc5, 0xbf, 0x08, 0xfa, 0x33, 0x38, 0x2c, 0x55,
+	0xaf, 0xb8, 0xf6, 0x90, 0xeb, 0xe6, 0xcc, 0x5f, 0x2b, 0x6a, 0x61, 0xad, 0xa5, 0xc6, 0xd9, 0x92,
+	0x9a, 0x4a, 0xdf, 0x96, 0xae, 0x6f, 0x9d, 0xb2, 0x5d, 0xa3, 0xfc, 0xa7, 0x01, 0xf0, 0x39, 0x7f,
+	0xf0, 0xda, 0xf9, 0xde, 0x06, 0x57, 0xa9, 0x51, 0x24, 0x92, 0x33, 0x54, 0xa9, 0xe5, 0x77, 0xee,
+	0xbe, 0x26, 0x6c, 0x51, 0xf5, 0x9a, 0xa9, 0x2c, 0x3d, 0x2e, 0xcd, 0x65, 0x89, 0xdd, 0xdc, 0x84,
+	0xbd, 0xbf, 0x8e, 0x9d, 0x67, 0x5a, 0x86, 0x63, 0x4c, 0x44, 0x32, 0x9d, 0xd0, 0x91, 0x23, 0x9f,
+	0xac, 0x4d, 0x5f, 0xac, 0x90, 0x78, 0x35, 0xfd, 0x74, 0x35, 0xfc, 0xb1, 0x03, 0x26, 0x32, 0x6f,
+	0x23, 0x3d, 0x59, 0x16, 0x2c, 0x5d, 0xd0, 0x5c, 0x23, 0xad, 0x86, 0x44, 0xc1, 0x52, 0x96, 0x24,
+	0xad, 0x55, 0x57, 0x39, 0x11, 0x96, 0x2e, 0x15, 0xb3, 0x9e, 0xce, 0xec, 0x31, 0xb8, 0xa2, 0xf3,
+	0x88, 0x79, 0xe4, 0x91, 0xb5, 0x7b, 0xf6, 0x76, 0xb9, 0x4f, 0x95, 0x94, 0x10, 0xd2, 0x2a, 0x41,
+	0xff, 0x5b, 0x3c, 0x2a, 0x45, 0x39, 0xfa, 0x65, 0xff, 0x99, 0xb7, 0x24, 0x8a, 0x48, 0x3d, 0x50,
+	0xc7, 0x60, 0xbf, 0x5a, 0xce, 0xe7, 0xda, 0x8d, 0x28, 0x6d, 0x24, 0x3d, 0x4b, 0x13, 0x2a, 0x1b,
+	0x01, 0x61, 0xf0, 0x51, 0xba, 0x20, 0xf1, 0x5c, 0x35, 0x22, 0x68, 0x70, 0x99, 0x93, 0x28, 0xca,
+	0x69, 0x51, 0x28, 0x99, 0x4b, 0x53, 0xbf, 0x00, 0xfd, 0x0d, 0x17, 0xc0, 0xd2, 0xe1, 0x3e, 0x82,
+	0xfd, 0x73, 0xb2, 0xe2, 0x57, 0xe8, 0x39, 0x65, 0xb3, 0x34, 0xba, 0xca, 0x05, 0x1e, 0xfe, 0xde,
+	0x01, 0x2b, 0x48, 0xde, 0xa4, 0x3c, 0x2b, 0x75, 0xff, 0xb2, 0x3f, 0x2c, 0xcb, 0x98, 0xe8, 0x0f,
+	0x83, 0xc8, 0xbb, 0x03, 0x26, 0x7e, 0xca, 0x12, 0x76, 0xb0, 0x9e, 0xba, 0x50, 0x4c, 0xd6, 0xc5,
+	0x24, 0x78, 0x6f, 0x12, 0x93, 0x59, 0x7b, 0x49, 0x5a, 0xc4, 0x74, 0x17, 0x3a, 0xd9, 0x02, 0x83,
+	0xe1, 0x9e, 0x1d, 0x55, 0x57, 0x4d, 0x27, 0x1d, 0x76, 0xb2, 0x45, 0x59, 0x1a, 0x2d, 0xad, 0x34,
+	0x96, 0x42, 0xb4, 0x75, 0x21, 0xb6, 0x26, 0xbe, 0x26, 0x26, 0xb8, 0x5c, 0x4c, 0x6e, 0x5d, 0x4c,
+	0x37, 0xc1, 0xce, 0x29, 0x99, 0x8f, 0x33, 0xb2, 0xc2, 0x27, 0xdd, 0x0c, 0x2d, 0x6e, 0x9f, 0x93,
+	0xd5, 0xf0, 0x17, 0x6c, 0x72, 0x17, 0x19, 0x89, 0xa7, 0x49, 0xdb, 0xbb, 0x41, 0xdf, 0xf0, 0x92,
+	0xa9, 0x25, 0xc9, 0xc1, 0x91, 0xcf, 0xb8, 0xa8, 0x7c, 0xb0, 0x0a, 0x46, 0x72, 0x2e, 0x07, 0xd1,
+	0x50, 0x2b, 0x13, 0x85, 0x95, 0x44, 0x34, 0x52, 0x77, 0x0c, 0x8d, 0x7a, 0xa7, 0x65, 0x36, 0x3b,
+	0xad, 0x3b, 0x60, 0x62, 0x57, 0x86, 0x7d, 0x54, 0xb3, 0x65, 0x13, 0x93, 0x55, 0x88, 0x6c, 0x2d,
+	0x44, 0x67, 0x7f, 0x39, 0xa2, 0x3f, 0x7c, 0x41, 0x73, 0x7e, 0x9b, 0x47, 0x54, 0xd5, 0xed, 0xc2,
+	0xab, 0x52, 0xa8, 0x7e, 0xa7, 0x1c, 0x37, 0xea, 0xe2, 0xa9, 0xe1, 0x3d, 0x82, 0xfd, 0x20, 0x29,
+	0x68, 0x5e, 0x16, 0xfc, 0x86, 0x53, 0x73, 0x19, 0x5f, 0xf4, 0x65, 0x16, 0x11, 0x46, 0x77, 0x5c,
+	0xf4, 0x29, 0x9d, 0xd3, 0xdd, 0x16, 0xdd, 0x07, 0x6b, 0x44, 0xd9, 0x4b, 0xde, 0x39, 0xb5, 0x10,
+	0x5a, 0x6b, 0xb0, 0x4e, 0x0d, 0xef, 0x7d, 0x70, 0x04, 0x19, 0xde, 0x91, 0xaf, 0x4d, 0xae, 0xbb,
+	0x72, 0x47, 0x41, 0xe0, 0x0a, 0x8e, 0x02, 0xf4, 0x36, 0xc7, 0x27, 0xb0, 0x37, 0xa2, 0x4c, 0x35,
+	0xb6, 0xad, 0x68, 0x9b, 0xfd, 0xef, 0xa9, 0xe1, 0x3d, 0x81, 0x03, 0x01, 0xb9, 0xfc, 0xd5, 0xd5,
+	0x74, 0x6b, 0x59, 0xc9, 0xd7, 0x09, 0x06, 0xbb, 0xaf, 0x13, 0x84, 0x76, 0x5c, 0x77, 0x0a, 0xce,
+	0x88, 0xb2, 0x91, 0xe8, 0xb2, 0x5b, 0xc8, 0xd5, 0x1a, 0xf2, 0x53, 0xc3, 0x7b, 0x00, 0xae, 0x60,
+	0x26, 0x7f, 0xc6, 0xad, 0x3b, 0xd4, 0x17, 0x70, 0x77, 0x41, 0xe8, 0xca, 0xee, 0x82, 0xc7, 0xd5,
+	0xdc, 0x3f, 0xc4, 0xcb, 0x51, 0x75, 0xb2, 0x3a, 0x81, 0x20, 0x3a, 0x3e, 0x6a, 0x34, 0x44, 0xa2,
+	0xc7, 0xfe, 0x58, 0x65, 0xa7, 0x5c, 0xb9, 0xc1, 0xf3, 0xb2, 0x1d, 0x04, 0xad, 0x7f, 0xbc, 0xc3,
+	0x47, 0x2a, 0x63, 0x3b, 0xa3, 0x57, 0x9a, 0x14, 0x95, 0x6e, 0xab, 0x26, 0x85, 0xdb, 0xba, 0x26,
+	0x65, 0x91, 0x6c, 0xba, 0xb5, 0xac, 0xd4, 0x35, 0xb9, 0xeb, 0x3a, 0xa5, 0xc9, 0x5d, 0xd6, 0x9d,
+	0xfd, 0xda, 0x05, 0x78, 0x4e, 0x12, 0x32, 0xa5, 0x39, 0x2f, 0x80, 0xf7, 0xc0, 0x1e, 0x51, 0x26,
+	0x1b, 0xaa, 0x5a, 0x88, 0x6a, 0x4f, 0xa3, 0x94, 0x33, 0x7e, 0x6f, 0x91, 0x33, 0xfa, 0xe8, 0x72,
+	0xae, 0x1f, 0x80, 0x76, 0xcb, 0x01, 0x5c, 0x70, 0x55, 0xdf, 0x52, 0xc3, 0xd3, 0x7c, 0x60, 0xbd,
+	0xc7, 0x22, 0x5b, 0xd2, 0xdc, 0x96, 0x2d, 0xb5, 0xaa, 0xca, 0x95, 0x1a, 0x69, 0x3a, 0xb5, 0xad,
+	0x7b, 0x08, 0x30, 0xa2, 0xac, 0xec, 0x39, 0x6a, 0xf0, 0xaa, 0x42, 0xac, 0x3c, 0xc4, 0xeb, 0x22,
+	0xad, 0x2d, 0xaf, 0x8b, 0xf4, 0xd2, 0x5f, 0x17, 0xb5, 0x4d, 0xc3, 0xa9, 0xb9, 0xec, 0xa2, 0x8f,
+	0x7f, 0xb5, 0x3d, 0xfa, 0x3b, 0x00, 0x00, 0xff, 0xff, 0x9a, 0xe5, 0xa3, 0x7e, 0x7b, 0x13, 0x00,
+	0x00,
 }
