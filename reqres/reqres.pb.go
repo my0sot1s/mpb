@@ -18,7 +18,7 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
-type RequestQuery struct {
+type ReqQuery struct {
 	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Limit                int32    `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty"`
 	Anchor               string   `protobuf:"bytes,3,opt,name=anchor,proto3" json:"anchor,omitempty"`
@@ -28,73 +28,112 @@ type RequestQuery struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *RequestQuery) Reset()         { *m = RequestQuery{} }
-func (m *RequestQuery) String() string { return proto.CompactTextString(m) }
-func (*RequestQuery) ProtoMessage()    {}
-func (*RequestQuery) Descriptor() ([]byte, []int) {
-	return fileDescriptor_reqres_b059b6d709b49251, []int{0}
+func (m *ReqQuery) Reset()         { *m = ReqQuery{} }
+func (m *ReqQuery) String() string { return proto.CompactTextString(m) }
+func (*ReqQuery) ProtoMessage()    {}
+func (*ReqQuery) Descriptor() ([]byte, []int) {
+	return fileDescriptor_reqres_bec8e7046e80d869, []int{0}
 }
-func (m *RequestQuery) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_RequestQuery.Unmarshal(m, b)
+func (m *ReqQuery) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ReqQuery.Unmarshal(m, b)
 }
-func (m *RequestQuery) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_RequestQuery.Marshal(b, m, deterministic)
+func (m *ReqQuery) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ReqQuery.Marshal(b, m, deterministic)
 }
-func (dst *RequestQuery) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RequestQuery.Merge(dst, src)
+func (dst *ReqQuery) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReqQuery.Merge(dst, src)
 }
-func (m *RequestQuery) XXX_Size() int {
-	return xxx_messageInfo_RequestQuery.Size(m)
+func (m *ReqQuery) XXX_Size() int {
+	return xxx_messageInfo_ReqQuery.Size(m)
 }
-func (m *RequestQuery) XXX_DiscardUnknown() {
-	xxx_messageInfo_RequestQuery.DiscardUnknown(m)
+func (m *ReqQuery) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReqQuery.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_RequestQuery proto.InternalMessageInfo
+var xxx_messageInfo_ReqQuery proto.InternalMessageInfo
 
-func (m *RequestQuery) GetId() string {
+func (m *ReqQuery) GetId() string {
 	if m != nil {
 		return m.Id
 	}
 	return ""
 }
 
-func (m *RequestQuery) GetLimit() int32 {
+func (m *ReqQuery) GetLimit() int32 {
 	if m != nil {
 		return m.Limit
 	}
 	return 0
 }
 
-func (m *RequestQuery) GetAnchor() string {
+func (m *ReqQuery) GetAnchor() string {
 	if m != nil {
 		return m.Anchor
 	}
 	return ""
 }
 
-func (m *RequestQuery) GetOrderBy() string {
+func (m *ReqQuery) GetOrderBy() string {
 	if m != nil {
 		return m.OrderBy
 	}
 	return ""
 }
 
-func init() {
-	proto.RegisterType((*RequestQuery)(nil), "reqres.RequestQuery")
+type ReqId struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
-func init() { proto.RegisterFile("reqres.proto", fileDescriptor_reqres_b059b6d709b49251) }
+func (m *ReqId) Reset()         { *m = ReqId{} }
+func (m *ReqId) String() string { return proto.CompactTextString(m) }
+func (*ReqId) ProtoMessage()    {}
+func (*ReqId) Descriptor() ([]byte, []int) {
+	return fileDescriptor_reqres_bec8e7046e80d869, []int{1}
+}
+func (m *ReqId) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ReqId.Unmarshal(m, b)
+}
+func (m *ReqId) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ReqId.Marshal(b, m, deterministic)
+}
+func (dst *ReqId) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReqId.Merge(dst, src)
+}
+func (m *ReqId) XXX_Size() int {
+	return xxx_messageInfo_ReqId.Size(m)
+}
+func (m *ReqId) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReqId.DiscardUnknown(m)
+}
 
-var fileDescriptor_reqres_b059b6d709b49251 = []byte{
-	// 133 bytes of a gzipped FileDescriptorProto
+var xxx_messageInfo_ReqId proto.InternalMessageInfo
+
+func (m *ReqId) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func init() {
+	proto.RegisterType((*ReqQuery)(nil), "reqres.ReqQuery")
+	proto.RegisterType((*ReqId)(nil), "reqres.ReqId")
+}
+
+func init() { proto.RegisterFile("reqres.proto", fileDescriptor_reqres_bec8e7046e80d869) }
+
+var fileDescriptor_reqres_bec8e7046e80d869 = []byte{
+	// 140 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x29, 0x4a, 0x2d, 0x2c,
-	0x4a, 0x2d, 0xd6, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0x83, 0xf0, 0x94, 0xd2, 0xb9, 0x78,
-	0x82, 0x52, 0x0b, 0x4b, 0x53, 0x8b, 0x4b, 0x02, 0x4b, 0x53, 0x8b, 0x2a, 0x85, 0xf8, 0xb8, 0x98,
-	0x32, 0x53, 0x24, 0x18, 0x15, 0x18, 0x35, 0x38, 0x83, 0x98, 0x32, 0x53, 0x84, 0x44, 0xb8, 0x58,
-	0x73, 0x32, 0x73, 0x33, 0x4b, 0x24, 0x98, 0x14, 0x18, 0x35, 0x58, 0x83, 0x20, 0x1c, 0x21, 0x31,
-	0x2e, 0xb6, 0xc4, 0xbc, 0xe4, 0x8c, 0xfc, 0x22, 0x09, 0x66, 0xb0, 0x4a, 0x28, 0x4f, 0x48, 0x92,
-	0x8b, 0x23, 0xbf, 0x28, 0x25, 0xb5, 0x28, 0x3e, 0xa9, 0x52, 0x82, 0x05, 0x2c, 0xc3, 0x0e, 0xe6,
-	0x3b, 0x55, 0x26, 0xb1, 0x81, 0xed, 0x35, 0x06, 0x04, 0x00, 0x00, 0xff, 0xff, 0xf8, 0x10, 0x3a,
-	0x62, 0x87, 0x00, 0x00, 0x00,
+	0x4a, 0x2d, 0xd6, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0x83, 0xf0, 0x94, 0x92, 0xb9, 0x38,
+	0x82, 0x52, 0x0b, 0x03, 0x4b, 0x53, 0x8b, 0x2a, 0x85, 0xf8, 0xb8, 0x98, 0x32, 0x53, 0x24, 0x18,
+	0x15, 0x18, 0x35, 0x38, 0x83, 0x98, 0x32, 0x53, 0x84, 0x44, 0xb8, 0x58, 0x73, 0x32, 0x73, 0x33,
+	0x4b, 0x24, 0x98, 0x14, 0x18, 0x35, 0x58, 0x83, 0x20, 0x1c, 0x21, 0x31, 0x2e, 0xb6, 0xc4, 0xbc,
+	0xe4, 0x8c, 0xfc, 0x22, 0x09, 0x66, 0xb0, 0x4a, 0x28, 0x4f, 0x48, 0x92, 0x8b, 0x23, 0xbf, 0x28,
+	0x25, 0xb5, 0x28, 0x3e, 0xa9, 0x52, 0x82, 0x05, 0x2c, 0xc3, 0x0e, 0xe6, 0x3b, 0x55, 0x2a, 0x89,
+	0x73, 0xb1, 0x06, 0xa5, 0x16, 0x7a, 0xa6, 0xa0, 0xdb, 0x90, 0xc4, 0x06, 0x76, 0x8c, 0x31, 0x20,
+	0x00, 0x00, 0xff, 0xff, 0x21, 0xa1, 0xb1, 0x6b, 0x9c, 0x00, 0x00, 0x00,
 }

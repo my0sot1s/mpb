@@ -1,0 +1,1 @@
+protoc -I product/ -I$GOPATH/src/ product/product.proto  --go_out=plugins=grpc:product 
