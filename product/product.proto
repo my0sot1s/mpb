@@ -75,6 +75,8 @@ message Image {
 
 message Categories {
     repeated Category categories =1;
+    string anchor = 2;
+    string total = 3;
 }
 message Category {
     string id = 1;
@@ -85,6 +87,8 @@ message Category {
 }
 message Groups {
     repeated Group groups =1;
+    string anchor = 2;
+    string total = 3;
 }
 message Group {
     string id = 1;
@@ -96,6 +100,8 @@ message Group {
 }
 message Tags {
     repeated Tag tags =1;
+    string anchor = 2;
+    string total = 3;
 }
 
 message Tag {
@@ -107,6 +113,8 @@ message Tag {
 
 message Products {
     repeated Product products =1;
+    string anchor = 2;
+    string total = 3;
 }
 
 message Product {
