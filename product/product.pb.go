@@ -7,6 +7,11 @@ import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
 
+import (
+	context "golang.org/x/net/context"
+	grpc "google.golang.org/grpc"
+)
+
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
 var _ = fmt.Errorf
@@ -1669,6 +1674,1236 @@ func init() {
 	proto.RegisterType((*Invoice)(nil), "product.Invoice")
 	proto.RegisterType((*Campaigns)(nil), "product.Campaigns")
 	proto.RegisterType((*Campaign)(nil), "product.Campaign")
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// ProdSerClient is the client API for ProdSer service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type ProdSerClient interface {
+	// prod
+	GetProducts(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (*Products, error)
+	InsertProduct(ctx context.Context, in *Product, opts ...grpc.CallOption) (*Product, error)
+	UpdateProduct(ctx context.Context, in *Product, opts ...grpc.CallOption) (*Product, error)
+	DeleteProduct(ctx context.Context, in *Product, opts ...grpc.CallOption) (*Product, error)
+	// tag
+	GetTags(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (*Tags, error)
+	InsertTag(ctx context.Context, in *Tag, opts ...grpc.CallOption) (*Tag, error)
+	UpdateTag(ctx context.Context, in *Tag, opts ...grpc.CallOption) (*Tag, error)
+	DeleteTag(ctx context.Context, in *Tag, opts ...grpc.CallOption) (*Tag, error)
+	// cate
+	GetCategorys(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (*Categories, error)
+	InsertCategory(ctx context.Context, in *Category, opts ...grpc.CallOption) (*Category, error)
+	UpdateCategory(ctx context.Context, in *Category, opts ...grpc.CallOption) (*Category, error)
+	DeleteCategory(ctx context.Context, in *Category, opts ...grpc.CallOption) (*Category, error)
+	// group
+	GetGroups(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (*Groups, error)
+	InsertGroup(ctx context.Context, in *Group, opts ...grpc.CallOption) (*Group, error)
+	UpdateGroup(ctx context.Context, in *Group, opts ...grpc.CallOption) (*Group, error)
+	DeleteGroup(ctx context.Context, in *Group, opts ...grpc.CallOption) (*Group, error)
+	// shipment
+	GetShipment(ctx context.Context, in *ReqId, opts ...grpc.CallOption) (*ShipmentBlock, error)
+	InsertShipment(ctx context.Context, in *ShipmentBlock, opts ...grpc.CallOption) (*ShipmentBlock, error)
+	UpdateShipment(ctx context.Context, in *ShipmentBlock, opts ...grpc.CallOption) (*ShipmentBlock, error)
+	DeleteShipment(ctx context.Context, in *ReqId, opts ...grpc.CallOption) (*ShipmentBlock, error)
+	// Campain
+	GetCampaigns(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (*Campaigns, error)
+	InsertCampaign(ctx context.Context, in *Campaign, opts ...grpc.CallOption) (*Campaign, error)
+	UpdateCampaign(ctx context.Context, in *Campaign, opts ...grpc.CallOption) (*Campaign, error)
+	DeleteCampaign(ctx context.Context, in *Campaign, opts ...grpc.CallOption) (*Campaign, error)
+}
+
+type prodSerClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewProdSerClient(cc *grpc.ClientConn) ProdSerClient {
+	return &prodSerClient{cc}
+}
+
+func (c *prodSerClient) GetProducts(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (*Products, error) {
+	out := new(Products)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/GetProducts", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) InsertProduct(ctx context.Context, in *Product, opts ...grpc.CallOption) (*Product, error) {
+	out := new(Product)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/InsertProduct", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) UpdateProduct(ctx context.Context, in *Product, opts ...grpc.CallOption) (*Product, error) {
+	out := new(Product)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/UpdateProduct", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) DeleteProduct(ctx context.Context, in *Product, opts ...grpc.CallOption) (*Product, error) {
+	out := new(Product)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/DeleteProduct", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) GetTags(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (*Tags, error) {
+	out := new(Tags)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/GetTags", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) InsertTag(ctx context.Context, in *Tag, opts ...grpc.CallOption) (*Tag, error) {
+	out := new(Tag)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/InsertTag", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) UpdateTag(ctx context.Context, in *Tag, opts ...grpc.CallOption) (*Tag, error) {
+	out := new(Tag)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/UpdateTag", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) DeleteTag(ctx context.Context, in *Tag, opts ...grpc.CallOption) (*Tag, error) {
+	out := new(Tag)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/DeleteTag", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) GetCategorys(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (*Categories, error) {
+	out := new(Categories)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/GetCategorys", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) InsertCategory(ctx context.Context, in *Category, opts ...grpc.CallOption) (*Category, error) {
+	out := new(Category)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/InsertCategory", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) UpdateCategory(ctx context.Context, in *Category, opts ...grpc.CallOption) (*Category, error) {
+	out := new(Category)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/UpdateCategory", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) DeleteCategory(ctx context.Context, in *Category, opts ...grpc.CallOption) (*Category, error) {
+	out := new(Category)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/DeleteCategory", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) GetGroups(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (*Groups, error) {
+	out := new(Groups)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/GetGroups", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) InsertGroup(ctx context.Context, in *Group, opts ...grpc.CallOption) (*Group, error) {
+	out := new(Group)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/InsertGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) UpdateGroup(ctx context.Context, in *Group, opts ...grpc.CallOption) (*Group, error) {
+	out := new(Group)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/UpdateGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) DeleteGroup(ctx context.Context, in *Group, opts ...grpc.CallOption) (*Group, error) {
+	out := new(Group)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/DeleteGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) GetShipment(ctx context.Context, in *ReqId, opts ...grpc.CallOption) (*ShipmentBlock, error) {
+	out := new(ShipmentBlock)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/GetShipment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) InsertShipment(ctx context.Context, in *ShipmentBlock, opts ...grpc.CallOption) (*ShipmentBlock, error) {
+	out := new(ShipmentBlock)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/InsertShipment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) UpdateShipment(ctx context.Context, in *ShipmentBlock, opts ...grpc.CallOption) (*ShipmentBlock, error) {
+	out := new(ShipmentBlock)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/UpdateShipment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) DeleteShipment(ctx context.Context, in *ReqId, opts ...grpc.CallOption) (*ShipmentBlock, error) {
+	out := new(ShipmentBlock)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/DeleteShipment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) GetCampaigns(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (*Campaigns, error) {
+	out := new(Campaigns)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/GetCampaigns", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) InsertCampaign(ctx context.Context, in *Campaign, opts ...grpc.CallOption) (*Campaign, error) {
+	out := new(Campaign)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/InsertCampaign", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) UpdateCampaign(ctx context.Context, in *Campaign, opts ...grpc.CallOption) (*Campaign, error) {
+	out := new(Campaign)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/UpdateCampaign", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *prodSerClient) DeleteCampaign(ctx context.Context, in *Campaign, opts ...grpc.CallOption) (*Campaign, error) {
+	out := new(Campaign)
+	err := c.cc.Invoke(ctx, "/product.ProdSer/DeleteCampaign", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ProdSerServer is the server API for ProdSer service.
+type ProdSerServer interface {
+	// prod
+	GetProducts(context.Context, *ReqQuery) (*Products, error)
+	InsertProduct(context.Context, *Product) (*Product, error)
+	UpdateProduct(context.Context, *Product) (*Product, error)
+	DeleteProduct(context.Context, *Product) (*Product, error)
+	// tag
+	GetTags(context.Context, *ReqQuery) (*Tags, error)
+	InsertTag(context.Context, *Tag) (*Tag, error)
+	UpdateTag(context.Context, *Tag) (*Tag, error)
+	DeleteTag(context.Context, *Tag) (*Tag, error)
+	// cate
+	GetCategorys(context.Context, *ReqQuery) (*Categories, error)
+	InsertCategory(context.Context, *Category) (*Category, error)
+	UpdateCategory(context.Context, *Category) (*Category, error)
+	DeleteCategory(context.Context, *Category) (*Category, error)
+	// group
+	GetGroups(context.Context, *ReqQuery) (*Groups, error)
+	InsertGroup(context.Context, *Group) (*Group, error)
+	UpdateGroup(context.Context, *Group) (*Group, error)
+	DeleteGroup(context.Context, *Group) (*Group, error)
+	// shipment
+	GetShipment(context.Context, *ReqId) (*ShipmentBlock, error)
+	InsertShipment(context.Context, *ShipmentBlock) (*ShipmentBlock, error)
+	UpdateShipment(context.Context, *ShipmentBlock) (*ShipmentBlock, error)
+	DeleteShipment(context.Context, *ReqId) (*ShipmentBlock, error)
+	// Campain
+	GetCampaigns(context.Context, *ReqQuery) (*Campaigns, error)
+	InsertCampaign(context.Context, *Campaign) (*Campaign, error)
+	UpdateCampaign(context.Context, *Campaign) (*Campaign, error)
+	DeleteCampaign(context.Context, *Campaign) (*Campaign, error)
+}
+
+func RegisterProdSerServer(s *grpc.Server, srv ProdSerServer) {
+	s.RegisterService(&_ProdSer_serviceDesc, srv)
+}
+
+func _ProdSer_GetProducts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReqQuery)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).GetProducts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/GetProducts",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).GetProducts(ctx, req.(*ReqQuery))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_InsertProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Product)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).InsertProduct(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/InsertProduct",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).InsertProduct(ctx, req.(*Product))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_UpdateProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Product)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).UpdateProduct(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/UpdateProduct",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).UpdateProduct(ctx, req.(*Product))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_DeleteProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Product)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).DeleteProduct(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/DeleteProduct",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).DeleteProduct(ctx, req.(*Product))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_GetTags_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReqQuery)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).GetTags(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/GetTags",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).GetTags(ctx, req.(*ReqQuery))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_InsertTag_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Tag)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).InsertTag(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/InsertTag",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).InsertTag(ctx, req.(*Tag))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_UpdateTag_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Tag)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).UpdateTag(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/UpdateTag",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).UpdateTag(ctx, req.(*Tag))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_DeleteTag_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Tag)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).DeleteTag(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/DeleteTag",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).DeleteTag(ctx, req.(*Tag))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_GetCategorys_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReqQuery)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).GetCategorys(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/GetCategorys",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).GetCategorys(ctx, req.(*ReqQuery))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_InsertCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Category)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).InsertCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/InsertCategory",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).InsertCategory(ctx, req.(*Category))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_UpdateCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Category)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).UpdateCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/UpdateCategory",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).UpdateCategory(ctx, req.(*Category))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_DeleteCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Category)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).DeleteCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/DeleteCategory",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).DeleteCategory(ctx, req.(*Category))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_GetGroups_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReqQuery)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).GetGroups(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/GetGroups",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).GetGroups(ctx, req.(*ReqQuery))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_InsertGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Group)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).InsertGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/InsertGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).InsertGroup(ctx, req.(*Group))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_UpdateGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Group)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).UpdateGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/UpdateGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).UpdateGroup(ctx, req.(*Group))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_DeleteGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Group)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).DeleteGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/DeleteGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).DeleteGroup(ctx, req.(*Group))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_GetShipment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReqId)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).GetShipment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/GetShipment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).GetShipment(ctx, req.(*ReqId))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_InsertShipment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ShipmentBlock)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).InsertShipment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/InsertShipment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).InsertShipment(ctx, req.(*ShipmentBlock))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_UpdateShipment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ShipmentBlock)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).UpdateShipment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/UpdateShipment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).UpdateShipment(ctx, req.(*ShipmentBlock))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_DeleteShipment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReqId)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).DeleteShipment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/DeleteShipment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).DeleteShipment(ctx, req.(*ReqId))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_GetCampaigns_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReqQuery)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).GetCampaigns(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/GetCampaigns",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).GetCampaigns(ctx, req.(*ReqQuery))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_InsertCampaign_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Campaign)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).InsertCampaign(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/InsertCampaign",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).InsertCampaign(ctx, req.(*Campaign))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_UpdateCampaign_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Campaign)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).UpdateCampaign(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/UpdateCampaign",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).UpdateCampaign(ctx, req.(*Campaign))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProdSer_DeleteCampaign_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Campaign)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProdSerServer).DeleteCampaign(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ProdSer/DeleteCampaign",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProdSerServer).DeleteCampaign(ctx, req.(*Campaign))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _ProdSer_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "product.ProdSer",
+	HandlerType: (*ProdSerServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetProducts",
+			Handler:    _ProdSer_GetProducts_Handler,
+		},
+		{
+			MethodName: "InsertProduct",
+			Handler:    _ProdSer_InsertProduct_Handler,
+		},
+		{
+			MethodName: "UpdateProduct",
+			Handler:    _ProdSer_UpdateProduct_Handler,
+		},
+		{
+			MethodName: "DeleteProduct",
+			Handler:    _ProdSer_DeleteProduct_Handler,
+		},
+		{
+			MethodName: "GetTags",
+			Handler:    _ProdSer_GetTags_Handler,
+		},
+		{
+			MethodName: "InsertTag",
+			Handler:    _ProdSer_InsertTag_Handler,
+		},
+		{
+			MethodName: "UpdateTag",
+			Handler:    _ProdSer_UpdateTag_Handler,
+		},
+		{
+			MethodName: "DeleteTag",
+			Handler:    _ProdSer_DeleteTag_Handler,
+		},
+		{
+			MethodName: "GetCategorys",
+			Handler:    _ProdSer_GetCategorys_Handler,
+		},
+		{
+			MethodName: "InsertCategory",
+			Handler:    _ProdSer_InsertCategory_Handler,
+		},
+		{
+			MethodName: "UpdateCategory",
+			Handler:    _ProdSer_UpdateCategory_Handler,
+		},
+		{
+			MethodName: "DeleteCategory",
+			Handler:    _ProdSer_DeleteCategory_Handler,
+		},
+		{
+			MethodName: "GetGroups",
+			Handler:    _ProdSer_GetGroups_Handler,
+		},
+		{
+			MethodName: "InsertGroup",
+			Handler:    _ProdSer_InsertGroup_Handler,
+		},
+		{
+			MethodName: "UpdateGroup",
+			Handler:    _ProdSer_UpdateGroup_Handler,
+		},
+		{
+			MethodName: "DeleteGroup",
+			Handler:    _ProdSer_DeleteGroup_Handler,
+		},
+		{
+			MethodName: "GetShipment",
+			Handler:    _ProdSer_GetShipment_Handler,
+		},
+		{
+			MethodName: "InsertShipment",
+			Handler:    _ProdSer_InsertShipment_Handler,
+		},
+		{
+			MethodName: "UpdateShipment",
+			Handler:    _ProdSer_UpdateShipment_Handler,
+		},
+		{
+			MethodName: "DeleteShipment",
+			Handler:    _ProdSer_DeleteShipment_Handler,
+		},
+		{
+			MethodName: "GetCampaigns",
+			Handler:    _ProdSer_GetCampaigns_Handler,
+		},
+		{
+			MethodName: "InsertCampaign",
+			Handler:    _ProdSer_InsertCampaign_Handler,
+		},
+		{
+			MethodName: "UpdateCampaign",
+			Handler:    _ProdSer_UpdateCampaign_Handler,
+		},
+		{
+			MethodName: "DeleteCampaign",
+			Handler:    _ProdSer_DeleteCampaign_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "product.proto",
+}
+
+// ManagerSerClient is the client API for ManagerSer service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type ManagerSerClient interface {
+	// Order
+	GetOrder(ctx context.Context, in *ReqId, opts ...grpc.CallOption) (*Order, error)
+	GetOrders(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (ManagerSer_GetOrdersClient, error)
+	InsertOrder(ctx context.Context, in *Order, opts ...grpc.CallOption) (*Order, error)
+	GetCustomer(ctx context.Context, in *ReqId, opts ...grpc.CallOption) (*Customer, error)
+	GetCustomers(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (*Customer, error)
+	InsertCustomer(ctx context.Context, in *Customer, opts ...grpc.CallOption) (*Customer, error)
+	// Invoice
+	GetInvoice(ctx context.Context, in *ReqId, opts ...grpc.CallOption) (*Invoice, error)
+	GetInvoices(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (ManagerSer_GetInvoicesClient, error)
+	InsertInvoice(ctx context.Context, in *Invoice, opts ...grpc.CallOption) (*Invoice, error)
+}
+
+type managerSerClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewManagerSerClient(cc *grpc.ClientConn) ManagerSerClient {
+	return &managerSerClient{cc}
+}
+
+func (c *managerSerClient) GetOrder(ctx context.Context, in *ReqId, opts ...grpc.CallOption) (*Order, error) {
+	out := new(Order)
+	err := c.cc.Invoke(ctx, "/product.ManagerSer/GetOrder", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *managerSerClient) GetOrders(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (ManagerSer_GetOrdersClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_ManagerSer_serviceDesc.Streams[0], "/product.ManagerSer/GetOrders", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &managerSerGetOrdersClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type ManagerSer_GetOrdersClient interface {
+	Recv() (*Order, error)
+	grpc.ClientStream
+}
+
+type managerSerGetOrdersClient struct {
+	grpc.ClientStream
+}
+
+func (x *managerSerGetOrdersClient) Recv() (*Order, error) {
+	m := new(Order)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *managerSerClient) InsertOrder(ctx context.Context, in *Order, opts ...grpc.CallOption) (*Order, error) {
+	out := new(Order)
+	err := c.cc.Invoke(ctx, "/product.ManagerSer/InsertOrder", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *managerSerClient) GetCustomer(ctx context.Context, in *ReqId, opts ...grpc.CallOption) (*Customer, error) {
+	out := new(Customer)
+	err := c.cc.Invoke(ctx, "/product.ManagerSer/GetCustomer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *managerSerClient) GetCustomers(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (*Customer, error) {
+	out := new(Customer)
+	err := c.cc.Invoke(ctx, "/product.ManagerSer/GetCustomers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *managerSerClient) InsertCustomer(ctx context.Context, in *Customer, opts ...grpc.CallOption) (*Customer, error) {
+	out := new(Customer)
+	err := c.cc.Invoke(ctx, "/product.ManagerSer/InsertCustomer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *managerSerClient) GetInvoice(ctx context.Context, in *ReqId, opts ...grpc.CallOption) (*Invoice, error) {
+	out := new(Invoice)
+	err := c.cc.Invoke(ctx, "/product.ManagerSer/GetInvoice", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *managerSerClient) GetInvoices(ctx context.Context, in *ReqQuery, opts ...grpc.CallOption) (ManagerSer_GetInvoicesClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_ManagerSer_serviceDesc.Streams[1], "/product.ManagerSer/GetInvoices", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &managerSerGetInvoicesClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type ManagerSer_GetInvoicesClient interface {
+	Recv() (*Invoice, error)
+	grpc.ClientStream
+}
+
+type managerSerGetInvoicesClient struct {
+	grpc.ClientStream
+}
+
+func (x *managerSerGetInvoicesClient) Recv() (*Invoice, error) {
+	m := new(Invoice)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *managerSerClient) InsertInvoice(ctx context.Context, in *Invoice, opts ...grpc.CallOption) (*Invoice, error) {
+	out := new(Invoice)
+	err := c.cc.Invoke(ctx, "/product.ManagerSer/InsertInvoice", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ManagerSerServer is the server API for ManagerSer service.
+type ManagerSerServer interface {
+	// Order
+	GetOrder(context.Context, *ReqId) (*Order, error)
+	GetOrders(*ReqQuery, ManagerSer_GetOrdersServer) error
+	InsertOrder(context.Context, *Order) (*Order, error)
+	GetCustomer(context.Context, *ReqId) (*Customer, error)
+	GetCustomers(context.Context, *ReqQuery) (*Customer, error)
+	InsertCustomer(context.Context, *Customer) (*Customer, error)
+	// Invoice
+	GetInvoice(context.Context, *ReqId) (*Invoice, error)
+	GetInvoices(*ReqQuery, ManagerSer_GetInvoicesServer) error
+	InsertInvoice(context.Context, *Invoice) (*Invoice, error)
+}
+
+func RegisterManagerSerServer(s *grpc.Server, srv ManagerSerServer) {
+	s.RegisterService(&_ManagerSer_serviceDesc, srv)
+}
+
+func _ManagerSer_GetOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReqId)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerSerServer).GetOrder(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ManagerSer/GetOrder",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerSerServer).GetOrder(ctx, req.(*ReqId))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ManagerSer_GetOrders_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ReqQuery)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ManagerSerServer).GetOrders(m, &managerSerGetOrdersServer{stream})
+}
+
+type ManagerSer_GetOrdersServer interface {
+	Send(*Order) error
+	grpc.ServerStream
+}
+
+type managerSerGetOrdersServer struct {
+	grpc.ServerStream
+}
+
+func (x *managerSerGetOrdersServer) Send(m *Order) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _ManagerSer_InsertOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Order)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerSerServer).InsertOrder(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ManagerSer/InsertOrder",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerSerServer).InsertOrder(ctx, req.(*Order))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ManagerSer_GetCustomer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReqId)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerSerServer).GetCustomer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ManagerSer/GetCustomer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerSerServer).GetCustomer(ctx, req.(*ReqId))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ManagerSer_GetCustomers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReqQuery)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerSerServer).GetCustomers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ManagerSer/GetCustomers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerSerServer).GetCustomers(ctx, req.(*ReqQuery))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ManagerSer_InsertCustomer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Customer)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerSerServer).InsertCustomer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ManagerSer/InsertCustomer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerSerServer).InsertCustomer(ctx, req.(*Customer))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ManagerSer_GetInvoice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReqId)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerSerServer).GetInvoice(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ManagerSer/GetInvoice",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerSerServer).GetInvoice(ctx, req.(*ReqId))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ManagerSer_GetInvoices_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ReqQuery)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ManagerSerServer).GetInvoices(m, &managerSerGetInvoicesServer{stream})
+}
+
+type ManagerSer_GetInvoicesServer interface {
+	Send(*Invoice) error
+	grpc.ServerStream
+}
+
+type managerSerGetInvoicesServer struct {
+	grpc.ServerStream
+}
+
+func (x *managerSerGetInvoicesServer) Send(m *Invoice) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _ManagerSer_InsertInvoice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Invoice)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerSerServer).InsertInvoice(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/product.ManagerSer/InsertInvoice",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerSerServer).InsertInvoice(ctx, req.(*Invoice))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _ManagerSer_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "product.ManagerSer",
+	HandlerType: (*ManagerSerServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetOrder",
+			Handler:    _ManagerSer_GetOrder_Handler,
+		},
+		{
+			MethodName: "InsertOrder",
+			Handler:    _ManagerSer_InsertOrder_Handler,
+		},
+		{
+			MethodName: "GetCustomer",
+			Handler:    _ManagerSer_GetCustomer_Handler,
+		},
+		{
+			MethodName: "GetCustomers",
+			Handler:    _ManagerSer_GetCustomers_Handler,
+		},
+		{
+			MethodName: "InsertCustomer",
+			Handler:    _ManagerSer_InsertCustomer_Handler,
+		},
+		{
+			MethodName: "GetInvoice",
+			Handler:    _ManagerSer_GetInvoice_Handler,
+		},
+		{
+			MethodName: "InsertInvoice",
+			Handler:    _ManagerSer_InsertInvoice_Handler,
+		},
+	},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "GetOrders",
+			Handler:       _ManagerSer_GetOrders_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "GetInvoices",
+			Handler:       _ManagerSer_GetInvoices_Handler,
+			ServerStreams: true,
+		},
+	},
+	Metadata: "product.proto",
 }
 
 func init() { proto.RegisterFile("product.proto", fileDescriptor_product_2919b1dce88c9e1f) }
