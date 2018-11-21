@@ -9,6 +9,7 @@ message ReqQuery {
 	int32 limit = 2;
 	string anchor =3;
 	string order_by = 4;
+	repeated string ids = 5;
 }
 message ReqId {
 	string id = 1;
