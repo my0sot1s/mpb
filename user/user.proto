@@ -2,38 +2,41 @@ syntax = "proto3";
 
 package user;
 
-import "google/protobuf/timestamp.proto";
-
 message SocialDetail {
     string name =1;
-
     string url =2;
-
     string id_info = 3;
 }
 
 message User {
     string id =1;
     string name = 2;
-
     string display_name =3;
-
     repeated string phones = 4;
-
     repeated string emails = 5;
-
     repeated string websites = 6;
-
     repeated SocialDetail socials = 7;
+    string state = 8;
+    repeated string group_ids = 9;
+    repeated GroupUser groups = 10;
+    repeated string notes =11;
+    int32 created = 12;
+}
 
-    google.protobuf.Timestamp created = 8;
+message GroupUser {
+    string id = 1;
+    string name = 2;
+    repeated string perm_ids = 3;
+    repeated Permission perms = 4;
+    string state = 5;
+    int32 created = 6;
+}
 
-    State state = 9;
 
-    enum State {
-        ACTIVE=0;
-        INACTIVE=1;
-        BAN=2;
-    }
-    
+message Permission {
+    string id = 1;
+    string description = 2;
+    string type = 3;
+    string state = 4;
+    int32 created = 5;
 }

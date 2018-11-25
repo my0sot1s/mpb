@@ -6,7 +6,6 @@ package user
 import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
-import timestamp "github.com/golang/protobuf/ptypes/timestamp"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
@@ -18,32 +17,6 @@ var _ = math.Inf
 // A compilation error at this line likely means your copy of the
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
-
-type User_State int32
-
-const (
-	User_ACTIVE   User_State = 0
-	User_INACTIVE User_State = 1
-	User_BAN      User_State = 2
-)
-
-var User_State_name = map[int32]string{
-	0: "ACTIVE",
-	1: "INACTIVE",
-	2: "BAN",
-}
-var User_State_value = map[string]int32{
-	"ACTIVE":   0,
-	"INACTIVE": 1,
-	"BAN":      2,
-}
-
-func (x User_State) String() string {
-	return proto.EnumName(User_State_name, int32(x))
-}
-func (User_State) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_user_f78e38e590b7616a, []int{1, 0}
-}
 
 type SocialDetail struct {
 	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
@@ -58,7 +31,7 @@ func (m *SocialDetail) Reset()         { *m = SocialDetail{} }
 func (m *SocialDetail) String() string { return proto.CompactTextString(m) }
 func (*SocialDetail) ProtoMessage()    {}
 func (*SocialDetail) Descriptor() ([]byte, []int) {
-	return fileDescriptor_user_f78e38e590b7616a, []int{0}
+	return fileDescriptor_user_b7e09f6b3467e3f9, []int{0}
 }
 func (m *SocialDetail) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_SocialDetail.Unmarshal(m, b)
@@ -100,25 +73,28 @@ func (m *SocialDetail) GetIdInfo() string {
 }
 
 type User struct {
-	Id                   string               `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name                 string               `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	DisplayName          string               `protobuf:"bytes,3,opt,name=display_name,json=displayName,proto3" json:"display_name,omitempty"`
-	Phones               []string             `protobuf:"bytes,4,rep,name=phones,proto3" json:"phones,omitempty"`
-	Emails               []string             `protobuf:"bytes,5,rep,name=emails,proto3" json:"emails,omitempty"`
-	Websites             []string             `protobuf:"bytes,6,rep,name=websites,proto3" json:"websites,omitempty"`
-	Socials              []*SocialDetail      `protobuf:"bytes,7,rep,name=socials,proto3" json:"socials,omitempty"`
-	Created              *timestamp.Timestamp `protobuf:"bytes,8,opt,name=created,proto3" json:"created,omitempty"`
-	State                User_State           `protobuf:"varint,9,opt,name=state,proto3,enum=user.User_State" json:"state,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
-	XXX_unrecognized     []byte               `json:"-"`
-	XXX_sizecache        int32                `json:"-"`
+	Id                   string          `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name                 string          `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	DisplayName          string          `protobuf:"bytes,3,opt,name=display_name,json=displayName,proto3" json:"display_name,omitempty"`
+	Phones               []string        `protobuf:"bytes,4,rep,name=phones,proto3" json:"phones,omitempty"`
+	Emails               []string        `protobuf:"bytes,5,rep,name=emails,proto3" json:"emails,omitempty"`
+	Websites             []string        `protobuf:"bytes,6,rep,name=websites,proto3" json:"websites,omitempty"`
+	Socials              []*SocialDetail `protobuf:"bytes,7,rep,name=socials,proto3" json:"socials,omitempty"`
+	State                string          `protobuf:"bytes,8,opt,name=state,proto3" json:"state,omitempty"`
+	GroupIds             []string        `protobuf:"bytes,9,rep,name=group_ids,json=groupIds,proto3" json:"group_ids,omitempty"`
+	Groups               []*GroupUser    `protobuf:"bytes,10,rep,name=groups,proto3" json:"groups,omitempty"`
+	Notes                []string        `protobuf:"bytes,11,rep,name=notes,proto3" json:"notes,omitempty"`
+	Created              int32           `protobuf:"varint,12,opt,name=created,proto3" json:"created,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
+	XXX_unrecognized     []byte          `json:"-"`
+	XXX_sizecache        int32           `json:"-"`
 }
 
 func (m *User) Reset()         { *m = User{} }
 func (m *User) String() string { return proto.CompactTextString(m) }
 func (*User) ProtoMessage()    {}
 func (*User) Descriptor() ([]byte, []int) {
-	return fileDescriptor_user_f78e38e590b7616a, []int{1}
+	return fileDescriptor_user_b7e09f6b3467e3f9, []int{1}
 }
 func (m *User) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_User.Unmarshal(m, b)
@@ -187,49 +163,223 @@ func (m *User) GetSocials() []*SocialDetail {
 	return nil
 }
 
-func (m *User) GetCreated() *timestamp.Timestamp {
+func (m *User) GetState() string {
 	if m != nil {
-		return m.Created
+		return m.State
+	}
+	return ""
+}
+
+func (m *User) GetGroupIds() []string {
+	if m != nil {
+		return m.GroupIds
 	}
 	return nil
 }
 
-func (m *User) GetState() User_State {
+func (m *User) GetGroups() []*GroupUser {
+	if m != nil {
+		return m.Groups
+	}
+	return nil
+}
+
+func (m *User) GetNotes() []string {
+	if m != nil {
+		return m.Notes
+	}
+	return nil
+}
+
+func (m *User) GetCreated() int32 {
+	if m != nil {
+		return m.Created
+	}
+	return 0
+}
+
+type GroupUser struct {
+	Id                   string        `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name                 string        `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	PermIds              []string      `protobuf:"bytes,3,rep,name=perm_ids,json=permIds,proto3" json:"perm_ids,omitempty"`
+	Perms                []*Permission `protobuf:"bytes,4,rep,name=perms,proto3" json:"perms,omitempty"`
+	State                string        `protobuf:"bytes,5,opt,name=state,proto3" json:"state,omitempty"`
+	Created              int32         `protobuf:"varint,6,opt,name=created,proto3" json:"created,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
+	XXX_unrecognized     []byte        `json:"-"`
+	XXX_sizecache        int32         `json:"-"`
+}
+
+func (m *GroupUser) Reset()         { *m = GroupUser{} }
+func (m *GroupUser) String() string { return proto.CompactTextString(m) }
+func (*GroupUser) ProtoMessage()    {}
+func (*GroupUser) Descriptor() ([]byte, []int) {
+	return fileDescriptor_user_b7e09f6b3467e3f9, []int{2}
+}
+func (m *GroupUser) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GroupUser.Unmarshal(m, b)
+}
+func (m *GroupUser) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GroupUser.Marshal(b, m, deterministic)
+}
+func (dst *GroupUser) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GroupUser.Merge(dst, src)
+}
+func (m *GroupUser) XXX_Size() int {
+	return xxx_messageInfo_GroupUser.Size(m)
+}
+func (m *GroupUser) XXX_DiscardUnknown() {
+	xxx_messageInfo_GroupUser.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GroupUser proto.InternalMessageInfo
+
+func (m *GroupUser) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *GroupUser) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *GroupUser) GetPermIds() []string {
+	if m != nil {
+		return m.PermIds
+	}
+	return nil
+}
+
+func (m *GroupUser) GetPerms() []*Permission {
+	if m != nil {
+		return m.Perms
+	}
+	return nil
+}
+
+func (m *GroupUser) GetState() string {
 	if m != nil {
 		return m.State
 	}
-	return User_ACTIVE
+	return ""
+}
+
+func (m *GroupUser) GetCreated() int32 {
+	if m != nil {
+		return m.Created
+	}
+	return 0
+}
+
+type Permission struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Description          string   `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	Type                 string   `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty"`
+	State                string   `protobuf:"bytes,4,opt,name=state,proto3" json:"state,omitempty"`
+	Created              int32    `protobuf:"varint,5,opt,name=created,proto3" json:"created,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Permission) Reset()         { *m = Permission{} }
+func (m *Permission) String() string { return proto.CompactTextString(m) }
+func (*Permission) ProtoMessage()    {}
+func (*Permission) Descriptor() ([]byte, []int) {
+	return fileDescriptor_user_b7e09f6b3467e3f9, []int{3}
+}
+func (m *Permission) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Permission.Unmarshal(m, b)
+}
+func (m *Permission) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Permission.Marshal(b, m, deterministic)
+}
+func (dst *Permission) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Permission.Merge(dst, src)
+}
+func (m *Permission) XXX_Size() int {
+	return xxx_messageInfo_Permission.Size(m)
+}
+func (m *Permission) XXX_DiscardUnknown() {
+	xxx_messageInfo_Permission.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Permission proto.InternalMessageInfo
+
+func (m *Permission) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Permission) GetDescription() string {
+	if m != nil {
+		return m.Description
+	}
+	return ""
+}
+
+func (m *Permission) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *Permission) GetState() string {
+	if m != nil {
+		return m.State
+	}
+	return ""
+}
+
+func (m *Permission) GetCreated() int32 {
+	if m != nil {
+		return m.Created
+	}
+	return 0
 }
 
 func init() {
 	proto.RegisterType((*SocialDetail)(nil), "user.SocialDetail")
 	proto.RegisterType((*User)(nil), "user.User")
-	proto.RegisterEnum("user.User_State", User_State_name, User_State_value)
+	proto.RegisterType((*GroupUser)(nil), "user.GroupUser")
+	proto.RegisterType((*Permission)(nil), "user.Permission")
 }
 
-func init() { proto.RegisterFile("user.proto", fileDescriptor_user_f78e38e590b7616a) }
+func init() { proto.RegisterFile("user.proto", fileDescriptor_user_b7e09f6b3467e3f9) }
 
-var fileDescriptor_user_f78e38e590b7616a = []byte{
-	// 327 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x4c, 0x90, 0xbd, 0x6e, 0xea, 0x40,
-	0x10, 0x85, 0xaf, 0x7f, 0xb0, 0x61, 0x40, 0xc8, 0x9a, 0xe2, 0xde, 0x15, 0xcd, 0x75, 0x28, 0x22,
-	0x2b, 0x8a, 0x8c, 0x44, 0xf2, 0x02, 0xe4, 0xa7, 0xa0, 0x08, 0x85, 0x03, 0x69, 0xd1, 0x82, 0x07,
-	0xb2, 0x92, 0xed, 0xb5, 0xbc, 0x8b, 0xa2, 0x3c, 0x66, 0xde, 0x28, 0xf2, 0x2e, 0x46, 0x74, 0x73,
-	0xbe, 0x19, 0x9d, 0xa3, 0x39, 0x00, 0x27, 0x45, 0x4d, 0x5a, 0x37, 0x52, 0x4b, 0xf4, 0xdb, 0x79,
-	0xf2, 0xff, 0x28, 0xe5, 0xb1, 0xa0, 0x99, 0x61, 0xbb, 0xd3, 0x61, 0xa6, 0x45, 0x49, 0x4a, 0xf3,
-	0xb2, 0xb6, 0x67, 0xd3, 0x37, 0x18, 0xbd, 0xcb, 0xbd, 0xe0, 0xc5, 0x0b, 0x69, 0x2e, 0x0a, 0x44,
-	0xf0, 0x2b, 0x5e, 0x12, 0x73, 0x62, 0x27, 0x19, 0x64, 0x66, 0xc6, 0x08, 0xbc, 0x53, 0x53, 0x30,
-	0xd7, 0xa0, 0x76, 0xc4, 0x7f, 0x10, 0x8a, 0x7c, 0x2b, 0xaa, 0x83, 0x64, 0x9e, 0xa1, 0x81, 0xc8,
-	0x97, 0xd5, 0x41, 0x4e, 0x7f, 0x5c, 0xf0, 0x37, 0x8a, 0x1a, 0x1c, 0x83, 0x2b, 0xf2, 0xb3, 0x8b,
-	0x2b, 0xf2, 0x8b, 0xaf, 0x7b, 0xe5, 0x7b, 0x03, 0xa3, 0x5c, 0xa8, 0xba, 0xe0, 0xdf, 0x5b, 0xb3,
-	0xb3, 0x56, 0xc3, 0x33, 0x5b, 0xb5, 0x27, 0x7f, 0x21, 0xa8, 0x3f, 0x65, 0x45, 0x8a, 0xf9, 0xb1,
-	0xd7, 0xe6, 0x58, 0xd5, 0x72, 0x2a, 0xb9, 0x28, 0x14, 0xeb, 0x59, 0x6e, 0x15, 0x4e, 0xa0, 0xff,
-	0x45, 0x3b, 0x25, 0x34, 0x29, 0x16, 0x98, 0xcd, 0x45, 0xe3, 0x3d, 0x84, 0xca, 0xbc, 0xaa, 0x58,
-	0x18, 0x7b, 0xc9, 0x70, 0x8e, 0xa9, 0xe9, 0xeb, 0xfa, 0xff, 0xac, 0x3b, 0xc1, 0x47, 0x08, 0xf7,
-	0x0d, 0x71, 0x4d, 0x39, 0xeb, 0xc7, 0x4e, 0x32, 0x9c, 0x4f, 0x52, 0xdb, 0x65, 0xda, 0x75, 0x99,
-	0xae, 0xbb, 0x2e, 0xb3, 0xee, 0x14, 0x6f, 0xa1, 0xa7, 0x34, 0xd7, 0xc4, 0x06, 0xb1, 0x93, 0x8c,
-	0xe7, 0x91, 0x4d, 0xd8, 0x98, 0x98, 0x96, 0x67, 0x76, 0x3d, 0xbd, 0x83, 0x9e, 0xd1, 0x08, 0x10,
-	0x2c, 0x9e, 0xd7, 0xcb, 0x8f, 0xd7, 0xe8, 0x0f, 0x8e, 0xa0, 0xbf, 0x5c, 0x9d, 0x95, 0x83, 0x21,
-	0x78, 0x4f, 0x8b, 0x55, 0xe4, 0xee, 0x02, 0x13, 0xf8, 0xf0, 0x1b, 0x00, 0x00, 0xff, 0xff, 0xe3,
-	0x64, 0x76, 0xf5, 0xde, 0x01, 0x00, 0x00,
+var fileDescriptor_user_b7e09f6b3467e3f9 = []byte{
+	// 392 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x92, 0xcd, 0x8a, 0xdb, 0x30,
+	0x14, 0x85, 0xf1, 0x7f, 0x7c, 0x1d, 0xda, 0x20, 0x4a, 0xab, 0xb6, 0x1b, 0x37, 0x8b, 0x36, 0x8b,
+	0x92, 0x45, 0xfa, 0x0a, 0x85, 0x92, 0x45, 0x4b, 0x71, 0xe9, 0x3a, 0x38, 0x91, 0x32, 0x23, 0xb0,
+	0x2d, 0xa3, 0xab, 0x30, 0x64, 0x3b, 0x8f, 0x32, 0xaf, 0x34, 0x2f, 0x34, 0xe8, 0xca, 0x49, 0x1c,
+	0x86, 0x81, 0xd9, 0xdd, 0x73, 0xae, 0x38, 0xfa, 0x74, 0x10, 0xc0, 0x01, 0xa5, 0x59, 0xf6, 0x46,
+	0x5b, 0xcd, 0x62, 0x37, 0xcf, 0x7f, 0xc3, 0xf4, 0x9f, 0xde, 0xa9, 0xba, 0xf9, 0x29, 0x6d, 0xad,
+	0x1a, 0xc6, 0x20, 0xee, 0xea, 0x56, 0xf2, 0xa0, 0x0c, 0x16, 0x79, 0x45, 0x33, 0x9b, 0x41, 0x74,
+	0x30, 0x0d, 0x0f, 0xc9, 0x72, 0x23, 0xfb, 0x00, 0x99, 0x12, 0x1b, 0xd5, 0xed, 0x35, 0x8f, 0xc8,
+	0x4d, 0x95, 0x58, 0x77, 0x7b, 0x3d, 0x7f, 0x0c, 0x21, 0xfe, 0x8f, 0xd2, 0xb0, 0x37, 0x10, 0x2a,
+	0x31, 0xa4, 0x84, 0x4a, 0x9c, 0x73, 0xc3, 0x51, 0xee, 0x17, 0x98, 0x0a, 0x85, 0x7d, 0x53, 0x1f,
+	0x37, 0xb4, 0xf3, 0x51, 0xc5, 0xe0, 0xfd, 0x71, 0x47, 0xde, 0x43, 0xda, 0xdf, 0xea, 0x4e, 0x22,
+	0x8f, 0xcb, 0xc8, 0xdd, 0xe3, 0x95, 0xf3, 0x65, 0x5b, 0xab, 0x06, 0x79, 0xe2, 0x7d, 0xaf, 0xd8,
+	0x27, 0x98, 0xdc, 0xc9, 0x2d, 0x2a, 0x2b, 0x91, 0xa7, 0xb4, 0x39, 0x6b, 0xf6, 0x1d, 0x32, 0xa4,
+	0xa7, 0x22, 0xcf, 0xca, 0x68, 0x51, 0xac, 0xd8, 0x92, 0xea, 0x18, 0xbf, 0xbf, 0x3a, 0x1d, 0x61,
+	0xef, 0x20, 0x41, 0x5b, 0x5b, 0xc9, 0x27, 0x44, 0xe5, 0x05, 0xfb, 0x0c, 0xf9, 0x8d, 0xd1, 0x87,
+	0x7e, 0xa3, 0x04, 0xf2, 0xdc, 0x5f, 0x40, 0xc6, 0x5a, 0x20, 0xfb, 0x06, 0x29, 0xcd, 0xc8, 0x81,
+	0xf2, 0xdf, 0xfa, 0xfc, 0x5f, 0xce, 0x73, 0xa5, 0x54, 0xc3, 0xda, 0x65, 0x77, 0xda, 0x21, 0x16,
+	0x94, 0xe0, 0x05, 0xe3, 0x90, 0xed, 0x8c, 0xac, 0xad, 0x14, 0x7c, 0x5a, 0x06, 0x8b, 0xa4, 0x3a,
+	0xc9, 0xf9, 0x43, 0x00, 0xf9, 0x39, 0xe5, 0x55, 0xd5, 0x7e, 0x84, 0x49, 0x2f, 0x4d, 0x4b, 0x98,
+	0x11, 0x5d, 0x92, 0x39, 0xed, 0x28, 0xbf, 0x42, 0xe2, 0x46, 0xdf, 0x68, 0xb1, 0x9a, 0x79, 0xc8,
+	0xbf, 0xd2, 0xb4, 0x0a, 0x51, 0xe9, 0xae, 0xf2, 0xeb, 0x4b, 0x01, 0xc9, 0xb8, 0x80, 0x11, 0x64,
+	0x7a, 0x0d, 0x79, 0x1f, 0x00, 0x5c, 0x52, 0x9e, 0x51, 0x96, 0x50, 0x08, 0x89, 0x3b, 0xa3, 0x7a,
+	0xab, 0x74, 0x37, 0xc0, 0x8e, 0x2d, 0xf7, 0x0e, 0x7b, 0xec, 0x4f, 0xdf, 0x80, 0xe6, 0x0b, 0x44,
+	0xfc, 0x02, 0x44, 0x72, 0x05, 0xb1, 0x4d, 0xe9, 0x6f, 0xff, 0x78, 0x0a, 0x00, 0x00, 0xff, 0xff,
+	0xcf, 0xfd, 0x49, 0x42, 0xe9, 0x02, 0x00, 0x00,
 }
