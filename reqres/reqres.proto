@@ -11,3 +11,11 @@ message ReqQuery {
 message ReqId {
 	string id = 1;
 }
+
+message ServiceReq {
+	string id = 1;
+	string by = 2;
+	string payload = 3;
+	repeated string user_id = 4;
+	repeated string group_id = 5;
+}
