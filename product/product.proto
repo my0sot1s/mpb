@@ -18,6 +18,7 @@ message ReqId {
 service ProdSer {
     // prod
     rpc GetProducts (ReqQuery) returns (Products);
+    rpc GetProduct (ReqQuery) returns (Product);
     rpc InsertProduct (Product) returns (Product);
     rpc UpdateProduct (Product) returns (Product);
     rpc DeleteProduct (Product) returns (Product);
@@ -27,7 +28,7 @@ service ProdSer {
     rpc UpdateTag (Tag) returns (Tag);
     rpc DeleteTag (Tag) returns (Tag);
     // cate
-    rpc GetCategorys (ReqQuery) returns (Categories);
+    rpc GetCategories (ReqQuery) returns (Categories);
     rpc InsertCategory (Category) returns (Category);
     rpc UpdateCategory (Category) returns (Category);
     rpc DeleteCategory (Category) returns (Category);
@@ -41,7 +42,7 @@ service ProdSer {
     rpc InsertShipment (ShipmentBlock) returns (ShipmentBlock);
     rpc UpdateShipment (ShipmentBlock) returns (ShipmentBlock);
     rpc DeleteShipment (ReqId) returns (ShipmentBlock);
-    // Campain 
+    // Campain
     rpc GetCampaigns (ReqQuery) returns (Campaigns);
     rpc InsertCampaign (Campaign) returns (Campaign);
     rpc UpdateCampaign (Campaign) returns (Campaign);
@@ -60,7 +61,7 @@ service ManagerSer {
     rpc GetCustomers (ReqQuery) returns (Customer);
     rpc InsertCustomer (Customer) returns (Customer);
 
-    // Invoice 
+    // Invoice
     rpc GetInvoice (ReqId) returns (Invoice);
     rpc GetInvoices (ReqQuery) returns (stream Invoice);
     rpc InsertInvoice (Invoice) returns (Invoice);
