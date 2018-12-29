@@ -16,224 +16,224 @@ message ReqId {
 }
 
 service ProdSer {
-    // prod
-    rpc GetProducts (ReqQuery) returns (Products);
-    rpc GetProduct (ReqQuery) returns (Product);
-    rpc InsertProduct (Product) returns (Product);
-    rpc UpdateProduct (Product) returns (Product);
-    rpc DeleteProduct (Product) returns (Product);
-    // tag
-    rpc GetTags (ReqQuery) returns (Tags);
-    rpc InsertTag (Tag) returns (Tag);
-    rpc UpdateTag (Tag) returns (Tag);
-    rpc DeleteTag (Tag) returns (Tag);
-    // cate
-    rpc GetCategories (ReqQuery) returns (Categories);
-    rpc InsertCategory (Category) returns (Category);
-    rpc UpdateCategory (Category) returns (Category);
-    rpc DeleteCategory (Category) returns (Category);
-    // group
-    rpc GetGroups (ReqQuery) returns (Groups);
-    rpc InsertGroup (Group) returns (Group);
-    rpc UpdateGroup (Group) returns (Group);
-    rpc DeleteGroup (Group) returns (Group);
-    // shipment
-    rpc GetShipment (ReqId) returns (ShipmentBlock);
-    rpc InsertShipment (ShipmentBlock) returns (ShipmentBlock);
-    rpc UpdateShipment (ShipmentBlock) returns (ShipmentBlock);
-    rpc DeleteShipment (ReqId) returns (ShipmentBlock);
-    // Campain
-    rpc GetCampaigns (ReqQuery) returns (Campaigns);
-    rpc InsertCampaign (Campaign) returns (Campaign);
-    rpc UpdateCampaign (Campaign) returns (Campaign);
-    rpc DeleteCampaign (Campaign) returns (Campaign);
+		// prod
+		rpc GetProducts (ReqQuery) returns (Products);
+		rpc GetProduct (ReqQuery) returns (Product);
+		rpc InsertProduct (Product) returns (Product);
+		rpc UpdateProduct (Product) returns (Product);
+		rpc DeleteProduct (Product) returns (Product);
+		// tag
+		rpc GetTags (ReqQuery) returns (Tags);
+		rpc InsertTag (Tag) returns (Tag);
+		rpc UpdateTag (Tag) returns (Tag);
+		rpc DeleteTag (Tag) returns (Tag);
+		// cate
+		rpc GetCategories (ReqQuery) returns (Categories);
+		rpc InsertCategory (Category) returns (Category);
+		rpc UpdateCategory (Category) returns (Category);
+		rpc DeleteCategory (Category) returns (Category);
+		// group
+		rpc GetGroups (ReqQuery) returns (Groups);
+		rpc InsertGroup (Group) returns (Group);
+		rpc UpdateGroup (Group) returns (Group);
+		rpc DeleteGroup (Group) returns (Group);
+		// shipment
+		rpc GetShipment (ReqId) returns (ShipmentBlock);
+		rpc InsertShipment (ShipmentBlock) returns (ShipmentBlock);
+		rpc UpdateShipment (ShipmentBlock) returns (ShipmentBlock);
+		rpc DeleteShipment (ReqId) returns (ShipmentBlock);
+		// Campain
+		rpc GetCampaigns (ReqQuery) returns (Campaigns);
+		rpc InsertCampaign (Campaign) returns (Campaign);
+		rpc UpdateCampaign (Campaign) returns (Campaign);
+		rpc DeleteCampaign (Campaign) returns (Campaign);
 }
 
 service ManagerSer {
-    // Order
-    rpc GetOrder (ReqId) returns (Order);
-    rpc GetOrders (ReqQuery) returns (stream Order);
-    rpc InsertOrder (Order) returns (Order);
+		// Order
+		rpc GetOrder (ReqId) returns (Order);
+		rpc GetOrders (ReqQuery) returns (stream Order);
+		rpc InsertOrder (Order) returns (Order);
 
-    // Customer
+		// Customer
 
-    rpc GetCustomer (ReqId) returns (Customer);
-    rpc GetCustomers (ReqQuery) returns (Customer);
-    rpc InsertCustomer (Customer) returns (Customer);
+		rpc GetCustomer (ReqId) returns (Customer);
+		rpc GetCustomers (ReqQuery) returns (Customer);
+		rpc InsertCustomer (Customer) returns (Customer);
 
-    // Invoice
-    rpc GetInvoice (ReqId) returns (Invoice);
-    rpc GetInvoices (ReqQuery) returns (stream Invoice);
-    rpc InsertInvoice (Invoice) returns (Invoice);
+		// Invoice
+		rpc GetInvoice (ReqId) returns (Invoice);
+		rpc GetInvoices (ReqQuery) returns (stream Invoice);
+		rpc InsertInvoice (Invoice) returns (Invoice);
 }
 
 
 message Image {
-    string id  = 1;
-    string url = 2;
-    int32 width = 3;
-    int32 height = 4;
+		string id  = 1;
+		string url = 2;
+		int32 width = 3;
+		int32 height = 4;
 }
 
 message Categories {
-    repeated Category categories =1;
-    string anchor = 2;
-    string total = 3;
+		repeated Category categories =1;
+		string anchor = 2;
+		string total = 3;
 }
 message Category {
-    string id = 1;
-    string display = 2;
-    string description = 3;
-    string state = 4;
-    int32 created = 5;
+		string id = 1;
+		string display = 2;
+		string description = 3;
+		string state = 4;
+		int32 created = 5;
 }
 message Groups {
-    repeated Group groups =1;
-    string anchor = 2;
-    string total = 3;
+		repeated Group groups =1;
+		string anchor = 2;
+		string total = 3;
 }
 message Group {
-    string id = 1;
-    string display = 2;
-    string description = 3;
-    string target = 4;
-    int32 created = 5;
-    float bonus_price = 6;
+		string id = 1;
+		string display = 2;
+		string description = 3;
+		string target = 4;
+		int32 created = 5;
+		float bonus_price = 6;
 }
 message Tags {
-    repeated Tag tags =1;
-    string anchor = 2;
-    string total = 3;
+		repeated Tag tags =1;
+		string anchor = 2;
+		string total = 3;
 }
 
 message Tag {
-    string id = 1;
-    string display = 2;
-    repeated string notes= 4;
-    string state = 5;
+		string id = 1;
+		string display = 2;
+		repeated string notes= 4;
+		string state = 5;
 }
 
 message Products {
-    repeated Product products =1;
-    string anchor = 2;
-    string total = 3;
+		repeated Product products =1;
+		string anchor = 2;
+		string total = 3;
 }
 
 message Product {
-    string id = 1;
-    string name = 2;
-    repeated Image images = 3;
-    string description = 4;
-    int32 created = 5;
-    repeated string categories_id = 6;
-    repeated Category categories = 7;
-    repeated string groups_id = 8;
-    repeated Group groups = 9;
-    string state = 10;
-    string shipment_id = 11;
-    Shipment shipment = 12;
-    repeated string tags_id = 13;
-    repeated Tag tags = 14;
-    int32 price = 15;
-    float average_rate= 16;
+		string id = 1;
+		string name = 2;
+		repeated Image images = 3;
+		string description = 4;
+		int32 created = 5;
+		repeated string categories_id = 6;
+		repeated Category categories = 7;
+		repeated string groups_id = 8;
+		repeated Group groups = 9;
+		string state = 10;
+		string shipment_id = 11;
+		Shipment shipment = 12;
+		repeated string tags_id = 13;
+		repeated Tag tags = 14;
+		int32 price = 15;
+		float average_rate= 16;
 }
 
 message ShipmentBlock {
-    Shipment shipment =1;
-    repeated ShipmentProduct products = 2;
+		Shipment shipment =1;
+		repeated ShipmentProduct products = 2;
 }
 
 message Shipment {
-    string id=1;
-    string name =2 ;
-    repeated string notes = 3;
-    string basic_info = 4;
-    int32 created = 5;
-    string state = 6;
+		string id=1;
+		string name =2 ;
+		repeated string notes = 3;
+		string basic_info = 4;
+		int32 created = 5;
+		string state = 6;
 }
 
 message ShipmentProduct {
-    string id= 1;
-    string product_id =2;
-    Product product =3;
-    int32 quantity = 4;
-    string note = 5;
-    int32 unit_price = 6;
-    float discount = 7;
+		string id= 1;
+		string product_id =2;
+		Product product =3;
+		int32 quantity = 4;
+		string note = 5;
+		int32 unit_price = 6;
+		float discount = 7;
 }
 
 message ShipmentItems {
-    string id=1;
-    string name =2 ;
-    repeated string notes = 3;
-    ShipmentProduct shipment_product = 4;
-    string created = 5;
-    string state = 6;
-    int32 price =  7;
-    float discount = 8;
+		string id=1;
+		string name =2 ;
+		repeated string notes = 3;
+		ShipmentProduct shipment_product = 4;
+		string created = 5;
+		string state = 6;
+		int32 price =  7;
+		float discount = 8;
 }
 
 message OrderItems {
-    string id =1;
-    repeated string products_id = 2;
-    repeated Product products = 3;
-    int32 quantity = 4;
-    int32 price =5;
-    float discount =6;
-    string created_at = 7;
-    string created_by = 8;
+		string id =1;
+		repeated string products_id = 2;
+		repeated Product products = 3;
+		int32 quantity = 4;
+		int32 price =5;
+		float discount =6;
+		string created_at = 7;
+		string created_by = 8;
 }
 
 message Order {
-    string id =1;
-    repeated string customer_id = 2;
-    repeated Customer customer = 3;
-    int32 price =4;
-    OrderItems order_items = 5;
-    float discount =6;
-    string created_at = 7;
-    string created_by =8;
-    string state = 9;
+		string id =1;
+		repeated string customer_id = 2;
+		repeated Customer customer = 3;
+		int32 price =4;
+		OrderItems order_items = 5;
+		float discount =6;
+		string created_at = 7;
+		string created_by =8;
+		string state = 9;
 }
 
 message Customer {
-    string id =1;
-    string fullname =2;
-    string phone =3;
-    string email =4;
-    string address =5;
-    string created = 6;
-    string state = 7;
+		string id =1;
+		string fullname =2;
+		string phone =3;
+		string email =4;
+		string address =5;
+		string created = 6;
+		string state = 7;
 }
 
 message PaymentMethod {
-    string id =1;
-    string name =2;
+		string id =1;
+		string name =2;
 }
 
 message Invoice {
-    string id =1;
-    string order_id =2;
-    Order order =3;
-    string customer_id =4;
-    Customer customer = 5;
-    PaymentMethod pm =6;
-    string note= 7;
-    int32 price =8;
-    string state = 9;
-    string created_at = 10;
-    string created_by =11;
-    int32 real_pay = 12;
+		string id =1;
+		string order_id =2;
+		Order order =3;
+		string customer_id =4;
+		Customer customer = 5;
+		PaymentMethod pm =6;
+		string note= 7;
+		int32 price =8;
+		string state = 9;
+		string created_at = 10;
+		string created_by =11;
+		int32 real_pay = 12;
 }
 message Campaigns {
-    repeated Campaign campaigns = 1;
+		repeated Campaign campaigns = 1;
 }
 message Campaign {
-    string id =1;
-    string event_name = 2;
-    int32 started = 3;
-    int32 ended = 4;
-    string description =5;
-    repeated Image image = 6;
-    string state = 8;
+		string id =1;
+		string event_name = 2;
+		int32 started = 3;
+		int32 ended = 4;
+		string description =5;
+		repeated Image image = 6;
+		string state = 8;
 }
