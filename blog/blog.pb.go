@@ -20,16 +20,14 @@ const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
 type Blog struct {
 	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Products             string   `protobuf:"bytes,2,opt,name=products,proto3" json:"products,omitempty"`
 	Title                string   `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
-	Description          string   `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
-	Price                int32    `protobuf:"varint,5,opt,name=price,proto3" json:"price,omitempty"`
 	Author               string   `protobuf:"bytes,6,opt,name=author,proto3" json:"author,omitempty"`
 	Created              int32    `protobuf:"varint,7,opt,name=created,proto3" json:"created,omitempty"`
 	State                int32    `protobuf:"varint,8,opt,name=state,proto3" json:"state,omitempty"`
 	Tag                  string   `protobuf:"bytes,9,opt,name=tag,proto3" json:"tag,omitempty"`
 	Tags                 []string `protobuf:"bytes,10,rep,name=tags,proto3" json:"tags,omitempty"`
 	Content              string   `protobuf:"bytes,11,opt,name=content,proto3" json:"content,omitempty"`
+	Banner               string   `protobuf:"bytes,12,opt,name=banner,proto3" json:"banner,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -39,7 +37,7 @@ func (m *Blog) Reset()         { *m = Blog{} }
 func (m *Blog) String() string { return proto.CompactTextString(m) }
 func (*Blog) ProtoMessage()    {}
 func (*Blog) Descriptor() ([]byte, []int) {
-	return fileDescriptor_blog_f51a31b8778f2d05, []int{0}
+	return fileDescriptor_blog_7af59a88f5b63bc1, []int{0}
 }
 func (m *Blog) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Blog.Unmarshal(m, b)
@@ -66,32 +64,11 @@ func (m *Blog) GetId() string {
 	return ""
 }
 
-func (m *Blog) GetProducts() string {
-	if m != nil {
-		return m.Products
-	}
-	return ""
-}
-
 func (m *Blog) GetTitle() string {
 	if m != nil {
 		return m.Title
 	}
 	return ""
-}
-
-func (m *Blog) GetDescription() string {
-	if m != nil {
-		return m.Description
-	}
-	return ""
-}
-
-func (m *Blog) GetPrice() int32 {
-	if m != nil {
-		return m.Price
-	}
-	return 0
 }
 
 func (m *Blog) GetAuthor() string {
@@ -136,92 +113,115 @@ func (m *Blog) GetContent() string {
 	return ""
 }
 
-type FileSrc struct {
+func (m *Blog) GetBanner() string {
+	if m != nil {
+		return m.Banner
+	}
+	return ""
+}
+
+type MediaInfo struct {
 	Url                  string   `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
 	Size                 int32    `protobuf:"varint,2,opt,name=size,proto3" json:"size,omitempty"`
 	Width                int32    `protobuf:"varint,3,opt,name=width,proto3" json:"width,omitempty"`
 	Height               int32    `protobuf:"varint,4,opt,name=height,proto3" json:"height,omitempty"`
 	SignatureKey         string   `protobuf:"bytes,5,opt,name=signature_key,json=signatureKey,proto3" json:"signature_key,omitempty"`
+	PublicId             string   `protobuf:"bytes,6,opt,name=public_id,json=publicId,proto3" json:"public_id,omitempty"`
+	Format               string   `protobuf:"bytes,7,opt,name=format,proto3" json:"format,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *FileSrc) Reset()         { *m = FileSrc{} }
-func (m *FileSrc) String() string { return proto.CompactTextString(m) }
-func (*FileSrc) ProtoMessage()    {}
-func (*FileSrc) Descriptor() ([]byte, []int) {
-	return fileDescriptor_blog_f51a31b8778f2d05, []int{1}
+func (m *MediaInfo) Reset()         { *m = MediaInfo{} }
+func (m *MediaInfo) String() string { return proto.CompactTextString(m) }
+func (*MediaInfo) ProtoMessage()    {}
+func (*MediaInfo) Descriptor() ([]byte, []int) {
+	return fileDescriptor_blog_7af59a88f5b63bc1, []int{1}
 }
-func (m *FileSrc) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_FileSrc.Unmarshal(m, b)
+func (m *MediaInfo) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_MediaInfo.Unmarshal(m, b)
 }
-func (m *FileSrc) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_FileSrc.Marshal(b, m, deterministic)
+func (m *MediaInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_MediaInfo.Marshal(b, m, deterministic)
 }
-func (dst *FileSrc) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_FileSrc.Merge(dst, src)
+func (dst *MediaInfo) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MediaInfo.Merge(dst, src)
 }
-func (m *FileSrc) XXX_Size() int {
-	return xxx_messageInfo_FileSrc.Size(m)
+func (m *MediaInfo) XXX_Size() int {
+	return xxx_messageInfo_MediaInfo.Size(m)
 }
-func (m *FileSrc) XXX_DiscardUnknown() {
-	xxx_messageInfo_FileSrc.DiscardUnknown(m)
+func (m *MediaInfo) XXX_DiscardUnknown() {
+	xxx_messageInfo_MediaInfo.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_FileSrc proto.InternalMessageInfo
+var xxx_messageInfo_MediaInfo proto.InternalMessageInfo
 
-func (m *FileSrc) GetUrl() string {
+func (m *MediaInfo) GetUrl() string {
 	if m != nil {
 		return m.Url
 	}
 	return ""
 }
 
-func (m *FileSrc) GetSize() int32 {
+func (m *MediaInfo) GetSize() int32 {
 	if m != nil {
 		return m.Size
 	}
 	return 0
 }
 
-func (m *FileSrc) GetWidth() int32 {
+func (m *MediaInfo) GetWidth() int32 {
 	if m != nil {
 		return m.Width
 	}
 	return 0
 }
 
-func (m *FileSrc) GetHeight() int32 {
+func (m *MediaInfo) GetHeight() int32 {
 	if m != nil {
 		return m.Height
 	}
 	return 0
 }
 
-func (m *FileSrc) GetSignatureKey() string {
+func (m *MediaInfo) GetSignatureKey() string {
 	if m != nil {
 		return m.SignatureKey
 	}
 	return ""
 }
 
+func (m *MediaInfo) GetPublicId() string {
+	if m != nil {
+		return m.PublicId
+	}
+	return ""
+}
+
+func (m *MediaInfo) GetFormat() string {
+	if m != nil {
+		return m.Format
+	}
+	return ""
+}
+
 type FileData struct {
-	Id                   string     `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Title                string     `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
-	Tag                  string     `protobuf:"bytes,3,opt,name=tag,proto3" json:"tag,omitempty"`
-	Created              int32      `protobuf:"varint,4,opt,name=created,proto3" json:"created,omitempty"`
-	File                 []*FileSrc `protobuf:"bytes,5,rep,name=file,proto3" json:"file,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+	Id                   string       `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Title                string       `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+	Tag                  string       `protobuf:"bytes,3,opt,name=tag,proto3" json:"tag,omitempty"`
+	Created              int32        `protobuf:"varint,4,opt,name=created,proto3" json:"created,omitempty"`
+	Media                []*MediaInfo `protobuf:"bytes,5,rep,name=media,proto3" json:"media,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
+	XXX_unrecognized     []byte       `json:"-"`
+	XXX_sizecache        int32        `json:"-"`
 }
 
 func (m *FileData) Reset()         { *m = FileData{} }
 func (m *FileData) String() string { return proto.CompactTextString(m) }
 func (*FileData) ProtoMessage()    {}
 func (*FileData) Descriptor() ([]byte, []int) {
-	return fileDescriptor_blog_f51a31b8778f2d05, []int{2}
+	return fileDescriptor_blog_7af59a88f5b63bc1, []int{2}
 }
 func (m *FileData) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_FileData.Unmarshal(m, b)
@@ -269,42 +269,133 @@ func (m *FileData) GetCreated() int32 {
 	return 0
 }
 
-func (m *FileData) GetFile() []*FileSrc {
+func (m *FileData) GetMedia() []*MediaInfo {
 	if m != nil {
-		return m.File
+		return m.Media
+	}
+	return nil
+}
+
+type Note struct {
+	Id                   string       `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Content              string       `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty"`
+	Created              int32        `protobuf:"varint,3,opt,name=created,proto3" json:"created,omitempty"`
+	Title                string       `protobuf:"bytes,4,opt,name=title,proto3" json:"title,omitempty"`
+	X                    int32        `protobuf:"varint,5,opt,name=X,proto3" json:"X,omitempty"`
+	Y                    int32        `protobuf:"varint,6,opt,name=Y,proto3" json:"Y,omitempty"`
+	Media                []*MediaInfo `protobuf:"bytes,7,rep,name=media,proto3" json:"media,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
+	XXX_unrecognized     []byte       `json:"-"`
+	XXX_sizecache        int32        `json:"-"`
+}
+
+func (m *Note) Reset()         { *m = Note{} }
+func (m *Note) String() string { return proto.CompactTextString(m) }
+func (*Note) ProtoMessage()    {}
+func (*Note) Descriptor() ([]byte, []int) {
+	return fileDescriptor_blog_7af59a88f5b63bc1, []int{3}
+}
+func (m *Note) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Note.Unmarshal(m, b)
+}
+func (m *Note) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Note.Marshal(b, m, deterministic)
+}
+func (dst *Note) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Note.Merge(dst, src)
+}
+func (m *Note) XXX_Size() int {
+	return xxx_messageInfo_Note.Size(m)
+}
+func (m *Note) XXX_DiscardUnknown() {
+	xxx_messageInfo_Note.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Note proto.InternalMessageInfo
+
+func (m *Note) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Note) GetContent() string {
+	if m != nil {
+		return m.Content
+	}
+	return ""
+}
+
+func (m *Note) GetCreated() int32 {
+	if m != nil {
+		return m.Created
+	}
+	return 0
+}
+
+func (m *Note) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *Note) GetX() int32 {
+	if m != nil {
+		return m.X
+	}
+	return 0
+}
+
+func (m *Note) GetY() int32 {
+	if m != nil {
+		return m.Y
+	}
+	return 0
+}
+
+func (m *Note) GetMedia() []*MediaInfo {
+	if m != nil {
+		return m.Media
 	}
 	return nil
 }
 
 func init() {
 	proto.RegisterType((*Blog)(nil), "blog.Blog")
-	proto.RegisterType((*FileSrc)(nil), "blog.FileSrc")
+	proto.RegisterType((*MediaInfo)(nil), "blog.MediaInfo")
 	proto.RegisterType((*FileData)(nil), "blog.FileData")
+	proto.RegisterType((*Note)(nil), "blog.Note")
 }
 
-func init() { proto.RegisterFile("blog.proto", fileDescriptor_blog_f51a31b8778f2d05) }
+func init() { proto.RegisterFile("blog.proto", fileDescriptor_blog_7af59a88f5b63bc1) }
 
-var fileDescriptor_blog_f51a31b8778f2d05 = []byte{
-	// 334 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x64, 0x92, 0xcd, 0x4e, 0xeb, 0x30,
-	0x10, 0x85, 0x95, 0xbf, 0xb6, 0x99, 0xde, 0x5e, 0x21, 0x0b, 0x21, 0x8b, 0x55, 0x28, 0x9b, 0xac,
-	0xba, 0x80, 0x37, 0x40, 0x88, 0x0d, 0x3b, 0xf3, 0x00, 0xc8, 0x4d, 0x86, 0xc4, 0x22, 0x8a, 0x23,
-	0x67, 0x22, 0x54, 0x36, 0x48, 0xac, 0x78, 0x6c, 0xe4, 0x49, 0x5a, 0x82, 0xd8, 0x9d, 0x33, 0x63,
-	0x1f, 0x79, 0x3e, 0x0f, 0xc0, 0xbe, 0xb1, 0xd5, 0xae, 0x73, 0x96, 0xac, 0x88, 0xbd, 0xde, 0x7e,
-	0x85, 0x10, 0xdf, 0x35, 0xb6, 0x12, 0xff, 0x21, 0x34, 0xa5, 0x0c, 0xb2, 0x20, 0x4f, 0x55, 0x68,
-	0x4a, 0x71, 0x09, 0xab, 0xce, 0xd9, 0x72, 0x28, 0xa8, 0x97, 0x21, 0x57, 0x4f, 0x5e, 0x9c, 0x43,
-	0x42, 0x86, 0x1a, 0x94, 0x11, 0x37, 0x46, 0x23, 0x32, 0x58, 0x97, 0xd8, 0x17, 0xce, 0x74, 0x64,
-	0x6c, 0x2b, 0x63, 0xee, 0xcd, 0x4b, 0xfe, 0x5e, 0xe7, 0x4c, 0x81, 0x32, 0xc9, 0x82, 0x3c, 0x51,
-	0xa3, 0x11, 0x17, 0xb0, 0xd0, 0x03, 0xd5, 0xd6, 0xc9, 0x05, 0x5f, 0x99, 0x9c, 0x90, 0xb0, 0x2c,
-	0x1c, 0x6a, 0xc2, 0x52, 0x2e, 0xf9, 0xfc, 0xd1, 0xfa, 0x9c, 0x9e, 0x34, 0xa1, 0x5c, 0x8d, 0x39,
-	0x6c, 0xc4, 0x19, 0x44, 0xa4, 0x2b, 0x99, 0x72, 0x88, 0x97, 0x42, 0x40, 0x4c, 0xba, 0xea, 0x25,
-	0x64, 0x51, 0x9e, 0x2a, 0xd6, 0x9c, 0x6a, 0x5b, 0xc2, 0x96, 0xe4, 0x9a, 0x4f, 0x1e, 0xed, 0xf6,
-	0x33, 0x80, 0xe5, 0x83, 0x69, 0xf0, 0xc9, 0x15, 0x3e, 0x6b, 0x70, 0xcd, 0x84, 0xc3, 0x4b, 0x9f,
-	0xd5, 0x9b, 0x77, 0x64, 0x16, 0x89, 0x62, 0xed, 0xdf, 0xf1, 0x66, 0x4a, 0xaa, 0x99, 0x43, 0xa2,
-	0x46, 0xe3, 0xe7, 0xa9, 0xd1, 0x54, 0x35, 0x31, 0x82, 0x44, 0x4d, 0x4e, 0x5c, 0xc3, 0xa6, 0x37,
-	0x55, 0xab, 0x69, 0x70, 0xf8, 0xfc, 0x8a, 0x07, 0xa6, 0x90, 0xaa, 0x7f, 0xa7, 0xe2, 0x23, 0x1e,
-	0xb6, 0x1f, 0xb0, 0xf2, 0x6f, 0xb8, 0xd7, 0xa4, 0xff, 0x7c, 0xc9, 0x09, 0x7b, 0x38, 0xc7, 0x3e,
-	0x8d, 0x1d, 0xfd, 0x8c, 0x3d, 0x03, 0x17, 0xff, 0x06, 0x77, 0x05, 0xf1, 0x8b, 0x69, 0x3c, 0xff,
-	0x28, 0x5f, 0xdf, 0x6c, 0x76, 0xbc, 0x0e, 0xd3, 0xcc, 0x8a, 0x5b, 0xfb, 0x05, 0x6f, 0xc7, 0xed,
-	0x77, 0x00, 0x00, 0x00, 0xff, 0xff, 0x7a, 0xa2, 0xe3, 0xe8, 0x2b, 0x02, 0x00, 0x00,
+var fileDescriptor_blog_7af59a88f5b63bc1 = []byte{
+	// 390 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x52, 0x4d, 0x8b, 0xdb, 0x30,
+	0x10, 0x45, 0xb6, 0x95, 0xc4, 0xb3, 0xe9, 0x07, 0xa2, 0x14, 0x41, 0x2f, 0xc6, 0xa5, 0xe0, 0xd3,
+	0x1e, 0xda, 0x7f, 0x50, 0x4a, 0x61, 0x29, 0xed, 0x41, 0xa7, 0xdd, 0xd3, 0x22, 0xc7, 0x8a, 0x2d,
+	0xea, 0x58, 0xc1, 0x1e, 0x53, 0xd2, 0x6b, 0x7f, 0x4a, 0x7f, 0x45, 0xff, 0x43, 0x7f, 0x54, 0xd1,
+	0xc8, 0x49, 0x1c, 0x42, 0xf7, 0x36, 0xef, 0xd9, 0xbc, 0x79, 0x7a, 0x6f, 0x00, 0xca, 0xd6, 0xd5,
+	0xb7, 0xfb, 0xde, 0xa1, 0x13, 0x89, 0x9f, 0xf3, 0xbf, 0x0c, 0x92, 0x8f, 0xad, 0xab, 0xc5, 0x73,
+	0x88, 0x6c, 0x25, 0x59, 0xc6, 0x8a, 0x54, 0x45, 0xb6, 0x12, 0xaf, 0x80, 0xa3, 0xc5, 0xd6, 0xc8,
+	0x98, 0xa8, 0x00, 0xc4, 0x6b, 0x58, 0xe8, 0x11, 0x1b, 0xd7, 0xcb, 0x05, 0xd1, 0x13, 0x12, 0x12,
+	0x96, 0x9b, 0xde, 0x68, 0x34, 0x95, 0x5c, 0x66, 0xac, 0xe0, 0xea, 0x08, 0xbd, 0xce, 0x80, 0x1a,
+	0x8d, 0x5c, 0x11, 0x1f, 0x80, 0x78, 0x09, 0x31, 0xea, 0x5a, 0xa6, 0x24, 0xe2, 0x47, 0x21, 0x20,
+	0x41, 0x5d, 0x0f, 0x12, 0xb2, 0xb8, 0x48, 0x15, 0xcd, 0xa4, 0xea, 0x3a, 0x34, 0x1d, 0xca, 0x1b,
+	0xfa, 0xf3, 0x08, 0xbd, 0x8f, 0x52, 0x77, 0x9d, 0xe9, 0xe5, 0x3a, 0xf8, 0x08, 0x28, 0xff, 0xc3,
+	0x20, 0xfd, 0x6a, 0x2a, 0xab, 0xef, 0xba, 0xad, 0xf3, 0x5b, 0xc6, 0xbe, 0x9d, 0x1e, 0xe5, 0x47,
+	0xbf, 0x65, 0xb0, 0x3f, 0x8d, 0x8c, 0xc8, 0x0c, 0xcd, 0xde, 0xe1, 0x0f, 0x5b, 0x61, 0x43, 0x2f,
+	0xe5, 0x2a, 0x00, 0xbf, 0xa1, 0x31, 0xb6, 0x6e, 0x50, 0x26, 0x44, 0x4f, 0x48, 0xbc, 0x85, 0x67,
+	0x83, 0xad, 0x3b, 0x8d, 0x63, 0x6f, 0x1e, 0xbf, 0x9b, 0x83, 0xe4, 0xa4, 0xbe, 0x3e, 0x91, 0x5f,
+	0xcc, 0x41, 0xbc, 0x81, 0x74, 0x3f, 0x96, 0xad, 0xdd, 0x3c, 0xda, 0x6a, 0x4a, 0x6a, 0x15, 0x88,
+	0xbb, 0xca, 0x2b, 0x6f, 0x5d, 0xbf, 0xd3, 0x48, 0x51, 0xa5, 0x6a, 0x42, 0xf9, 0x2f, 0x06, 0xab,
+	0xcf, 0xb6, 0x35, 0x9f, 0x34, 0xea, 0xff, 0xd7, 0x11, 0xcd, 0xeb, 0x98, 0x62, 0x8c, 0xcf, 0x31,
+	0xce, 0x8a, 0x48, 0x2e, 0x8b, 0x78, 0x07, 0x7c, 0xe7, 0x93, 0x91, 0x3c, 0x8b, 0x8b, 0x9b, 0xf7,
+	0x2f, 0x6e, 0xe9, 0x16, 0x4e, 0x61, 0xa9, 0xf0, 0x35, 0xff, 0xcd, 0x20, 0xf9, 0xe6, 0xd0, 0x5c,
+	0x39, 0x98, 0x95, 0x11, 0x5d, 0x96, 0x31, 0xdb, 0x19, 0x5f, 0x95, 0x1f, 0x5c, 0x27, 0x73, 0xd7,
+	0x6b, 0x60, 0xf7, 0x14, 0x1b, 0x57, 0xec, 0xde, 0xa3, 0x07, 0xca, 0x88, 0x2b, 0xf6, 0x70, 0x76,
+	0xb9, 0x7c, 0xca, 0x65, 0xb9, 0xa0, 0x1b, 0xfe, 0xf0, 0x2f, 0x00, 0x00, 0xff, 0xff, 0xed, 0xef,
+	0xa2, 0x64, 0xd1, 0x02, 0x00, 0x00,
 }

@@ -4,29 +4,39 @@ package blog;
 
 message Blog {
 		string id =1;
-		string products = 2;
 		string title = 3;
-		string description = 4;
-		int32 price =5;
 		string author = 6;
 		int32 created = 7;
 		int32 state = 8;
 		string tag = 9;
 		repeated string tags = 10;
 		string content = 11;
+		string banner = 12;
 }
 
-message FileSrc {
+message MediaInfo {
 	string url = 1;
 	int32 size = 2;
 	int32 width = 3;
 	int32 height = 4;
 	string signature_key = 5;
+	string public_id = 6;
+	string format = 7;
 }
 message FileData {
 	string id = 1;
 	string title = 2;
 	string tag =3;
 	int32 created = 4;
-	repeated FileSrc file = 5;
+	repeated MediaInfo media = 5;
+}
+
+message Note {
+	string id = 1;
+	string content = 2;
+	int32 created = 3;
+	string title = 4;
+	int32 X = 5;
+	int32 Y = 6;
+	repeated MediaInfo media = 7;
 }
