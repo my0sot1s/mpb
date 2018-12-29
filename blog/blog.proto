@@ -13,6 +13,7 @@ message Blog {
 		int32 state = 8;
 		string tag = 9;
 		repeated string tags = 10;
+		string content = 11;
 }
 
 message FileSrc {
