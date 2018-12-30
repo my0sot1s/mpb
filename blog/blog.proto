@@ -2,6 +2,13 @@ syntax="proto3";
 
 package blog;
 
+message BlogCategory {
+	string id = 1;
+	string name = 2;
+	string description = 3;
+	int32 created = 4;
+}
+
 message Blog {
 		string id =1;
 		string title = 3;
@@ -12,6 +19,7 @@ message Blog {
 		repeated string tags = 10;
 		string content = 11;
 		string banner = 12;
+		repeated BlogCategory categories = 13;
 }
 
 message MediaInfo {
@@ -36,7 +44,7 @@ message Note {
 	string content = 2;
 	int32 created = 3;
 	string title = 4;
-	int32 X = 5;
-	int32 Y = 6;
+	int32 posX = 5;
+	int32 posY = 6;
 	repeated MediaInfo media = 7;
 }
