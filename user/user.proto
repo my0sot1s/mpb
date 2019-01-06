@@ -19,7 +19,7 @@ message User {
     string name = 2;
     string display_name =3;
     repeated string phones = 4;
-    repeated string emails = 5;
+    string email = 5;
     repeated string websites = 6;
     repeated SocialDetail socials = 7;
     string state = 8;
