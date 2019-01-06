@@ -5,7 +5,13 @@ package user;
 message SocialDetail {
     string name =1;
     string url =2;
+    string avatar = 4;
     string id_info = 3;
+}
+
+enum UserType {
+	NormalUser = 0;
+	SuperUser =1;
 }
 
 message User {
@@ -20,7 +26,8 @@ message User {
     repeated string group_ids = 9;
     repeated GroupUser groups = 10;
     repeated string notes =11;
-    int32 created = 12;
+		int32 created = 12;
+    string avatar = 13;
 }
 
 message GroupUser {
@@ -39,4 +46,12 @@ message Permission {
     string type = 3;
     string state = 4;
     int32 created = 5;
+}
+
+message Token {
+	string id = 1;
+	string token = 2;
+	string refresh_token = 3;
+	int32 created = 4;
+	int32 modified = 5;
 }
