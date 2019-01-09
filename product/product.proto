@@ -13,7 +13,7 @@ service ProductStream {
 		// shipment
 		rpc GetShipments (common.ReqQuery) returns (Shipments);
 		rpc LookupShipment (common.ReqId) returns (Shipment);
-		rpc UpsertShipment (Shipments) returns (Shipments);
+		rpc UpsertShipment (Shipment) returns (Shipment);
 		// Campain
 		rpc GetCampaigns (common.ReqQuery) returns (Campaigns);
 		rpc LookupCampaign (common.ReqId) returns (Campaign);
