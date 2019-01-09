@@ -1,5 +1,7 @@
 syntax="proto3";
 
+option go_package = "github.com/my0sot1s/mpb/common";
+
 package common;
 
 message ReqQuery {

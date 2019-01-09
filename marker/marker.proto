@@ -1,8 +1,10 @@
 syntax="proto3";
 
-package marker;
-import "common/common.proto";
 
+package marker;
+
+import "common/common.proto";
+option go_package = "github.com/my0sot1s/mpb/marker";
 service MarkerStream {
 		// tag
 		rpc GetTags (common.ReqQuery) returns (Tags);

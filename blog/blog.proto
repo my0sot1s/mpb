@@ -1,7 +1,6 @@
 syntax="proto3";
 
 package blog;
-option go_package = "github.com/my0sot1s/mpb/blog";
 
 import "common/common.proto";
 import "marker/marker.proto";

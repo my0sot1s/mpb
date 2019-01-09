@@ -6,8 +6,8 @@ package blog // import "github.com/my0sot1s/mpb/blog"
 import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
-import common "common"
-import marker "marker"
+import common "github.com/my0sot1s/mpb/common"
+import marker "github.com/my0sot1s/mpb/marker"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal

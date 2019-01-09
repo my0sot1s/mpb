@@ -6,7 +6,7 @@ package user
 import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
-import common "common"
+import common "github.com/my0sot1s/mpb/common"
 
 import (
 	context "golang.org/x/net/context"
