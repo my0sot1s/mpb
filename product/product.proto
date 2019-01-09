@@ -11,27 +11,25 @@ service ProductStream {
 		rpc UpsertProduct (Product) returns (Product);
 		rpc DeleteProduct (common.ReqId) returns (common.Nil);
 		// shipment
-		rpc GetShipment (common.ReqId) returns (Shipments);
-		rpc LookupShipment (common.ReqQuery) returns (Shipment);
+		rpc GetShipment (common.ReqQuery) returns (Shipments);
+		rpc LookupShipment (common.ReqId) returns (Shipment);
 		rpc UpsertShipment (Shipments) returns (Shipments);
 		// Campain
 		rpc GetCampaigns (common.ReqQuery) returns (Campaigns);
-		rpc LookupCampaign (common.ReqQuery) returns (Campaign);
+		rpc LookupCampaign (common.ReqId) returns (Campaign);
 		rpc UpsertCampaign (Campaign) returns (Campaign);
-		rpc DeleteCampaign (Campaign) returns (common.Nil);
-
 		// Order
-		rpc GetOrders (common.ReqQuery) returns (Order);
+		rpc GetOrders (common.ReqQuery) returns (Orders);
 		rpc LookupOrder (common.ReqId) returns (Order);
 		rpc InsertOrder (Order) returns (Order);
 
 		// Customer
-		rpc GetCustomer (common.ReqQuery) returns (Customer);
+		rpc GetCustomer (common.ReqQuery) returns (Customers);
 		rpc LookupCustomers (common.ReqId) returns (Customer);
 		rpc UpsertCustomer (Customer) returns (Customer);
 
 		// Invoice
-		rpc GetInvoice (common.ReqQuery) returns (Invoice);
+		rpc GetInvoice (common.ReqQuery) returns (Invoices);
 		rpc LookupInvoice (common.ReqId) returns (Invoice);
 		rpc UpsertInvoice (Invoice) returns (Invoice);
 }
@@ -144,6 +142,11 @@ message Customer {
 message PaymentMethod {
 		string id =1;
 		string name =2;
+}
+message Invoices {
+	repeated Invoice invoices = 1;
+	string anchor = 2;
+	string order_id = 3;
 }
 
 message Invoice {
