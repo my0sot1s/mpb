@@ -38,7 +38,7 @@ func (m *Products) Reset()         { *m = Products{} }
 func (m *Products) String() string { return proto.CompactTextString(m) }
 func (*Products) ProtoMessage()    {}
 func (*Products) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_4f897b693498011e, []int{0}
+	return fileDescriptor_product_0db1829420260e51, []int{0}
 }
 func (m *Products) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Products.Unmarshal(m, b)
@@ -105,7 +105,7 @@ func (m *Product) Reset()         { *m = Product{} }
 func (m *Product) String() string { return proto.CompactTextString(m) }
 func (*Product) ProtoMessage()    {}
 func (*Product) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_4f897b693498011e, []int{1}
+	return fileDescriptor_product_0db1829420260e51, []int{1}
 }
 func (m *Product) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Product.Unmarshal(m, b)
@@ -249,7 +249,7 @@ func (m *Shipments) Reset()         { *m = Shipments{} }
 func (m *Shipments) String() string { return proto.CompactTextString(m) }
 func (*Shipments) ProtoMessage()    {}
 func (*Shipments) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_4f897b693498011e, []int{2}
+	return fileDescriptor_product_0db1829420260e51, []int{2}
 }
 func (m *Shipments) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Shipments.Unmarshal(m, b)
@@ -299,7 +299,7 @@ func (m *Shipment) Reset()         { *m = Shipment{} }
 func (m *Shipment) String() string { return proto.CompactTextString(m) }
 func (*Shipment) ProtoMessage()    {}
 func (*Shipment) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_4f897b693498011e, []int{3}
+	return fileDescriptor_product_0db1829420260e51, []int{3}
 }
 func (m *Shipment) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Shipment.Unmarshal(m, b)
@@ -378,7 +378,7 @@ func (m *ShipmentProduct) Reset()         { *m = ShipmentProduct{} }
 func (m *ShipmentProduct) String() string { return proto.CompactTextString(m) }
 func (*ShipmentProduct) ProtoMessage()    {}
 func (*ShipmentProduct) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_4f897b693498011e, []int{4}
+	return fileDescriptor_product_0db1829420260e51, []int{4}
 }
 func (m *ShipmentProduct) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ShipmentProduct.Unmarshal(m, b)
@@ -465,7 +465,7 @@ func (m *ShipmentItems) Reset()         { *m = ShipmentItems{} }
 func (m *ShipmentItems) String() string { return proto.CompactTextString(m) }
 func (*ShipmentItems) ProtoMessage()    {}
 func (*ShipmentItems) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_4f897b693498011e, []int{5}
+	return fileDescriptor_product_0db1829420260e51, []int{5}
 }
 func (m *ShipmentItems) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ShipmentItems.Unmarshal(m, b)
@@ -559,7 +559,7 @@ func (m *OrderItems) Reset()         { *m = OrderItems{} }
 func (m *OrderItems) String() string { return proto.CompactTextString(m) }
 func (*OrderItems) ProtoMessage()    {}
 func (*OrderItems) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_4f897b693498011e, []int{6}
+	return fileDescriptor_product_0db1829420260e51, []int{6}
 }
 func (m *OrderItems) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_OrderItems.Unmarshal(m, b)
@@ -647,7 +647,7 @@ func (m *Orders) Reset()         { *m = Orders{} }
 func (m *Orders) String() string { return proto.CompactTextString(m) }
 func (*Orders) ProtoMessage()    {}
 func (*Orders) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_4f897b693498011e, []int{7}
+	return fileDescriptor_product_0db1829420260e51, []int{7}
 }
 func (m *Orders) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Orders.Unmarshal(m, b)
@@ -700,7 +700,7 @@ func (m *Order) Reset()         { *m = Order{} }
 func (m *Order) String() string { return proto.CompactTextString(m) }
 func (*Order) ProtoMessage()    {}
 func (*Order) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_4f897b693498011e, []int{8}
+	return fileDescriptor_product_0db1829420260e51, []int{8}
 }
 func (m *Order) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Order.Unmarshal(m, b)
@@ -795,7 +795,7 @@ func (m *Customers) Reset()         { *m = Customers{} }
 func (m *Customers) String() string { return proto.CompactTextString(m) }
 func (*Customers) ProtoMessage()    {}
 func (*Customers) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_4f897b693498011e, []int{9}
+	return fileDescriptor_product_0db1829420260e51, []int{9}
 }
 func (m *Customers) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Customers.Unmarshal(m, b)
@@ -846,7 +846,7 @@ func (m *Customer) Reset()         { *m = Customer{} }
 func (m *Customer) String() string { return proto.CompactTextString(m) }
 func (*Customer) ProtoMessage()    {}
 func (*Customer) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_4f897b693498011e, []int{10}
+	return fileDescriptor_product_0db1829420260e51, []int{10}
 }
 func (m *Customer) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Customer.Unmarshal(m, b)
@@ -927,7 +927,7 @@ func (m *PaymentMethod) Reset()         { *m = PaymentMethod{} }
 func (m *PaymentMethod) String() string { return proto.CompactTextString(m) }
 func (*PaymentMethod) ProtoMessage()    {}
 func (*PaymentMethod) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_4f897b693498011e, []int{11}
+	return fileDescriptor_product_0db1829420260e51, []int{11}
 }
 func (m *PaymentMethod) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_PaymentMethod.Unmarshal(m, b)
@@ -974,7 +974,7 @@ func (m *Invoices) Reset()         { *m = Invoices{} }
 func (m *Invoices) String() string { return proto.CompactTextString(m) }
 func (*Invoices) ProtoMessage()    {}
 func (*Invoices) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_4f897b693498011e, []int{12}
+	return fileDescriptor_product_0db1829420260e51, []int{12}
 }
 func (m *Invoices) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Invoices.Unmarshal(m, b)
@@ -1037,7 +1037,7 @@ func (m *Invoice) Reset()         { *m = Invoice{} }
 func (m *Invoice) String() string { return proto.CompactTextString(m) }
 func (*Invoice) ProtoMessage()    {}
 func (*Invoice) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_4f897b693498011e, []int{13}
+	return fileDescriptor_product_0db1829420260e51, []int{13}
 }
 func (m *Invoice) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Invoice.Unmarshal(m, b)
@@ -1152,7 +1152,7 @@ func (m *Campaigns) Reset()         { *m = Campaigns{} }
 func (m *Campaigns) String() string { return proto.CompactTextString(m) }
 func (*Campaigns) ProtoMessage()    {}
 func (*Campaigns) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_4f897b693498011e, []int{14}
+	return fileDescriptor_product_0db1829420260e51, []int{14}
 }
 func (m *Campaigns) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Campaigns.Unmarshal(m, b)
@@ -1196,7 +1196,7 @@ func (m *Campaign) Reset()         { *m = Campaign{} }
 func (m *Campaign) String() string { return proto.CompactTextString(m) }
 func (*Campaign) ProtoMessage()    {}
 func (*Campaign) Descriptor() ([]byte, []int) {
-	return fileDescriptor_product_4f897b693498011e, []int{15}
+	return fileDescriptor_product_0db1829420260e51, []int{15}
 }
 func (m *Campaign) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Campaign.Unmarshal(m, b)
@@ -1312,7 +1312,7 @@ type ProductStreamClient interface {
 	// Order
 	GetOrders(ctx context.Context, in *common.ReqQuery, opts ...grpc.CallOption) (*Orders, error)
 	LookupOrder(ctx context.Context, in *common.ReqId, opts ...grpc.CallOption) (*Order, error)
-	InsertOrder(ctx context.Context, in *Order, opts ...grpc.CallOption) (*Order, error)
+	UpsertOrder(ctx context.Context, in *Order, opts ...grpc.CallOption) (*Order, error)
 	// Customer
 	GetCustomers(ctx context.Context, in *common.ReqQuery, opts ...grpc.CallOption) (*Customers, error)
 	LookupCustomers(ctx context.Context, in *common.ReqId, opts ...grpc.CallOption) (*Customer, error)
@@ -1439,9 +1439,9 @@ func (c *productStreamClient) LookupOrder(ctx context.Context, in *common.ReqId,
 	return out, nil
 }
 
-func (c *productStreamClient) InsertOrder(ctx context.Context, in *Order, opts ...grpc.CallOption) (*Order, error) {
+func (c *productStreamClient) UpsertOrder(ctx context.Context, in *Order, opts ...grpc.CallOption) (*Order, error) {
 	out := new(Order)
-	err := c.cc.Invoke(ctx, "/product.ProductStream/InsertOrder", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/product.ProductStream/UpsertOrder", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1520,7 +1520,7 @@ type ProductStreamServer interface {
 	// Order
 	GetOrders(context.Context, *common.ReqQuery) (*Orders, error)
 	LookupOrder(context.Context, *common.ReqId) (*Order, error)
-	InsertOrder(context.Context, *Order) (*Order, error)
+	UpsertOrder(context.Context, *Order) (*Order, error)
 	// Customer
 	GetCustomers(context.Context, *common.ReqQuery) (*Customers, error)
 	LookupCustomers(context.Context, *common.ReqId) (*Customer, error)
@@ -1751,20 +1751,20 @@ func _ProductStream_LookupOrder_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ProductStream_InsertOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ProductStream_UpsertOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Order)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ProductStreamServer).InsertOrder(ctx, in)
+		return srv.(ProductStreamServer).UpsertOrder(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/product.ProductStream/InsertOrder",
+		FullMethod: "/product.ProductStream/UpsertOrder",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductStreamServer).InsertOrder(ctx, req.(*Order))
+		return srv.(ProductStreamServer).UpsertOrder(ctx, req.(*Order))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1930,8 +1930,8 @@ var _ProductStream_serviceDesc = grpc.ServiceDesc{
 			Handler:    _ProductStream_LookupOrder_Handler,
 		},
 		{
-			MethodName: "InsertOrder",
-			Handler:    _ProductStream_InsertOrder_Handler,
+			MethodName: "UpsertOrder",
+			Handler:    _ProductStream_UpsertOrder_Handler,
 		},
 		{
 			MethodName: "GetCustomers",
@@ -1962,10 +1962,10 @@ var _ProductStream_serviceDesc = grpc.ServiceDesc{
 	Metadata: "product/product.proto",
 }
 
-func init() { proto.RegisterFile("product/product.proto", fileDescriptor_product_4f897b693498011e) }
+func init() { proto.RegisterFile("product/product.proto", fileDescriptor_product_0db1829420260e51) }
 
-var fileDescriptor_product_4f897b693498011e = []byte{
-	// 1321 bytes of a gzipped FileDescriptorProto
+var fileDescriptor_product_0db1829420260e51 = []byte{
+	// 1320 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x57, 0xcd, 0x6e, 0xdb, 0x46,
 	0x10, 0x06, 0x65, 0xf3, 0x6f, 0x68, 0xd9, 0xce, 0x26, 0x4d, 0x19, 0x15, 0x41, 0x54, 0xb6, 0x4d,
 	0xdd, 0x9f, 0xd8, 0x81, 0x1d, 0x14, 0x3d, 0xf4, 0xd2, 0xba, 0x80, 0x2b, 0xa0, 0x49, 0x5d, 0x26,
@@ -2043,10 +2043,10 @@ var fileDescriptor_product_4f897b693498011e = []byte{
 	0xcf, 0xce, 0xbd, 0xa7, 0x49, 0x8c, 0x75, 0x39, 0x6e, 0xc3, 0x58, 0x7b, 0x19, 0x8c, 0xa6, 0x10,
 	0x37, 0x62, 0x34, 0x1e, 0x5f, 0x69, 0x8c, 0x46, 0xd3, 0x75, 0xea, 0x5b, 0x77, 0x0c, 0xfe, 0x05,
 	0x61, 0x6a, 0x6a, 0x77, 0xe1, 0x1d, 0xac, 0x5f, 0x3a, 0xfc, 0xb2, 0x0c, 0x24, 0x36, 0x39, 0x9d,
-	0x5b, 0xc0, 0x5a, 0x77, 0x14, 0x7a, 0x04, 0xc1, 0x24, 0xe7, 0xa8, 0xd4, 0x2c, 0x5f, 0x37, 0x77,
-	0xdc, 0x15, 0x5d, 0x66, 0x42, 0x6d, 0xa5, 0xcb, 0x78, 0x9d, 0xc1, 0x81, 0xa2, 0xcb, 0xa8, 0x36,
-	0xf3, 0xa5, 0xaf, 0xb9, 0x9a, 0x2f, 0xad, 0xe9, 0x3a, 0xf5, 0xad, 0x93, 0x0d, 0x64, 0x66, 0xc7,
-	0xb6, 0x06, 0x32, 0x4e, 0x8f, 0x75, 0x03, 0xe9, 0x21, 0xd0, 0x82, 0xd7, 0x19, 0x37, 0x75, 0xf7,
-	0x68, 0x45, 0xc7, 0xa5, 0xbb, 0xe8, 0xa5, 0x23, 0xfe, 0xc6, 0x9f, 0xfd, 0x1b, 0x00, 0x00, 0xff,
-	0xff, 0xcc, 0xc0, 0x1b, 0xa4, 0x12, 0x10, 0x00, 0x00,
+	0x5b, 0xc0, 0x5a, 0x77, 0x14, 0x7a, 0x04, 0x81, 0x44, 0xa5, 0x66, 0xf9, 0xba, 0xb9, 0xe3, 0xae,
+	0xe8, 0x32, 0x13, 0x6a, 0x2b, 0x5d, 0xc6, 0xeb, 0x0c, 0x0e, 0x14, 0x5d, 0x46, 0xb5, 0x99, 0x2f,
+	0x7d, 0xcd, 0xd5, 0x7c, 0x69, 0x4d, 0xd7, 0xa9, 0x6f, 0x9d, 0x6c, 0x20, 0x33, 0x3b, 0xb6, 0x35,
+	0x90, 0x71, 0x7a, 0xac, 0x1b, 0x48, 0x0f, 0x81, 0x16, 0xbc, 0xce, 0xb8, 0xa9, 0xbb, 0x47, 0x2b,
+	0x3a, 0x2e, 0xdd, 0x45, 0x2f, 0x1d, 0xf1, 0x37, 0xfe, 0xec, 0xdf, 0x00, 0x00, 0x00, 0xff, 0xff,
+	0x96, 0xb5, 0x6e, 0x7c, 0x12, 0x10, 0x00, 0x00,
 }

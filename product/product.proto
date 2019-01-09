@@ -21,7 +21,7 @@ service ProductStream {
 		// Order
 		rpc GetOrders (common.ReqQuery) returns (Orders);
 		rpc LookupOrder (common.ReqId) returns (Order);
-		rpc InsertOrder (Order) returns (Order);
+		rpc UpsertOrder (Order) returns (Order);
 
 		// Customer
 		rpc GetCustomers (common.ReqQuery) returns (Customers);
