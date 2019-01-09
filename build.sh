@@ -1,10 +1,12 @@
 #!/bin/bash
+# #build for common
+protoc common/common.proto -I. --go_out=.
 # build for product
-protoc -I product/  product/product.proto  --go_out=plugins=grpc:product
-# build for user
-protoc -I user/ user/user.proto --go_out=./user
-#build for req
-protoc -I reqres/ reqres/reqres.proto --go_out=./reqres
-# build for blog
-protoc -I blog/ blog/blog.proto --go_out=./blog
+protoc product/product.proto -I. --go_out=plugins=grpc:.
+# # build for user
+protoc user/user.proto -I. --go_out=plugins=grpc:.
+# # build for blog
+protoc blog/blog.proto -I. --go_out=.
+# # build for maker
+protoc marker/marker.proto -I. --go_out=plugins=grpc:.
 echo done!

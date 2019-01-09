@@ -1,17 +1,49 @@
 syntax = "proto3";
 
 package user;
+import "common/common.proto";
+
+service UserSubStream {
+	// email
+	rpc DoSendEmail (EmailSubscribers) returns (EmailSubscribers);
+}
+
+service UserStream {
+	// user
+	rpc LoginOauth (User) returns (Token);
+	rpc RefreshTokenOauth (Token) returns (Token);
+	rpc ListUsers (common.ReqQuery) returns (Users);
+	rpc UserById (common.ReqId) returns (User);
+}
+
+message EmailSubscribers {
+	repeated EmailSubscriber sub_list= 1;
+	repeated bool send_done = 2;
+}
+
+message EmailSubscriber {
+	string id = 1;
+	string uid = 2;
+	string email = 3;
+	string status = 4;
+}
 
 message SocialDetail {
     string name =1;
     string url =2;
     string avatar = 4;
-    string id_info = 3;
+		string id_info = 3;
+		Token token = 5;
 }
 
 enum UserType {
 	NormalUser = 0;
 	SuperUser =1;
+}
+
+message Users {
+	repeated User users =1;
+	string anchor = 2;
 }
 
 message User {

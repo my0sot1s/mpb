@@ -1,0 +1,60 @@
+syntax="proto3";
+
+package marker;
+import "common/common.proto";
+
+service MarkerStream {
+		// tag
+		rpc GetTags (common.ReqQuery) returns (Tags);
+		rpc UpsertTag (Tag) returns (Tag);
+		rpc DeleteTag (Tag) returns (common.ErrorMsg);
+		// cate
+		rpc GetCategories (common.ReqQuery) returns (Categories);
+		rpc UpsertCategory (Category) returns (Category);
+		rpc DeleteCategory (Category) returns (common.ErrorMsg);
+		// group
+		rpc GetGroups (common.ReqQuery) returns (Groups);
+		rpc UpsertGroup (Group) returns (Group);
+		rpc DeleteGroup (Group) returns (common.ErrorMsg);
+}
+
+
+message Tags {
+	repeated Tag tags =1;
+	string anchor = 2;
+	string total = 3;
+}
+
+message Tag {
+	string id = 1;
+	string display = 2;
+	repeated string notes= 4;
+	string state = 5;
+}
+
+
+message Categories {
+	repeated Category categories =1;
+	string anchor = 2;
+	string total = 3;
+}
+message Category {
+	string id = 1;
+	string display = 2;
+	string description = 3;
+	string state = 4;
+	int32 created = 5;
+}
+message Groups {
+	repeated Group groups =1;
+	string anchor = 2;
+	string total = 3;
+}
+message Group {
+	string id = 1;
+	string display = 2;
+	string description = 3;
+	string target = 4;
+	int32 created = 5;
+	float bonus_price = 6;
+}

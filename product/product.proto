@@ -1,117 +1,42 @@
 syntax="proto3";
 
 package product;
-// import "github.com/my0sot1s/mpb/reqres";
+import "common/common.proto";
+import "marker/marker.proto";
 
-
-message ReqQuery {
-	string id = 1;
-	int32 limit = 2;
-	string anchor =3;
-	string order_by = 4;
-	repeated string ids = 5;
-}
-message ReqId {
-	string id = 1;
-}
-
-service ProdSer {
+service ProductStream {
 		// prod
-		rpc GetProducts (ReqQuery) returns (Products);
-		rpc GetProduct (ReqQuery) returns (Product);
-		rpc InsertProduct (Product) returns (Product);
-		rpc UpdateProduct (Product) returns (Product);
-		rpc DeleteProduct (Product) returns (Product);
-		// tag
-		rpc GetTags (ReqQuery) returns (Tags);
-		rpc InsertTag (Tag) returns (Tag);
-		rpc UpdateTag (Tag) returns (Tag);
-		rpc DeleteTag (Tag) returns (Tag);
-		// cate
-		rpc GetCategories (ReqQuery) returns (Categories);
-		rpc InsertCategory (Category) returns (Category);
-		rpc UpdateCategory (Category) returns (Category);
-		rpc DeleteCategory (Category) returns (Category);
-		// group
-		rpc GetGroups (ReqQuery) returns (Groups);
-		rpc InsertGroup (Group) returns (Group);
-		rpc UpdateGroup (Group) returns (Group);
-		rpc DeleteGroup (Group) returns (Group);
+		rpc GetProducts (common.ReqQuery) returns (Products);
+		rpc LookupProduct (common.ReqQuery) returns (Product);
+		rpc UpsertProduct (Product) returns (Product);
+		rpc DeleteProduct (Product) returns (common.ErrorMsg);
 		// shipment
-		rpc GetShipment (ReqId) returns (ShipmentBlock);
-		rpc InsertShipment (ShipmentBlock) returns (ShipmentBlock);
-		rpc UpdateShipment (ShipmentBlock) returns (ShipmentBlock);
-		rpc DeleteShipment (ReqId) returns (ShipmentBlock);
+		rpc GetShipment (common.ReqId) returns (Shipments);
+		rpc LookupShipment (common.ReqQuery) returns (Shipment);
+		rpc UpsertShipment (Shipments) returns (Shipments);
 		// Campain
-		rpc GetCampaigns (ReqQuery) returns (Campaigns);
-		rpc InsertCampaign (Campaign) returns (Campaign);
-		rpc UpdateCampaign (Campaign) returns (Campaign);
-		rpc DeleteCampaign (Campaign) returns (Campaign);
-}
+		rpc GetCampaigns (common.ReqQuery) returns (Campaigns);
+		rpc LookupCampaign (common.ReqQuery) returns (Campaign);
+		rpc UpsertCampaign (Campaign) returns (Campaign);
+		rpc DeleteCampaign (Campaign) returns (common.ErrorMsg);
 
-service ManagerSer {
 		// Order
-		rpc GetOrder (ReqId) returns (Order);
-		rpc GetOrders (ReqQuery) returns (stream Order);
+		rpc GetOrders (common.ReqQuery) returns (Order);
+		rpc LookupOrder (common.ReqId) returns (Order);
 		rpc InsertOrder (Order) returns (Order);
 
 		// Customer
-
-		rpc GetCustomer (ReqId) returns (Customer);
-		rpc GetCustomers (ReqQuery) returns (Customer);
-		rpc InsertCustomer (Customer) returns (Customer);
+		rpc GetCustomer (common.ReqQuery) returns (Customer);
+		rpc LookupCustomers (common.ReqId) returns (Customer);
+		rpc UpsertCustomer (Customer) returns (Customer);
 
 		// Invoice
-		rpc GetInvoice (ReqId) returns (Invoice);
-		rpc GetInvoices (ReqQuery) returns (stream Invoice);
-		rpc InsertInvoice (Invoice) returns (Invoice);
+		rpc GetInvoice (common.ReqQuery) returns (Invoice);
+		rpc LookupInvoice (common.ReqId) returns (Invoice);
+		rpc UpsertInvoice (Invoice) returns (Invoice);
 }
 
 
-message Image {
-		string id  = 1;
-		string url = 2;
-		int32 width = 3;
-		int32 height = 4;
-}
-
-message Categories {
-		repeated Category categories =1;
-		string anchor = 2;
-		string total = 3;
-}
-message Category {
-		string id = 1;
-		string display = 2;
-		string description = 3;
-		string state = 4;
-		int32 created = 5;
-}
-message Groups {
-		repeated Group groups =1;
-		string anchor = 2;
-		string total = 3;
-}
-message Group {
-		string id = 1;
-		string display = 2;
-		string description = 3;
-		string target = 4;
-		int32 created = 5;
-		float bonus_price = 6;
-}
-message Tags {
-		repeated Tag tags =1;
-		string anchor = 2;
-		string total = 3;
-}
-
-message Tag {
-		string id = 1;
-		string display = 2;
-		repeated string notes= 4;
-		string state = 5;
-}
 
 message Products {
 		repeated Product products =1;
@@ -122,23 +47,23 @@ message Products {
 message Product {
 		string id = 1;
 		string name = 2;
-		repeated Image images = 3;
+		repeated common.MediaInfo images = 3;
 		string description = 4;
 		int32 created = 5;
 		repeated string categories_id = 6;
-		repeated Category categories = 7;
+		repeated marker.Category categories = 7;
 		repeated string groups_id = 8;
-		repeated Group groups = 9;
+		repeated marker.Group groups = 9;
 		string state = 10;
 		string shipment_id = 11;
 		Shipment shipment = 12;
 		repeated string tags_id = 13;
-		repeated Tag tags = 14;
+		repeated marker.Tag tags = 14;
 		int32 price = 15;
 		float average_rate= 16;
 }
 
-message ShipmentBlock {
+message Shipments {
 		Shipment shipment =1;
 		repeated ShipmentProduct products = 2;
 }
@@ -184,6 +109,11 @@ message OrderItems {
 		string created_by = 8;
 }
 
+message Orders {
+	repeated Order orders = 1;
+	string anchor = 2;
+}
+
 message Order {
 		string id =1;
 		repeated string customer_id = 2;
@@ -194,6 +124,11 @@ message Order {
 		string created_at = 7;
 		string created_by =8;
 		string state = 9;
+}
+
+message Customers {
+	repeated Customer customers = 1;
+	string anchor = 2;
 }
 
 message Customer {
@@ -234,6 +169,6 @@ message Campaign {
 		int32 started = 3;
 		int32 ended = 4;
 		string description =5;
-		repeated Image image = 6;
+		repeated common.MediaInfo image = 6;
 		string state = 8;
 }
