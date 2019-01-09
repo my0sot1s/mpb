@@ -9,7 +9,7 @@ service ProductStream {
 		rpc GetProducts (common.ReqQuery) returns (Products);
 		rpc LookupProduct (common.ReqQuery) returns (Product);
 		rpc UpsertProduct (Product) returns (Product);
-		rpc DeleteProduct (Product) returns (common.ErrorMsg);
+		rpc DeleteProduct (common.ReqId) returns (common.Nil);
 		// shipment
 		rpc GetShipment (common.ReqId) returns (Shipments);
 		rpc LookupShipment (common.ReqQuery) returns (Shipment);
@@ -18,7 +18,7 @@ service ProductStream {
 		rpc GetCampaigns (common.ReqQuery) returns (Campaigns);
 		rpc LookupCampaign (common.ReqQuery) returns (Campaign);
 		rpc UpsertCampaign (Campaign) returns (Campaign);
-		rpc DeleteCampaign (Campaign) returns (common.ErrorMsg);
+		rpc DeleteCampaign (Campaign) returns (common.Nil);
 
 		// Order
 		rpc GetOrders (common.ReqQuery) returns (Order);
