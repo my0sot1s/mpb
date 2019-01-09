@@ -34,7 +34,7 @@ func (m *ReqQuery) Reset()         { *m = ReqQuery{} }
 func (m *ReqQuery) String() string { return proto.CompactTextString(m) }
 func (*ReqQuery) ProtoMessage()    {}
 func (*ReqQuery) Descriptor() ([]byte, []int) {
-	return fileDescriptor_common_063b210e8fe1b57e, []int{0}
+	return fileDescriptor_common_43c57a897d025239, []int{0}
 }
 func (m *ReqQuery) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ReqQuery.Unmarshal(m, b)
@@ -107,7 +107,7 @@ func (m *ReqId) Reset()         { *m = ReqId{} }
 func (m *ReqId) String() string { return proto.CompactTextString(m) }
 func (*ReqId) ProtoMessage()    {}
 func (*ReqId) Descriptor() ([]byte, []int) {
-	return fileDescriptor_common_063b210e8fe1b57e, []int{1}
+	return fileDescriptor_common_43c57a897d025239, []int{1}
 }
 func (m *ReqId) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ReqId.Unmarshal(m, b)
@@ -149,7 +149,7 @@ func (m *ServiceReq) Reset()         { *m = ServiceReq{} }
 func (m *ServiceReq) String() string { return proto.CompactTextString(m) }
 func (*ServiceReq) ProtoMessage()    {}
 func (*ServiceReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_common_063b210e8fe1b57e, []int{2}
+	return fileDescriptor_common_43c57a897d025239, []int{2}
 }
 func (m *ServiceReq) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ServiceReq.Unmarshal(m, b)
@@ -214,7 +214,7 @@ func (m *Nil) Reset()         { *m = Nil{} }
 func (m *Nil) String() string { return proto.CompactTextString(m) }
 func (*Nil) ProtoMessage()    {}
 func (*Nil) Descriptor() ([]byte, []int) {
-	return fileDescriptor_common_063b210e8fe1b57e, []int{3}
+	return fileDescriptor_common_43c57a897d025239, []int{3}
 }
 func (m *Nil) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Nil.Unmarshal(m, b)
@@ -246,7 +246,7 @@ func (m *ErrorMsg) Reset()         { *m = ErrorMsg{} }
 func (m *ErrorMsg) String() string { return proto.CompactTextString(m) }
 func (*ErrorMsg) ProtoMessage()    {}
 func (*ErrorMsg) Descriptor() ([]byte, []int) {
-	return fileDescriptor_common_063b210e8fe1b57e, []int{4}
+	return fileDescriptor_common_43c57a897d025239, []int{4}
 }
 func (m *ErrorMsg) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ErrorMsg.Unmarshal(m, b)
@@ -297,7 +297,7 @@ func (m *MediaInfo) Reset()         { *m = MediaInfo{} }
 func (m *MediaInfo) String() string { return proto.CompactTextString(m) }
 func (*MediaInfo) ProtoMessage()    {}
 func (*MediaInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_common_063b210e8fe1b57e, []int{5}
+	return fileDescriptor_common_43c57a897d025239, []int{5}
 }
 func (m *MediaInfo) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_MediaInfo.Unmarshal(m, b)
@@ -375,9 +375,9 @@ func init() {
 	proto.RegisterType((*MediaInfo)(nil), "common.MediaInfo")
 }
 
-func init() { proto.RegisterFile("common/common.proto", fileDescriptor_common_063b210e8fe1b57e) }
+func init() { proto.RegisterFile("common/common.proto", fileDescriptor_common_43c57a897d025239) }
 
-var fileDescriptor_common_063b210e8fe1b57e = []byte{
+var fileDescriptor_common_43c57a897d025239 = []byte{
 	// 417 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x64, 0x92, 0xcd, 0x8e, 0x94, 0x40,
 	0x10, 0x80, 0x03, 0x33, 0xc0, 0x50, 0xeb, 0x6e, 0x4c, 0x6b, 0x5c, 0x8c, 0x89, 0x21, 0xe8, 0x61,
