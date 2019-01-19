@@ -3,17 +3,14 @@ syntax = "proto3";
 package user;
 import "common/common.proto";
 
-service UserSubStream {
-	// email
-	rpc DoSendEmail (EmailSubscribers) returns (EmailSubscribers);
-}
-
 service UserStream {
 	// user
 	rpc LoginOauth (User) returns (Token);
 	rpc RefreshTokenOauth (Token) returns (Token);
 	rpc ListUsers (common.ReqQuery) returns (Users);
 	rpc UserById (common.ReqId) returns (User);
+	// follow
+	rpc DoSendEmail (EmailSubscribers) returns (EmailSubscribers);
 }
 
 message EmailSubscribers {
@@ -27,6 +24,13 @@ message EmailSubscriber {
 	string email = 3;
 	string status = 4;
 }
+message Token {
+	string id = 1;
+	string token = 2;
+	string refresh_token = 3;
+	int32 created = 4;
+	int32 modified = 5;
+}
 
 message SocialDetail {
     string name =1;
@@ -34,11 +38,6 @@ message SocialDetail {
     string avatar = 4;
 		string id_info = 3;
 		Token token = 5;
-}
-
-enum UserType {
-	NormalUser = 0;
-	SuperUser =1;
 }
 
 message Users {
@@ -53,8 +52,12 @@ message User {
     repeated string phones = 4;
     string email = 5;
     repeated string websites = 6;
-    repeated SocialDetail socials = 7;
-    string state = 8;
+		repeated SocialDetail socials = 7;
+		enum UserState{
+			normal = 0;
+			super =1;
+		}
+    UserState state = 8;
     repeated string group_ids = 9;
     repeated GroupUser groups = 10;
     repeated string notes =11;
@@ -65,25 +68,10 @@ message User {
 message GroupUser {
     string id = 1;
     string name = 2;
-    repeated string perm_ids = 3;
-    repeated Permission perms = 4;
-    string state = 5;
+		enum UserState{
+			normal = 0;
+			manager = 1;
+		}
+    UserState state = 5;
     int32 created = 6;
-}
-
-
-message Permission {
-    string id = 1;
-    string description = 2;
-    string type = 3;
-    string state = 4;
-    int32 created = 5;
-}
-
-message Token {
-	string id = 1;
-	string token = 2;
-	string refresh_token = 3;
-	int32 created = 4;
-	int32 modified = 5;
 }

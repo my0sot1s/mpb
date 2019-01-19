@@ -49,9 +49,9 @@ message Product {
 		string description = 4;
 		int32 created = 5;
 		repeated string categories_id = 6;
-		repeated marker.Category categories = 7;
+		repeated marker.Topic categories = 7;
 		repeated string groups_id = 8;
-		repeated marker.Group groups = 9;
+		repeated marker.Topic groups = 9;
 		string state = 10;
 		string shipment_id = 11;
 		Shipment shipment = 12;

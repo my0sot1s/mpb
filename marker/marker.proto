@@ -5,58 +5,79 @@ package marker;
 
 import "common/common.proto";
 option go_package = "github.com/my0sot1s/mpb/marker";
+
 service MarkerStream {
 		// tag
-		rpc GetTags (common.ReqQuery) returns (Tags);
+		rpc GetTags (TagsRequest) returns (TagsResponse);
 		rpc UpsertTag (Tag) returns (Tag);
-		rpc DeleteTag (Tag) returns (common.ErrorMsg);
+		rpc DeleteTag (Tag) returns (common.Nil);
 		// cate
-		rpc GetCategories (common.ReqQuery) returns (Categories);
-		rpc UpsertCategory (Category) returns (Category);
-		rpc DeleteCategory (Category) returns (common.ErrorMsg);
-		// group
-		rpc GetGroups (common.ReqQuery) returns (Groups);
-		rpc UpsertGroup (Group) returns (Group);
-		rpc DeleteGroup (Group) returns (common.ErrorMsg);
+		rpc GetTopics (TopicsRequest) returns (TopicsResponse);
+		rpc GetTopic (common.ReqId) returns (Topic);
+		rpc UpsertTopic (Topic) returns (Topic);
+		rpc DeleteTopic (Topic) returns (common.Nil);
 }
 
 
-message Tags {
+
+message TagsResponse {
 	repeated Tag tags =1;
 	string anchor = 2;
 	string total = 3;
 }
 
+message TagsRequest {
+	string anchor = 1;
+	string scope = 2;
+	int32 limit = 3;
+	string order_by = 4;
+}
+
 message Tag {
 	string id = 1;
 	string display = 2;
+	string scope = 3;
 	repeated string notes= 4;
-	string state = 5;
+	int32 created = 6;
+	enum State {
+		availabled = 0;
+		deleted = 1;
+	}
+	State state = 5;
 }
 
+message TopicsResponse {
+	repeated Topic topics = 1;
+	string anchor = 2;
+	int32 total = 3;
+}
+message TopicsRequest {
+	string anchor = 1;
+	string scope = 2;
+	int32 limit = 3;
+	string order_by = 4;
+}
 
-message Categories {
-	repeated Category categories =1;
-	string anchor = 2;
-	string total = 3;
-}
-message Category {
+message Topic {
 	string id = 1;
-	string display = 2;
-	string description = 3;
-	string state = 4;
-	int32 created = 5;
-}
-message Groups {
-	repeated Group groups =1;
-	string anchor = 2;
-	string total = 3;
-}
-message Group {
-	string id = 1;
-	string display = 2;
-	string description = 3;
-	string target = 4;
-	int32 created = 5;
-	float bonus_price = 6;
+	string name = 2;
+	string scope = 3; // for service
+	enum TopicType {
+		blog = 0;
+		product = 1;
+		category = 2;
+		group = 3;
+	}
+	TopicType type = 4; // for using
+	repeated string tags_id = 5;
+	repeated Tag tags = 6;
+	string pre_url = 7;
+	int32 created = 8;
+	repeated Topic childrens = 9;
+	enum State {
+		activated = 0;
+		inactivated = 1;
+		deleted = 2;
+	}
+	State state = 10;
 }

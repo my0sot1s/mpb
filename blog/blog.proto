@@ -7,6 +7,7 @@ import "marker/marker.proto";
 
 service BlogStream {
 	rpc ListBlogs(common.ReqQuery) returns (Blogs);
+	rpc GetBlogById(common.ReqId) returns (Blog);
 	rpc UpsertBlog(Blog) returns (Blog);
 	rpc DeleteBlog(common.ReqId) returns (common.ErrorMsg);
 
@@ -23,6 +24,7 @@ service BlogStream {
 message Blogs {
 	repeated Blog blogs = 1;
 	string anchor = 2;
+	int32 total = 3;
 }
 
 message Blog {
@@ -35,12 +37,13 @@ message Blog {
 		repeated marker.Tag tags = 10;
 		string content = 11;
 		string banner = 12;
-		repeated marker.Category categories = 13;
+		repeated marker.Topic categories = 13;
 }
 
 message FileDatas {
 	repeated FileData files = 1;
 	string anchor = 2;
+	int32 total = 3;
 }
 
 message FileData {
@@ -54,6 +57,7 @@ message FileData {
 message Notes {
 	repeated Note notes = 1;
 	string anchor = 2;
+	int32 total = 3;
 }
 
 message Note {
