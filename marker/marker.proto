@@ -10,12 +10,12 @@ service MarkerStream {
 		// tag
 		rpc GetTags (TagsRequest) returns (TagsResponse);
 		rpc UpsertTag (Tag) returns (Tag);
-		rpc DeleteTag (Tag) returns (common.Nil);
+		rpc DeleteTag (common.ReqId) returns (common.Nil);
 		// cate
 		rpc GetTopics (TopicsRequest) returns (TopicsResponse);
 		rpc GetTopic (common.ReqId) returns (Topic);
 		rpc UpsertTopic (Topic) returns (Topic);
-		rpc DeleteTopic (Topic) returns (common.Nil);
+		rpc DeleteTopic (common.ReqId) returns (common.Nil);
 }
 
 
