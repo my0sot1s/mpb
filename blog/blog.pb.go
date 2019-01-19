@@ -9,6 +9,11 @@ import math "math"
 import common "github.com/my0sot1s/mpb/common"
 import marker "github.com/my0sot1s/mpb/marker"
 
+import (
+	context "golang.org/x/net/context"
+	grpc "google.golang.org/grpc"
+)
+
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
 var _ = fmt.Errorf
@@ -463,6 +468,408 @@ func init() {
 	proto.RegisterType((*FileData)(nil), "blog.FileData")
 	proto.RegisterType((*Notes)(nil), "blog.Notes")
 	proto.RegisterType((*Note)(nil), "blog.Note")
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// BlogStreamClient is the client API for BlogStream service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type BlogStreamClient interface {
+	ListBlogs(ctx context.Context, in *common.ReqQuery, opts ...grpc.CallOption) (*Blogs, error)
+	GetBlogById(ctx context.Context, in *common.ReqId, opts ...grpc.CallOption) (*Blog, error)
+	UpsertBlog(ctx context.Context, in *Blog, opts ...grpc.CallOption) (*Blog, error)
+	DeleteBlog(ctx context.Context, in *common.ReqId, opts ...grpc.CallOption) (*common.ErrorMsg, error)
+	ListFileDatas(ctx context.Context, in *common.ReqQuery, opts ...grpc.CallOption) (*FileDatas, error)
+	InsertFile(ctx context.Context, in *FileData, opts ...grpc.CallOption) (*FileData, error)
+	DeleteFileData(ctx context.Context, in *common.ReqId, opts ...grpc.CallOption) (*common.ErrorMsg, error)
+	ListNotes(ctx context.Context, in *common.ReqQuery, opts ...grpc.CallOption) (*Notes, error)
+	LockupNote(ctx context.Context, in *common.ReqQuery, opts ...grpc.CallOption) (*Note, error)
+	UpsertNote(ctx context.Context, in *Note, opts ...grpc.CallOption) (*Note, error)
+	DeleteNote(ctx context.Context, in *common.ReqId, opts ...grpc.CallOption) (*common.ErrorMsg, error)
+}
+
+type blogStreamClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewBlogStreamClient(cc *grpc.ClientConn) BlogStreamClient {
+	return &blogStreamClient{cc}
+}
+
+func (c *blogStreamClient) ListBlogs(ctx context.Context, in *common.ReqQuery, opts ...grpc.CallOption) (*Blogs, error) {
+	out := new(Blogs)
+	err := c.cc.Invoke(ctx, "/blog.BlogStream/ListBlogs", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *blogStreamClient) GetBlogById(ctx context.Context, in *common.ReqId, opts ...grpc.CallOption) (*Blog, error) {
+	out := new(Blog)
+	err := c.cc.Invoke(ctx, "/blog.BlogStream/GetBlogById", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *blogStreamClient) UpsertBlog(ctx context.Context, in *Blog, opts ...grpc.CallOption) (*Blog, error) {
+	out := new(Blog)
+	err := c.cc.Invoke(ctx, "/blog.BlogStream/UpsertBlog", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *blogStreamClient) DeleteBlog(ctx context.Context, in *common.ReqId, opts ...grpc.CallOption) (*common.ErrorMsg, error) {
+	out := new(common.ErrorMsg)
+	err := c.cc.Invoke(ctx, "/blog.BlogStream/DeleteBlog", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *blogStreamClient) ListFileDatas(ctx context.Context, in *common.ReqQuery, opts ...grpc.CallOption) (*FileDatas, error) {
+	out := new(FileDatas)
+	err := c.cc.Invoke(ctx, "/blog.BlogStream/ListFileDatas", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *blogStreamClient) InsertFile(ctx context.Context, in *FileData, opts ...grpc.CallOption) (*FileData, error) {
+	out := new(FileData)
+	err := c.cc.Invoke(ctx, "/blog.BlogStream/InsertFile", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *blogStreamClient) DeleteFileData(ctx context.Context, in *common.ReqId, opts ...grpc.CallOption) (*common.ErrorMsg, error) {
+	out := new(common.ErrorMsg)
+	err := c.cc.Invoke(ctx, "/blog.BlogStream/DeleteFileData", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *blogStreamClient) ListNotes(ctx context.Context, in *common.ReqQuery, opts ...grpc.CallOption) (*Notes, error) {
+	out := new(Notes)
+	err := c.cc.Invoke(ctx, "/blog.BlogStream/ListNotes", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *blogStreamClient) LockupNote(ctx context.Context, in *common.ReqQuery, opts ...grpc.CallOption) (*Note, error) {
+	out := new(Note)
+	err := c.cc.Invoke(ctx, "/blog.BlogStream/LockupNote", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *blogStreamClient) UpsertNote(ctx context.Context, in *Note, opts ...grpc.CallOption) (*Note, error) {
+	out := new(Note)
+	err := c.cc.Invoke(ctx, "/blog.BlogStream/UpsertNote", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *blogStreamClient) DeleteNote(ctx context.Context, in *common.ReqId, opts ...grpc.CallOption) (*common.ErrorMsg, error) {
+	out := new(common.ErrorMsg)
+	err := c.cc.Invoke(ctx, "/blog.BlogStream/DeleteNote", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// BlogStreamServer is the server API for BlogStream service.
+type BlogStreamServer interface {
+	ListBlogs(context.Context, *common.ReqQuery) (*Blogs, error)
+	GetBlogById(context.Context, *common.ReqId) (*Blog, error)
+	UpsertBlog(context.Context, *Blog) (*Blog, error)
+	DeleteBlog(context.Context, *common.ReqId) (*common.ErrorMsg, error)
+	ListFileDatas(context.Context, *common.ReqQuery) (*FileDatas, error)
+	InsertFile(context.Context, *FileData) (*FileData, error)
+	DeleteFileData(context.Context, *common.ReqId) (*common.ErrorMsg, error)
+	ListNotes(context.Context, *common.ReqQuery) (*Notes, error)
+	LockupNote(context.Context, *common.ReqQuery) (*Note, error)
+	UpsertNote(context.Context, *Note) (*Note, error)
+	DeleteNote(context.Context, *common.ReqId) (*common.ErrorMsg, error)
+}
+
+func RegisterBlogStreamServer(s *grpc.Server, srv BlogStreamServer) {
+	s.RegisterService(&_BlogStream_serviceDesc, srv)
+}
+
+func _BlogStream_ListBlogs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(common.ReqQuery)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlogStreamServer).ListBlogs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/blog.BlogStream/ListBlogs",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlogStreamServer).ListBlogs(ctx, req.(*common.ReqQuery))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BlogStream_GetBlogById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(common.ReqId)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlogStreamServer).GetBlogById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/blog.BlogStream/GetBlogById",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlogStreamServer).GetBlogById(ctx, req.(*common.ReqId))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BlogStream_UpsertBlog_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Blog)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlogStreamServer).UpsertBlog(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/blog.BlogStream/UpsertBlog",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlogStreamServer).UpsertBlog(ctx, req.(*Blog))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BlogStream_DeleteBlog_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(common.ReqId)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlogStreamServer).DeleteBlog(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/blog.BlogStream/DeleteBlog",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlogStreamServer).DeleteBlog(ctx, req.(*common.ReqId))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BlogStream_ListFileDatas_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(common.ReqQuery)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlogStreamServer).ListFileDatas(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/blog.BlogStream/ListFileDatas",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlogStreamServer).ListFileDatas(ctx, req.(*common.ReqQuery))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BlogStream_InsertFile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FileData)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlogStreamServer).InsertFile(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/blog.BlogStream/InsertFile",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlogStreamServer).InsertFile(ctx, req.(*FileData))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BlogStream_DeleteFileData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(common.ReqId)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlogStreamServer).DeleteFileData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/blog.BlogStream/DeleteFileData",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlogStreamServer).DeleteFileData(ctx, req.(*common.ReqId))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BlogStream_ListNotes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(common.ReqQuery)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlogStreamServer).ListNotes(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/blog.BlogStream/ListNotes",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlogStreamServer).ListNotes(ctx, req.(*common.ReqQuery))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BlogStream_LockupNote_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(common.ReqQuery)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlogStreamServer).LockupNote(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/blog.BlogStream/LockupNote",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlogStreamServer).LockupNote(ctx, req.(*common.ReqQuery))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BlogStream_UpsertNote_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Note)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlogStreamServer).UpsertNote(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/blog.BlogStream/UpsertNote",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlogStreamServer).UpsertNote(ctx, req.(*Note))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BlogStream_DeleteNote_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(common.ReqId)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlogStreamServer).DeleteNote(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/blog.BlogStream/DeleteNote",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlogStreamServer).DeleteNote(ctx, req.(*common.ReqId))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _BlogStream_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "blog.BlogStream",
+	HandlerType: (*BlogStreamServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ListBlogs",
+			Handler:    _BlogStream_ListBlogs_Handler,
+		},
+		{
+			MethodName: "GetBlogById",
+			Handler:    _BlogStream_GetBlogById_Handler,
+		},
+		{
+			MethodName: "UpsertBlog",
+			Handler:    _BlogStream_UpsertBlog_Handler,
+		},
+		{
+			MethodName: "DeleteBlog",
+			Handler:    _BlogStream_DeleteBlog_Handler,
+		},
+		{
+			MethodName: "ListFileDatas",
+			Handler:    _BlogStream_ListFileDatas_Handler,
+		},
+		{
+			MethodName: "InsertFile",
+			Handler:    _BlogStream_InsertFile_Handler,
+		},
+		{
+			MethodName: "DeleteFileData",
+			Handler:    _BlogStream_DeleteFileData_Handler,
+		},
+		{
+			MethodName: "ListNotes",
+			Handler:    _BlogStream_ListNotes_Handler,
+		},
+		{
+			MethodName: "LockupNote",
+			Handler:    _BlogStream_LockupNote_Handler,
+		},
+		{
+			MethodName: "UpsertNote",
+			Handler:    _BlogStream_UpsertNote_Handler,
+		},
+		{
+			MethodName: "DeleteNote",
+			Handler:    _BlogStream_DeleteNote_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "blog/blog.proto",
 }
 
 func init() { proto.RegisterFile("blog/blog.proto", fileDescriptor_blog_3818002fa82d9853) }
