@@ -9,16 +9,16 @@ service BlogStream {
 	rpc ListBlogs(common.ReqQuery) returns (Blogs);
 	rpc GetBlogById(common.ReqId) returns (Blog);
 	rpc UpsertBlog(Blog) returns (Blog);
-	rpc DeleteBlog(common.ReqId) returns (common.ErrorMsg);
+	rpc DeleteBlog(common.ReqId) returns (common.Nil);
 
 	rpc ListFileDatas(common.ReqQuery) returns (FileDatas);
 	rpc InsertFile(FileData) returns (FileData);
-	rpc DeleteFileData(common.ReqId) returns (common.ErrorMsg);
+	rpc DeleteFileData(common.ReqId) returns (common.Nil);
 
 	rpc ListNotes(common.ReqQuery) returns (Notes);
 	rpc LockupNote(common.ReqQuery) returns (Note);
 	rpc UpsertNote(Note) returns (Note);
-	rpc DeleteNote(common.ReqId) returns (common.ErrorMsg);
+	rpc DeleteNote(common.ReqId) returns (common.Nil);
 }
 
 message Blogs {
