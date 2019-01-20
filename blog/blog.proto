@@ -38,7 +38,7 @@ message Blog {
 			availabled = 2;
 			hidden = 3;
 		}
-		State state = 8;
+		string state = 8;
 		repeated string tag_ids = 9;
 		repeated marker.Tag tags = 10;
 		string content = 11;

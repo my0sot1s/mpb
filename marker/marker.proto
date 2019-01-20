@@ -43,7 +43,7 @@ message Tag {
 		availabled = 0;
 		deleted = 1;
 	}
-	State state = 5;
+	string state = 5;
 }
 
 message TopicsResponse {
@@ -68,7 +68,7 @@ message Topic {
 		category = 2;
 		group = 3;
 	}
-	TopicType type = 4; // for using
+	string type = 4; // for using
 	repeated string tags_id = 5;
 	repeated Tag tags = 6;
 	string pre_url = 7;
@@ -79,5 +79,5 @@ message Topic {
 		inactivated = 1;
 		deleted = 2;
 	}
-	State state = 10;
+	string state = 10;
 }
