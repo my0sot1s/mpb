@@ -28,8 +28,8 @@ message Token {
 	string id = 1;
 	string token = 2;
 	string refresh_token = 3;
-	int32 created = 4;
-	int32 modified = 5;
+	int64 created = 4;
+	int64 modified = 5;
 }
 
 message SocialDetail {
@@ -61,7 +61,7 @@ message User {
     repeated string group_ids = 9;
     repeated GroupUser groups = 10;
     repeated string notes =11;
-		int32 created = 12;
+		int64 created = 12;
     string avatar = 13;
 }
 
@@ -73,5 +73,5 @@ message GroupUser {
 			manager = 1;
 		}
     UserState state = 5;
-    int32 created = 6;
+    int64 created = 6;
 }

@@ -38,7 +38,7 @@ message Tag {
 	string display = 2;
 	string scope = 3;
 	repeated string notes= 4;
-	int32 created = 6;
+	int64 created = 6;
 	enum State {
 		availabled = 0;
 		deleted = 1;
@@ -72,7 +72,7 @@ message Topic {
 	repeated string tags_id = 5;
 	repeated Tag tags = 6;
 	string pre_url = 7;
-	int32 created = 8;
+	int64 created = 8;
 	repeated Topic childrens = 9;
 	enum State {
 		activated = 0;

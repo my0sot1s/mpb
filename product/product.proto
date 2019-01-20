@@ -47,7 +47,7 @@ message Product {
 		string name = 2;
 		repeated common.MediaInfo images = 3;
 		string description = 4;
-		int32 created = 5;
+		int64 created = 5;
 		repeated string categories_id = 6;
 		repeated marker.Topic categories = 7;
 		repeated string groups_id = 8;
@@ -71,7 +71,7 @@ message Shipment {
 		string name =2 ;
 		repeated string notes = 3;
 		string basic_info = 4;
-		int32 created = 5;
+		int64 created = 5;
 		string state = 6;
 }
 
@@ -90,7 +90,7 @@ message ShipmentItems {
 		string name =2 ;
 		repeated string notes = 3;
 		ShipmentProduct shipment_product = 4;
-		string created = 5;
+		int64 created = 5;
 		string state = 6;
 		int32 price =  7;
 		float discount = 8;
@@ -103,7 +103,7 @@ message OrderItems {
 		int32 quantity = 4;
 		int32 price =5;
 		float discount =6;
-		string created_at = 7;
+		int64 created = 7;
 		string created_by = 8;
 }
 
@@ -119,7 +119,7 @@ message Order {
 		int32 price =4;
 		OrderItems order_items = 5;
 		float discount =6;
-		string created_at = 7;
+		int64 created = 7;
 		string created_by =8;
 		string state = 9;
 }
@@ -135,7 +135,7 @@ message Customer {
 		string phone =3;
 		string email =4;
 		string address =5;
-		string created = 6;
+		int64 created = 6;
 		string state = 7;
 }
 
@@ -159,7 +159,7 @@ message Invoice {
 		string note= 7;
 		int32 price =8;
 		string state = 9;
-		string created_at = 10;
+		int64 created = 10;
 		string created_by =11;
 		int32 real_pay = 12;
 }
