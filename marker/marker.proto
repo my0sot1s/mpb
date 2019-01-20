@@ -54,8 +54,9 @@ message TopicsResponse {
 message TopicsRequest {
 	string anchor = 1;
 	string scope = 2;
-	int32 limit = 3;
-	string order_by = 4;
+	string type = 3;
+	int32 limit = 4;
+	string order_by =5;
 }
 
 message Topic {
