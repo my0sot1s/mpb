@@ -33,9 +33,17 @@ message EmailSubscribers {
 message EmailSubscriber {
 	string id = 1;
 	string uid = 2;
-	string email = 3;
+	Email email = 3;
 	string status = 4;
 }
+
+message Email {
+	string from = 1;
+	string to = 2;
+	string subject = 3;
+	string text = 4;
+}
+
 message Token {
 	string id = 1;
 	string token = 2;
