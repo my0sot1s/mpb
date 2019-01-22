@@ -5,12 +5,18 @@ import "common/common.proto";
 
 service UserStream {
 	// user
-	rpc LoginOauth (User) returns (Token);
+	rpc LoginOauth (OauthMessage) returns (Token);
 	rpc RefreshTokenOauth (Token) returns (Token);
 	rpc ListUsers (common.ReqQuery) returns (Users);
 	rpc UserById (common.ReqId) returns (User);
 	// follow
 	rpc DoSendEmail (EmailSubscribers) returns (EmailSubscribers);
+}
+
+message OauthMessage {
+	string code = 1;
+	string host = 2;
+	string redirect = 3;
 }
 
 message EmailSubscribers {
