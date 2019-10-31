@@ -1,0 +1,25 @@
+syntax="proto3";
+
+package wsh;
+
+service WsProvider {
+	rpc Broadcast(Message) returns (Resp);
+}
+
+message Resp {
+	int64 created = 1;
+}
+
+message Detail {
+	string device = 1;
+	string author = 2;
+	int64 created = 3;
+	string service = 4;
+}
+
+message Message {
+	string id = 1;
+	string topic = 2;
+	string body = 3;
+	Detail detail = 4;
+}
