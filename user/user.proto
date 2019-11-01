@@ -1,63 +1,23 @@
 syntax = "proto3";
 
 package user;
-import "common/common.proto";
 
-service UserStream {
-	// user
-	rpc LoginOauth (OauthMessage) returns (Token);
-	rpc RefreshTokenOauth (Token) returns (Token);
-	rpc ListUsers (common.ReqQuery) returns (Users);
-	rpc UserById (common.ReqId) returns (User);
-	// follow
-	rpc DoSendEmail (EmailSubscribers) returns (EmailSubscribers);
+service UserProvider {
+	rpc GetUser(UserReq) returns(User);
+	rpc UpdateUser(User) returns (User);
+	rpc InsertUser(User) returns (User);
+	rpc DeleteUser(User) returns (Done);
+	rpc GetUsers(UserReq) returns(Users);
+	rpc SpreadInfluencer (EmailBroadcast) returns (Done);
 }
 
-message OauthMessage {
-	string code = 1;
-	string host = 2;
-	string redirect = 3;
-	enum OauthType {
-		facebook = 0;
-		google = 1;
-		self = 2;
-	}
-	string type = 4;
-}
+message Done {}
 
-message EmailSubscribers {
-	repeated EmailSubscriber sub_list= 1;
-	repeated bool send_done = 2;
-}
-
-message EmailSubscriber {
+message UserReq {
 	string id = 1;
-	string uid = 2;
-	Email email = 3;
-	string status = 4;
-}
-
-message Email {
-	string from = 1;
-	string to = 2;
-	string subject = 3;
-	string text = 4;
-}
-
-message Token {
-	string id = 1;
-	string token = 2;
-	string refresh_token = 3;
-	int64 created = 4;
-	int64 modified = 5;
-}
-
-message SocialDetail {
-    string name =1;
-    string url =2;
-    string avatar = 4;
-		string id_info = 3;
-		Token token = 5;
+	string name = 2;
+	string anchor = 3;
+	int64 limit = 4;
 }
 
 message Users {
@@ -65,33 +25,57 @@ message Users {
 	string anchor = 2;
 }
 
-message User {
-    string id =1;
-    string name = 2;
-    string display_name =3;
-    repeated string phones = 4;
-    string email = 5;
-    repeated string websites = 6;
-		repeated SocialDetail socials = 7;
-		enum UserState{
-			normal = 0;
-			super =1;
-		}
-    string state = 8;
-    repeated string group_ids = 9;
-    repeated GroupUser groups = 10;
-    repeated string notes =11;
-		int64 created = 12;
-    string avatar = 13;
+message Avatar {
+	string small = 1;
+	string medium = 2;
 }
 
-message GroupUser {
-    string id = 1;
-    string name = 2;
-		enum UserState{
-			normal = 0;
-			manager = 1;
-		}
-    string state = 5;
-    int64 created = 6;
+message User {
+	string id =1;
+	string name = 2;
+	string fullname = 3;
+	string phones = 4;
+	string emails = 5;
+	enum Gender {
+		male = 0;
+		female = 1;
+		orther = 2;
+	}
+	string gender = 6;
+	string password = 7;
+	enum State{
+		pending = 0;
+		active = 1;
+		locked = 2;
+		banned = 3;
+	}
+	string state = 8;
+	int64 birthday = 9;
+	Avatar avatar = 10;
+	int64 created = 11;
+	int64 last_active = 12;
+}
+
+message EmailBroadcast {
+	repeated EmailSubscriber subscriber = 1;
+	Email email = 2;
+}
+
+message EmailSubscriber {
+	string id =1;
+	string email = 2;
+	int64 created = 3;
+}
+
+message Attachment {
+	string type = 1;
+	string url = 2;
+}
+
+message Email {
+	string from = 1;
+	string to = 2;
+	string subject = 3;
+	string text = 4;
+	repeated Attachment attachments = 5;
 }
