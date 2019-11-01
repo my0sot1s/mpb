@@ -5,7 +5,7 @@ package auth;
 service AuthProvider {
 	rpc MakeToken(TokenRequest) returns (Token);
 	rpc RefreshToken(Token) returns (Token);
-	rpc CreatSignature(Token) returns (Signature);
+	rpc CreatSignature(SignatureReq) returns (Signature);
 }
 
 message Done {}
@@ -22,14 +22,9 @@ message Signature {
 
 message TokenRequest {
 	map<string,string> payload = 1;
-	int64 access_token_expired = 2;
-	int64 refresh_token_expired = 3;
 }
 
 message Token {
 	string access_token = 1;
-	string created = 2;
-	int64 access_token_expired = 3;
-	string refresh_token = 4;
-	int64 refresh_token_expired = 5;
+	string refresh_token = 3;
 }
