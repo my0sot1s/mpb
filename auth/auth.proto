@@ -5,7 +5,8 @@ package auth;
 service AuthProvider {
 	rpc MakeToken(TokenRequest) returns (Token);
 	rpc RefreshToken(Token) returns (Token);
-	rpc CreatSignature(SignatureReq) returns (Signature);
+	rpc SendEmailConfirm(EmailConfirm) returns (Done);
+	rpc ConfirmedCode(EmailCodeConfirmed) returns (Done);
 }
 
 message Done {}
@@ -13,6 +14,17 @@ message Done {}
 message SignatureReq {
 	string path = 1;
 	string from = 2;
+}
+message EmailCodeConfirmed {
+	string code = 1;
+	string email = 2;
+}
+message EmailConfirm {
+	string email = 1;
+	string content = 2;
+	string subject = 5;
+	string code = 3;
+	int64 duration_expired = 4;
 }
 
 message Signature {
