@@ -8,7 +8,6 @@ service UserProvider {
 	rpc InsertUser(User) returns (User);
 	rpc DeleteUser(User) returns (Done);
 	rpc GetUsers(UserReq) returns(Users);
-	rpc SpreadInfluencer (EmailBroadcast) returns (Done);
 }
 
 message Done {}
@@ -39,7 +38,7 @@ message User {
 	enum Gender {
 		male = 0;
 		female = 1;
-		orther = 2;
+		other = 2;
 	}
 	string gender = 6;
 	string password = 7;
@@ -53,29 +52,19 @@ message User {
 	int64 birthday = 9;
 	Avatar avatar = 10;
 	int64 created = 11;
+
 	int64 last_active = 12;
+	string devices = 13;
+	string scope = 14;
+	string ip = 15;
+	string address = 16;
 }
 
-message EmailBroadcast {
-	repeated EmailSubscriber subscriber = 1;
-	Email email = 2;
-}
-
-message EmailSubscriber {
-	string id =1;
-	string email = 2;
-	int64 created = 3;
-}
-
-message Attachment {
-	string type = 1;
-	string url = 2;
-}
-
-message Email {
-	string from = 1;
-	string to = 2;
-	string subject = 3;
-	string text = 4;
-	repeated Attachment attachments = 5;
+message UserLog {
+	string id = 1;
+	string by = 2;
+	string scope = 3;
+	string action = 4;
+	string descriptions = 5;
+	int64 created = 6;
 }
