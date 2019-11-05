@@ -15,6 +15,7 @@ message Done {}
 message UserReq {
 	string id = 1;
 	string name = 2;
+	string email = 5;
 	string anchor = 3;
 	int64 limit = 4;
 }
@@ -33,8 +34,8 @@ message User {
 	string id =1;
 	string name = 2;
 	string fullname = 3;
-	string phones = 4;
-	string emails = 5;
+	string phone = 4;
+	string email = 5;
 	enum Gender {
 		male = 0;
 		female = 1;
